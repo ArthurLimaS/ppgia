@@ -1,0 +1,11 @@
+[project]
+name = "time_series_thrend_analysis"
+version = "0.1.0"
+requires-python = ">= 3.10"
+
+dependencies = [
+    "matplotlib>=3.9.4",
+    "pandas>=2.3.3",
+    "pytrendseries>=0.1.11",
+    "yfinance>=1.2.0",
+]
