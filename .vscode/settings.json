@@ -1,0 +1,64 @@
+{
+  // --- Configurações Gerais ---
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.pytest_cache": true,
+    "**/.venv": false
+  },
+  "search.exclude": {
+    "**/.venv": true
+  },
+
+  // --- Comportamento para JavaScript/TypeScript Puro (.js/.ts) ---
+  "[javascript][typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "editor.rulers": [
+      {
+        "column": 80,
+        "color": "#316798"
+      }
+    ]
+  },
+
+  // --- Comportamento para React (.jsx/.tsx) ---
+  "[javascriptreact][typescriptreact][html][json][markdown][yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "editor.rulers": [
+      {
+        "column": 120,
+        "color": "#316798"
+      }
+    ]
+  },
+
+  // --- Python ---
+  "editor.defaultFormatter": "charliermarsh.ruff",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.ruff": "explicit",
+    "source.organizeImports.ruff": "explicit"
+  },
+  "editor.rulers": [
+    {
+      "column": 88,
+      "color": "#316798"
+    }
+  ],
+  "python.analysis.useNearestConfiguration": true,
+  "python.languageServer": "Pylance",
+  "python.terminal.activateEnvironment": true,
+  "python-envs.defaultEnvManager": "ms-python.python:venv",
+  "python-envs.defaultPackageManager": "ms-python.python:pip",
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true
+}
