@@ -1,0 +1,528 @@
+% ===========================================================================
+%  Template acadêmico da disciplina — versão LaTeX
+%
+%  Origem: analise_dados_2026_2/template.md (conteúdo) e
+%          analise_dados_2026_2/template.html (apresentação, export do Google Docs)
+%
+%  Compilação:  latexmk -pdf main.tex
+%               (ou Ctrl+Alt+B no VS Code com a extensão LaTeX Workshop)
+%
+%  Este arquivo contém TODO o conteúdo do template: as seções preservam a
+%  redação, a ordem e a hierarquia do original. Os textos são instruções e
+%  modelos para o autor substituir — não são o artigo final.
+%
+%  Numeração de seções, figuras e tabelas é automática: para referenciá-las
+%  use \label (prefixos sec:, fig:, tab:) e \ref, nunca números digitados.
+%  Decisões de formatação, divergências e pendências: ver README.md.
+% ===========================================================================
+\documentclass[12pt,a4paper]{article}
+
+% ---------------------------------------------------------------------------
+% Codificação e idioma
+% ---------------------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{csquotes}
+
+% O HTML usa a fonte "Times". mathptmx (pacote psnfss) fornece o clone Times
+% em texto e matemática e está presente em qualquer instalação do TeX Live.
+\usepackage{mathptmx}
+
+% ---------------------------------------------------------------------------
+% Página
+% O HTML não tem regra @page. A área de texto vem de
+%   .c48 { max-width:451.4pt; padding:72pt 72pt 72pt 72pt }
+% e 451,4 + 2 x 72 = 595,4pt é exatamente a largura de uma folha A4 (595,3pt).
+% Adotamos, portanto, A4 com margens de 72pt = 2,54cm em todos os lados.
+% ---------------------------------------------------------------------------
+\usepackage[a4paper,margin=2.54cm]{geometry}
+
+% ---------------------------------------------------------------------------
+% Parágrafos
+% No HTML todo texto é justificado, sem recuo de primeira linha (não há
+% text-indent) e com 6pt de espaço entre parágrafos (.c30/.c45: padding-top:6pt).
+% ---------------------------------------------------------------------------
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+% ---------------------------------------------------------------------------
+% Títulos de seção
+% Seção    = Times 13pt negrito, 12pt de espaço acima (HTML: .c22/.c46 em .c43)
+% Subseção = Times 12pt negrito, 12pt de espaço acima (HTML: .c31/.c7/.c40)
+% O ponto depois do número reproduz "1. Introdução"; o \ref continua devolvendo
+% apenas o número ("Seção 7.1"), como no texto original.
+% ---------------------------------------------------------------------------
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\bfseries\fontsize{13pt}{15pt}\selectfont}%
+  {\thesection.}{0.5em}{}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+\titleformat{\subsection}{\normalfont\bfseries\fontsize{12pt}{14pt}\selectfont}%
+  {\thesubsection.}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{12pt}{6pt}
+
+% ---------------------------------------------------------------------------
+% Legendas de figuras e tabelas
+% HTML: legendas em Times 10pt (footnotesize em documento de 12pt), em negrito
+% e terminando com ponto ("Figura 1. ...").
+% ---------------------------------------------------------------------------
+\usepackage{caption}
+\captionsetup{font={footnotesize,bf},labelsep=period,skip=6pt}
+
+% ---------------------------------------------------------------------------
+% Figuras, texto riscado, links
+% ---------------------------------------------------------------------------
+\usepackage{graphicx}
+\usepackage[normalem]{ulem}  % \sout{: trecho riscado que existe no texto original
+\usepackage{xcolor}
+\definecolor{corlink}{HTML}{1155CC}  % azul dos links no HTML (.c39)
+\usepackage[colorlinks=true,linkcolor=black,citecolor=black,urlcolor=corlink]{hyperref}
+\urlstyle{same}  % links em Times, como no HTML (e não em fonte monoespaçada)
+
+% ---------------------------------------------------------------------------
+% Blocos recuados (resumo/abstract e o aviso em itálico da seção 2.1)
+% ---------------------------------------------------------------------------
+\usepackage{changepage}  % adjustwidth
+
+% ---------------------------------------------------------------------------
+% Listas
+% O HTML recua o 1º nível em 36pt e o 2º em 72pt (.c42/.c50) e usa ◦ nos
+% subitens; o marcador padrão do 2º nível no LaTeX é um travessão.
+% ---------------------------------------------------------------------------
+\setlength{\leftmargini}{36pt}
+\setlength{\leftmarginii}{36pt}
+\renewcommand{\labelitemii}{\textopenbullet}
+
+% ---------------------------------------------------------------------------
+% Tabelas
+% O HTML usa colunas de 72,8pt (Modelo) e 58,7pt (demais), com 2pt de
+% preenchimento interno. Mantivemos a mesma largura total (~15cm) e o mesmo
+% preenchimento, redistribuindo as colunas para que nenhuma palavra transborde
+% (ver README.md). L = alinhada à esquerda, C = centralizada.
+% ---------------------------------------------------------------------------
+\usepackage{array}
+\setlength{\tabcolsep}{2pt}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+% ---------------------------------------------------------------------------
+% Bibliografia
+% As referências vêm de referencias.bib (biblatex + biber, estilo autor-data) e
+% são impressas na seção "Referências" por \printbibliography. Cite no texto com
+% \cite{chave}, \parencite{chave} ou \textcite{chave}; só as obras citadas
+% aparecem na lista.
+\usepackage[backend=biber,style=authoryear]{biblatex}
+\addbibresource{referencias.bib}
+% Formato das citações: SOBRENOME em maiúsculas e vírgula antes do ano
+% -> (ANGHINONI et al., 2019) / ANGHINONI et al. (2019).
+\renewcommand*{\mkbibnamefamily}[1]{\MakeUppercase{#1}}
+\DeclareDelimFormat{nameyeardelim}{\addcomma\space}
+%
+% Não há equações no template; se precisar, descomente:
+% \usepackage{amsmath}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+% Identificação
+% HTML: título 16pt negrito e centralizado; autores 12pt negrito com
+% sobrescrito da afiliação; afiliação 12pt; e-mail em Courier New 10pt.
+% ---------------------------------------------------------------------------
+\begin{center}
+  {\fontsize{16pt}{19pt}\selectfont\bfseries
+   Título do Artigo Desenvolvido na Disciplina}\\[12pt]
+  {\bfseries Nome1 Sobrenome1\textsuperscript{1}, Nome1 Sobrenome2\textsuperscript{1},
+   Gabriel Alves\textsuperscript{1}, Maria C. Batista\textsuperscript{1}}\\[12pt]
+  {\textsuperscript{1}Departamento de Estatística e Informática – Universidade Federal
+   Rural de Pernambuco (UFRPE) – Pernambuco – Brazil}\\[6pt]
+  {\footnotesize\texttt{\{nome.sobrenome1, nome.sobrenome2, gabriel.alves,
+   maria.cmbatista\}@ufrpe.br}}
+\end{center}
+
+% ---------------------------------------------------------------------------
+% Resumo e abstract
+% HTML: bloco integralmente em itálico, recuado 0,8cm de cada lado
+% (.c45: margin-left/right:22.7pt), com "Resumo."/"Abstract." em negrito.
+% ---------------------------------------------------------------------------
+\begin{adjustwidth}{0.8cm}{0.8cm}
+\itshape
+\textbf{Resumo.} O resumo deve ser escrito em um único parágrafo e apresentar:
+(1) contexto; (2) problema; (3) como o problema é resolvido hoje e o que falta;
+(4) qual é a sua proposta para resolver o problema; e (5) resultados obtidos.
+Este resumo deve ser escrito em um único parágrafo e conter de 10 a 20 linhas,
+aproximadamente.
+
+\textbf{Abstract.} O abstract deve ser a tradulção do resumo em inglês.
+\end{adjustwidth}
+
+% ---------------------------------------------------------------------------
+% 1. Introdução
+% ---------------------------------------------------------------------------
+\section{Introdução}\label{sec:introducao}
+
+A introdução deve possuir exatamente a mesma estrutura do resumo. Contudo,
+enquanto no resumo cada uma das 5 dimensões (contexto, problema, solução atual,
+proposta e resultados) possui de 2 a 4 linhas, aqui cada dimensão deve possuir
+de 1 a 2 parágrafos.
+
+Lembre-se que você deve incluir referências para os tópicos que sejam abordados
+e explicados a partir da introdução e não apenas na seção de trabalhos
+relacionados (SOBRENOME1, A., 2000; SOBRENOME2, B., 2001). A notação deve ser
+conforme apresentado na frase anterior, caso tenham dois a 3 autores, a notação
+é um pouco diferente (SOBRENOME1, A., SOBRENOME2, B. e SOBRENOME3, C., 2002).
+Caso tenha a partir de 4 autores, utiliza-se o primeiro autor seguido de
+\emph{et al.} (SOBRENOME1, A. \emph{et al.} 2003).
+
+Evite usar links como referência. Se precisar incluir algum link, dê preferência
+a colocar explicitamente no texto (\url{https://abnt.org.br/}) , ou mesmo como
+rodapé\footnote{\url{https://www.todamateria.com.br/normas-abnt-trabalhos/}}.
+Caso seja necessário incluir uma referência como link, é preciso incluir o
+último acesso à página e dar preferência a links que não baixo risco de sair do
+ar e que sejam consolidados (como site do uml, ou de uma linguagem de
+programação).
+
+Após descrever a solução atual dos demais trabalhos, elaborar 2 perguntas de
+pesquisa que demonstrem os problemas que se propõe a resolver neste trabalho
+(\href{https://www.questionpro.com/blog/pt-br/perguntas-de-pesquisa/}{link 1}).
+Converse com alguma LLM (ex.: ChatGPT, Deepseek) a fim de aprimorar as perguntas
+de pesquisa.
+
+\begin{itemize}
+  \item \textbf{PP1:} Escrever a primeira pergunta de pesquisa como uma pergunta
+    é válido, ou devo escrever como uma afirmação?
+    \begin{itemize}
+      \item Explicar rapidamente (1 parágrafo) o objetivo dessa pergunta. Uma
+        das perguntas deve ser focada no aprendizado não-supervisionado e a
+        outra no aprendizado não supervisionado.
+    \end{itemize}
+  \item \textbf{PP2:} Como melhorar a minha pergunta de pesquisa?
+    \begin{itemize}
+      \item Explicar rapidamente (1 parágrafo) o objetivo dessa pergunta. Uma
+        das perguntas deve ser focada no aprendizado não-supervisionado e a
+        outra no aprendizado não supervisionado.
+    \end{itemize}
+  \item \textbf{PP3:} Como meu app vai mudar o mundo?
+    \begin{itemize}
+      \item NÃO VAI! E se vc disser que vai, vai ter que provar! Essa pergunta
+        de pesquisa deve ser apenas para aqueles que estão em DSI.
+    \end{itemize}
+\end{itemize}
+
+….outras perguntas de pesquisa, caso haja
+
+Deve-se ainda dar uma ideia rápida de algum resultado alcançado. Por isso, esta
+seção precisa ser ajustada no fim do trabalho. (Alguns trabalhos ainda colocam
+um parágrafo indicando as seções do artigo).
+
+\subsection{Objetivos}\label{sec:objetivos}
+
+O objetivo deste trabalho é….[Escrever um parágrafo sobre qual é o objetivo
+principal do trabalho].
+
+Escrever os objetivos específicos do trabalho na listagem abaixo, onde cada
+tópico indica um objetivo específico que é preciso ser alcançado para que se
+cumpra o objetivo principal:
+
+\begin{itemize}
+  \item Detalhar o objetivo específico 1;
+  \item Detalhar o objetivo específico 2;
+  \item Detalhar o objetivo específico 3;
+  \item Detalhar o objetivo específico 4.
+\end{itemize}
+
+% ---------------------------------------------------------------------------
+% 2. Referencial Teórico
+% ---------------------------------------------------------------------------
+\section{Referencial Teórico}\label{sec:referencial}
+
+Esta seção deve explicar os assuntos abordados pelo seu trabalho.
+
+\subsection{[Assunto do Problema Resolvido - renomeie essa seção]}%
+  \label{sec:assunto-problema}
+
+Explicar como se explicaria em um livro que explique os assuntos relacionados ao
+problema que se pretende abordar. Por exemplo, no caso de educação, explicar
+conceitos como evasão, retenção etc.
+
+% Aviso em itálico recuado 7,5cm: no HTML é .c52 { margin-left:212.6pt }.
+\begin{adjustwidth}{7.5cm}{0pt}
+\itshape
+Cuidado para não escrever exatamente o que o autor original falou, você precisa
+explicar com suas palavras, se foi exatamente o texto original, deixe claro
+colocando em itálico (Smith e Jones, 1999).
+\end{adjustwidth}
+
+Cuidado para não escrever exatamente o que o autor original falou, você precisa
+explicar com suas palavras, se foi exatamente o texto original, deixe claro
+colocando em itálico. SE NÃO BOTAR EM ITÁLICO É PLÁGIO \textbf{MESMO COM A
+REFERÊNCIA} (Smith e Jones, 1999)!
+
+\subsection{Aprendizado de Máquina}\label{sec:aprendizado-maquina}
+
+Explicar como se explicaria em um livro de Aprendizado de Máquina (Boulic e
+Renault, 1991). Focar apenas os algoritmos que serão utilizados no trabalho
+
+% ---------------------------------------------------------------------------
+% 3. Trabalhos Relacionados
+% ---------------------------------------------------------------------------
+\section{Trabalhos Relacionados}\label{sec:trabalhos-relacionados}
+
+Escreva aqui dois trabalhos relacionados por pessoa do grupo. Os trabalhos
+relacionados devem tratar de problemas similares ao seu e que usam técnicas
+similares. Também podem ser trabalhos que usam técnicas similares em problemas
+um pouco diferentes, ou mesmo trabalhos que abordam o mesmo problema que você
+usando outras técnicas.
+
+Cada parágrafo deve dar um resumo sobre o trabalho e incluir a referência do
+trabalho citado (Knuth, 1984). Note que a referência só inclui o sobrenome do
+autor e o ano da publicação. Explique ainda qual a semelhança entre deste
+trabalho referenciado com o seu e o que o seu tem de diferente.
+
+Segundo \sout{(Smith e Jones, 1999)} Smith e Jones (1999), é preciso citar o
+texto original daquela ideia que está sendo abordada, mas o texto não pode ser
+uma cópia. Caso contrário é plágio.
+
+% ---------------------------------------------------------------------------
+% 4. Método
+% ---------------------------------------------------------------------------
+\section{Método}\label{sec:metodo}
+
+Nesta seção, deve-se seguir o KDD, explicando o que será feito em cada etapa do
+processo, considerando o seu trabalho específico.
+
+Cada subseção desta seção~\ref{sec:metodo}, deve ser referente a uma etapa do
+KDD.
+
+\subsection{Etapa 1}\label{sec:etapa-1}
+
+Explicar a etapa 1 do kdd aplicada ao seu trabalho.
+
+\subsection{Etapa 2}\label{sec:etapa-2}
+
+Explicar a etapa 2 do kdd aplicada ao seu trabalho.
+
+% ---------------------------------------------------------------------------
+% 5. Análise Exploratória
+% ---------------------------------------------------------------------------
+\section{Análise Exploratória}\label{sec:analise-exploratoria}
+
+Esta seção deve apresentar os resultados das análises realizadas sobre os dados.
+Mostrar os dashboards e gráficos criados, conforme Figura~\ref{fig:eda}. Observe
+que a referência à figura foi feita com letra maiúscula e de forma explícita no
+texto. Não deve usar estratégias como ‘A figura abaixo:’. A legenda deve
+finalizar com um ponto. Caso a figura não seja sua, inclua a fonte (caso seja
+sua, pode-se incluir ‘Fonte: o autor.’). Cuidado caso a imagem não seja sua,
+para que não haja nenhum copyright que o proíba a sua inclusão em outros
+trabalhos, mesmo com a fonte.
+
+\begin{figure}[htbp]
+  \centering
+  % No HTML esta legenda é centralizada (.c54); as demais são justificadas.
+  \captionsetup{justification=centering}
+  % Largura de exibição do HTML: 361,90px = 9,54cm.
+  \includegraphics[width=9.54cm]{figuras/eda.png}
+  \caption{Uma figura sobre o assunto. \normalfont Fonte:
+    \url{https://www.linkedin.com/pulse/preparing-data-eda-mahsa-salimi-2859f/}}
+  \label{fig:eda}
+\end{figure}
+
+Na EDA, deve-se detalhar as análises e não apenas gerar gráficos. Aqui deve-se
+ter indícios iniciais que ajudarão a responder às perguntas de pesquisa, ou
+mesmo auxiliar na criação dos modelos de ML.
+
+% ---------------------------------------------------------------------------
+% 6. Aplicativo Flutter
+% ---------------------------------------------------------------------------
+\section{Aplicativo Flutter}\label{sec:aplicativo}
+
+Esta seção deve mostrar o app.
+
+\subsection{[Pergunta de pesquisa 3 - reescrever aqui]}\label{sec:pergunta-3}
+
+Explicar aqui como seu app responde à pergunta de pesquisa 3. Cuidado com o que
+prometeu nos objetivos e na pergunta de pesquisa.
+
+% ---------------------------------------------------------------------------
+% 7. Resultados e Discussão
+% ---------------------------------------------------------------------------
+\section{Resultados e Discussão}\label{sec:resultados}
+
+Esta seção deve discutir com profundidade os resultados do trabalho. Deve-se ter
+duas subseções específicas, uma para cada pergunta de pesquisa.
+
+\subsection{[Escrever a primeira pergunta de pesquisa como uma pergunta é válido,
+  ou devo escrever como uma afirmação?]}\label{sec:primeira-pergunta}
+
+Aqui deve-se apresentar o passo a passo do trabalho realizado e em seguida
+discutir os resultados e como a pergunta de pesquisa foi respondida pelos dados
+apresentados. Geralmente, essa primeira pergunta de pesquisa estará associada à
+clusterização. Apresentar os clusters criados, os critérios usados para definir
+a quantidade de clusters e a característica de cada cluster.
+
+ATENÇÃO PARA DISCUTIR E APRESENTAR:
+
+\begin{itemize}
+  \item Cotovelo e Silhueta para KMeans;
+  \item Se testar outros algoritmos além do KMeans, explicitar;
+  \item Ter atenção para atributos categóricos;
+  \item Realizar normalização e padronização;
+\end{itemize}
+
+% No HTML os quatro painéis ficam no mesmo parágrafo e quebram em três linhas;
+% as larguras abaixo (px -> cm na proporção 1px = 0,75pt) reproduzem essa quebra.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=4.36cm]{figuras/cotovelo.png}\hspace{0.4cm}%
+  \includegraphics[width=6.07cm]{figuras/silhueta-6-clusters.png}\\[0.3cm]
+  \includegraphics[width=6.92cm]{figuras/silhueta-10-clusters.png}\\[0.3cm]
+  \includegraphics[width=14.94cm]{figuras/silhueta-3-a-8-clusters.png}
+  \caption{Método do cotovelo e da silhueta para determinar a quantidade de
+    grupos “ideal” no KMeans.}
+  \label{fig:cotovelo-silhueta}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  % Largura de exibição do HTML: 420,88px = 11,09cm.
+  \includegraphics[width=11.09cm]{figuras/dados-clusterizados.png}
+  \caption{Dados da nota na 1VA associada à probabilidade de aprovação na
+    disciplina. à esquerda os dados originais e à direita os dados
+    clusterizados.}
+  \label{fig:dados-clusterizados}
+\end{figure}
+
+\subsection{[escrever a segunda pergunta de pesquisa]}%
+  \label{sec:segunda-pergunta}
+
+Seguir as mesmas orientações dadas para a Seção~\ref{sec:primeira-pergunta}, mas
+agora focando a resposta da segunda pergunta de pesquisa. Geralmente, essa
+pergunta estará relacionada à classificação. Assim, cabe incluir uma tabela com a
+comparação dos resultados, como mostra a Tabela~\ref{tab:resultados-treino}. A
+Tabela~\ref{tab:resultados-treino} mostra valores fictícios que devem ser usados
+para discutir os resultados DO TREINO. Mas, o que vale mesmo são os resultados da
+Tabela~\ref{tab:resultados-teste}. Contudo, caso haja uma diferença significativa
+entre os resultados de ambas, já há um indicativo de \emph{overfitting}.
+
+Crie uma tabela no Google Sheets e em seguida copie e cole ela nesse documento.
+Na caixa de diálogo, indique a vinculação dos objetos. Assim, quando você
+atualizar a tabela do Sheets, ela será atualizada aqui.
+
+% Tabela 1 — resultados do treino (valores fictícios, iguais aos da Tabela 2 no
+% documento original: foram preservados como estão). Células em negrito seguem
+% o original; a coluna Modelo fica vazia nas linhas de continuação, como no HTML.
+\begin{table}[htbp]
+  \caption{[Legenda para os resultados do treino].}
+  \label{tab:resultados-treino}
+  \begin{tabular}{|L{3.16cm}|L{1.90cm}|C{1.62cm}|C{1.62cm}|C{1.62cm}|C{1.62cm}|C{2.50cm}|}
+    \hline
+    \textbf{Modelo} & \textbf{Métrica} & \textbf{Classe 1} & \textbf{Classe 2} &
+      \textbf{Classe 3} & \textbf{Média} & \textbf{Média Ponderada} \\ \hline
+    SVM & Precisão & 0,750 & 0,860 & \textbf{0,980} & 0,863 & \textbf{0,936} \\ \hline
+        & Recall   & 0,700 & 0,850 & 0,950 & 0,833 & 0,912 \\ \hline
+        & F1-Score & 0,724 & 0,855 & \textbf{0,965} & 0,848 & 0,924 \\ \hline
+        & Suporte  & 100 & 900 & 2000 & 3000 & - \\ \hline
+        & Acurácia & - & - & - & 0,936 & - \\ \hline
+    SVM + SMOTE & Precisão & \textbf{0,850} & \textbf{0,880} & 0,950 &
+      \textbf{0,893} & 0,926 \\ \hline
+                & Recall   & \textbf{0,890} & 0,840 & \textbf{0,970} &
+      \textbf{0,900} & \textbf{0,928} \\ \hline
+                & F1-Score & \textbf{0,870} & \textbf{0,860} & 0,960 &
+      \textbf{0,897} & \textbf{0,927} \\ \hline
+                & Suporte  & 1900 & 1990 & 2000 & 5890 & - \\ \hline
+                & Acurácia & - & - & - & 0,894 & - \\ \hline
+    RF & Precisão & 0,800 & 0,850 & 0,970 & 0,873 & 0,928 \\ \hline
+       & Recall   & 0,840 & \textbf{0,860} & 0,960 & 0,887 & 0,926 \\ \hline
+       & F1-Score & 0,820 & 0,855 & \textbf{0,965} & 0,880 & \textbf{0,927} \\ \hline
+       & Suporte  & 10 & 990 & 2000 & 3000 & - \\ \hline
+       & Acurácia & - & - & - & 0,930 & - \\ \hline
+    KNN + UNDERSMPL. & Precisão & 0,750 & 0,800 & 0,940 & 0,830 & 0,892 \\ \hline
+                     & Recall   & 0,700 & 0,790 & 0,950 & 0,813 & 0,894 \\ \hline
+                     & F1-Score & 0,724 & 0,795 & 0,945 & 0,822 & 0,893 \\ \hline
+                     & Suporte  & 100 & 100 & 100 & 300 & - \\ \hline
+                     & Acurácia & - & - & - & 0,830 & - \\ \hline
+  \end{tabular}
+\end{table}
+
+Seguir as mesmas orientações dadas para a Seção~\ref{sec:primeira-pergunta}, mas
+agora focando a resposta da segunda pergunta de pesquisa. Geralmente, essa
+pergunta estará relacionada à classificação. Assim, cabe incluir uma tabela com a
+comparação dos resultados, como mostra a Tabela~\ref{tab:resultados-teste}. Os
+valores inclídos nessa tabela são fictícios.
+
+% Tabela 2 — resultados do teste (mesmos valores da Tabela 1 no documento original).
+\begin{table}[htbp]
+  \caption{[Legenda para os resultados do teste].}
+  \label{tab:resultados-teste}
+  \begin{tabular}{|L{3.16cm}|L{1.90cm}|C{1.62cm}|C{1.62cm}|C{1.62cm}|C{1.62cm}|C{2.50cm}|}
+    \hline
+    \textbf{Modelo} & \textbf{Métrica} & \textbf{Classe 1} & \textbf{Classe 2} &
+      \textbf{Classe 3} & \textbf{Média} & \textbf{Média Ponderada} \\ \hline
+    SVM & Precisão & 0,750 & 0,860 & \textbf{0,980} & 0,863 & \textbf{0,936} \\ \hline
+        & Recall   & 0,700 & 0,850 & 0,950 & 0,833 & 0,912 \\ \hline
+        & F1-Score & 0,724 & 0,855 & \textbf{0,965} & 0,848 & 0,924 \\ \hline
+        & Suporte  & 100 & 900 & 2000 & 3000 & - \\ \hline
+        & Acurácia & - & - & - & 0,936 & - \\ \hline
+    SVM + SMOTE & Precisão & \textbf{0,850} & \textbf{0,880} & 0,950 &
+      \textbf{0,893} & 0,926 \\ \hline
+                & Recall   & \textbf{0,890} & 0,840 & \textbf{0,970} &
+      \textbf{0,900} & \textbf{0,928} \\ \hline
+                & F1-Score & \textbf{0,870} & \textbf{0,860} & 0,960 &
+      \textbf{0,897} & \textbf{0,927} \\ \hline
+                & Suporte  & 1900 & 1990 & 2000 & 5890 & - \\ \hline
+                & Acurácia & - & - & - & 0,894 & - \\ \hline
+    RF & Precisão & 0,800 & 0,850 & 0,970 & 0,873 & 0,928 \\ \hline
+       & Recall   & 0,840 & \textbf{0,860} & 0,960 & 0,887 & 0,926 \\ \hline
+       & F1-Score & 0,820 & 0,855 & \textbf{0,965} & 0,880 & \textbf{0,927} \\ \hline
+       & Suporte  & 10 & 990 & 2000 & 3000 & - \\ \hline
+       & Acurácia & - & - & - & 0,930 & - \\ \hline
+    KNN + UNDERSMPL. & Precisão & 0,750 & 0,800 & 0,940 & 0,830 & 0,892 \\ \hline
+                     & Recall   & 0,700 & 0,790 & 0,950 & 0,813 & 0,894 \\ \hline
+                     & F1-Score & 0,724 & 0,795 & 0,945 & 0,822 & 0,893 \\ \hline
+                     & Suporte  & 100 & 100 & 100 & 300 & - \\ \hline
+                     & Acurácia & - & - & - & 0,830 & - \\ \hline
+  \end{tabular}
+\end{table}
+
+ATENÇÃO PARA DISCUTIR E APRESENTAR:
+
+\begin{itemize}
+  \item Divisão de conjuntos de treino e teste;
+  \item Overfitting;
+  \item Balanceamento;
+  \item Encoding;
+  \item Normalização ou padronização (também vale para clustering);
+  \item Testar vários algoritmos;
+  \item Usar SHAP para explicabilidade (fazer apenas sobre o modelo final).
+\end{itemize}
+
+% ---------------------------------------------------------------------------
+% 8. Considerações Finais
+% O documento original numera esta seção como "9." e não tem seção 8; com a
+% numeração automática ela passa a ser 8 (ver README.md).
+% ---------------------------------------------------------------------------
+\section{Considerações Finais}\label{sec:consideracoes}
+
+Apresentar aqui a conclusão do trabalho. Ao ler a introdução seguida da
+conclusão, o leitor tem que entender o conteúdo principal e os resultados do seu
+trabalho. Ajuste para que a introdução e a conclusão juntas “contem uma
+história”.
+
+No último parágrafo, escreva os trabalhos futuros que podem ser realizados a
+partir deste seu trabalho.
+
+% ---------------------------------------------------------------------------
+% Declaração do uso de IA (sem número, como no original)
+% ---------------------------------------------------------------------------
+\section*{Declaração do uso de IA}
+
+[Declarar onde e como foram usadas ferramentas de IA Generativa]
+
+% ---------------------------------------------------------------------------
+% Referências
+% Geradas pelo biblatex a partir de referencias.bib (somente obras citadas).
+% ---------------------------------------------------------------------------
+\section*{Referências}
+
+\printbibliography[heading=none]
+
+\end{document}
