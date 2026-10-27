@@ -53,9 +53,10 @@ Salvo instrução em contrário dada explicitamente pelo usuário, cada artigo d
    - Qual é a distinção clara e diferencial da sua abordagem em relação ao trabalho analisado.
 
 ### Padrão de Citação
-- Use comandos semânticos do LaTeX (ex.: `\cite{chave}` ou `\citep{chave}`, conforme o pacote configurado no projeto).
-- O formato textual deve seguir o estilo autor-data (ex.: `ANGHINONI et al., 2019`).
-- Nunca escreva manualmente citações estáticas em texto puro se o projeto estiver configurado com BibTeX/BibLaTeX.
+- O projeto usa **BibLaTeX** (backend `biber`, estilo `authoryear`). Use os comandos semânticos dele: `\parencite{chave}` para citação entre parênteses (ex.: `(ANGHINONI et al., 2019)`) e `\textcite{chave}` para citação integrada à frase (ex.: `ANGHINONI et al. (2019)`). `\cite{chave}` também funciona.
+- Não use `\citep` nem `\citet`: são comandos do `natbib`, que não está carregado no projeto.
+- O formato textual deve seguir o estilo autor-data, com o sobrenome em maiúsculas (ex.: `ANGHINONI et al., 2019`). Esse formato é produzido pelo preâmbulo do `.tex`; confirme na Etapa 2 que ele está configurado antes de redigir.
+- Nunca escreva manualmente citações estáticas em texto puro, pois o projeto está configurado com BibLaTeX.
 
 ---
 
