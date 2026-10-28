@@ -1,0 +1,257 @@
+Título,Problema de Pesquisa,Objetivos,Contribuições,Trabalhos Futuros
+A Dual Output Temporal Convolutional Network With Attention Architecture for Stock Price Prediction and Risk Assessment,"""Predict stock prices and assess risk for MasterCard (MA) and Visa (V)""","Propor um modelo de deep learning baseado em Temporal Convolutional Network (TCN) com mecanismo de atenção que:
+1. Preveja preços futuros de ações (Open, Close, High, Low)
+2. Estime métricas de risco (volatilidade e Sharpe Ratio)","1. Desenvolvimento de uma arquitetura dual-output que realiza simultaneamente:
+    - previsão de preços
+    - avaliação de risco
+
+2. Integração de TCN com mecanismo de atenção, permitindo:
+    - captura de dependências temporais de curto e longo prazo
+    - foco em períodos relevantes da série temporal
+
+3. Melhoria de desempenho em relação a modelos como LSTM, ARIMA e Temporal Fusion Transformers
+
+4. Validação com:
+    - dados reais (15+ anos de MasterCard e Visa)
+    - backtesting em dados não vistos","- Incorporação de dados externos (ex: indicadores macroeconômicos, notícias, etc.)
+
+- Uso de métodos de otimização multiobjetivo"
+A Novel Integrated Approach for Stock Prediction Based on Modal Decomposition Technology and Machine Learning,"A previsão de preços de ações é dificultada pela natureza não linear, complexa e ruidosa das séries temporais financeiras, o que reduz a precisão dos modelos tradicionais e dificulta a captura de padrões relevantes.","Propor uma abordagem híbrida que combine:
+1. Técnicas de decomposição de sinal (CEEMDAN)
+2. Modelos de deep learning (LSTM)
+3. Algoritmos de ensemble (LightGBM)
+4. Otimização (Simulated Annealing)","""""""
+(1) This framework is based on the CEEMDAN algorithm which can reduce the noise in the original signals to significantly improve the predictive performance, but requires a relatively long time in the decomposition process.
+
+(2) The method of feature selection can effectively save computational costs.
+
+(3) LSTM is a mature and excellent prediction model, it has shown stable and reliable performance in stock price prediction.
+
+(4) The ensemble learning algorithm has good stability, and the prediction performance of the method combining the ensemble learning algorithm with the neural network is better than that of the other comparative hybrid models and single models.
+""""""","- The selection of parameters such as the number of sliding window sizes in neural networks is still somewhat subjective;
+
+- The double-layer LSTM elements may not be able to fully explore the deep variation pattern information contained in nonlinear complex exponential sequences, so further research is needed to optimize model parameters;
+
+- In feature extraction, further comparison and analysis can be conducted through different proportions of correlation.
+
+- Lack of comprehensive stock information."
+A Review on High-Frequency Trading Forecasting Methods: Opportunity and Challenges for Quantum Based Method,"""The purpose of this paper work is to investigate historical models, contemporary models and hypothetical future models that can be used to anticipate HFT time series.""","1. Revisar e analisar:
+   - métodos históricos
+   - métodos contemporâneos
+   - possíveis abordagens futuras para previsão em HFT
+
+2. Investigar o potencial de tecnologias emergentes, especialmente computação quântica, como alternativa para superar limitações atuais","1. Discussão do papel de métodos híbridos (combinação de técnicas) para melhorar desempenho
+
+2. Análise do potencial da computação quântica para:
+   - aumentar velocidade computacional
+   - melhorar precisão
+   - lidar com grandes volumes de dados","- Desenvolvimento de modelos híbridos mais avançados, combinando técnicas clássicas e modernas
+
+- Exploração prática da computação quântica aplicada a séries temporais financeira"
+A Stock Price Prediction Method Based on BiLSTM and Improved Transformer,Dificuldade em incorporar e quantificar o impacto do sentimento de notícias na previsão de preços de ações,"1. Propor um método para:
+   - quantificar sentimento de notícias ao longo do tempo
+   - integrar esses dados com indicadores técnicos
+
+2. Desenvolver uma arquitetura baseada em Transformer + GRU (TEGRU)","1. Uso de active learning para construção de modelos de classificação de sentimento
+
+2. Use de confidence score diário como indicador de sentimento
+
+3. Desenvolvimento da arquitetura TEGRU (Transformer Encoder + GRU):
+   - Transformer com multi-head attention para capturar padrões temporais
+   - GRU para previsão final dos preços
+
+4. Introdução/uso da métrica AcMAPE, sensível a erros de tendência e risco financeiro","- Selecionar fontes de notícias mais relevantes e correlacionadas com os movimentos do mercado
+
+- Refinar o processo de active learning (ex: reduzir granularidade de mensal para semanal)
+
+- Utilizar o AcMAPE como função de perda no treinamento do modelo"
+Accurate Stock Price Forecasting Based on Deep Learning and Hierarchical Frequency Decomposition,"""hurdles such as nonlinearity, complexity and high volatility make it a daunting task to predict stock prices""","1. Propor um modelo híbrido baseado em:
+   - decomposição hierárquica de séries temporais
+   - técnicas de deep learning (GRU)
+
+2. Melhorar a precisão da previsão de preços de ações ao tratar separadamente diferentes componentes da série temporal","1. Proposição do modelo HDFM (Hierarchical Decomposition-based Forecasting Model)
+
+2. Aplicação de uma estratégia divide-and-conquer, com:
+   - decomposição inicial via CEEMDAN
+   - agrupamento de sub-séries com K-means (baseado em entropia)
+   - re-decomposição (VMD) dos componentes de alta frequência","- Melhorar a precisão na previsão de componentes de alta frequência
+
+- Explorar previsões multi-step"
+An Adaptive Multimodal Learning Model for Financial Market Price Prediction,"""previous deep learning models only predict the up/down trend of price as the non-stationary behavior of price time series influences the regression performance.""","1. Propor um modelo de aprendizado profundo que:
+   - integre múltiplas modalidades de dados (notícias, sentimento e indicadores técnicos)
+   - capture dependências temporais complexas
+   - realize previsão de preços (regressão) de forma mais precisa
+
+2. Desenvolver um mecanismo de fusão adaptativa para lidar com dados heterogêneos e não estacionários","""""""
+(1) using relevant news information to the target market,
+
+(2) leveraging important economic concepts in the news, tracking mood in specialized newsgroups, and informative technical indicators as three modes of data
+
+(3) considering the change in the market data distribution and proposing adaptive fusion strategy for system snapshots.
+""""""","- Melhorar a modelagem da série temporal de sentimento (ex: usando processos de Markov)
+
+- Desenvolver um agente de trading baseado em aprendizado por reforço (Deep-Q Network)"
+Application of an ANN and LSTM-based Ensemble  Model for Stock Market Prediction,"Modelos individuais de deep learning (como LSTM e ANN) apresentam desempenho limitado, com altos erros e baixo poder explicativo.","1. Avaliar o desempenho de diferentes modelos de deep learning, como:
+
+2. Desenvolver um modelo híbrido que:
+   - combine os pontos fortes desses modelos
+   - minimize suas limitações","1. Análise comparativa entre diversos modelos de deep learning aplicados à previsão de ações
+
+2. Identificação das limitações de modelos individuais (ex: baixo R², alto erro)
+
+3. Proposição de um modelo híbrido baseado em Ensemble Model Stacking (LSTM + ANN)
+
+4. Demonstração de:
+   - melhoria significativa de desempenho
+   - aumento do R² (acima de 0.5)
+   - superação do modelo ANN em mais de 20%",-Continuar a investigação de arquiteturas híbridas e ensemble 
+Development of a Robust Stock Market Prediction Mechanism based on Enhanced  Comprehensive Learning Principles,"""Among the most complex challenges in machine learning is the prediction of share values, a task that is intricately tied to a multitude of influencing factors affecting supply and demand dynamics.""","1. Propor um módelo hibrido baseado em LSTM + ARIMA
+
+2. Investigar o impacto da segmentação dos dados no desempenho do modelo","1. Proposição de um modelo híbrido baseado em:
+   - LSTM (deep learning)
+   - ARIMA (modelo estatístico tradicional)
+
+2. Introdução de uma estratégia de segmentação do dataset em 15 partes, permitindo:
+   - melhor ajuste do modelo
+   - aumento da precisão","- Utilizar character embeddings para enriquecer representações
+
+- Incorporar novas fontes de dados"
+FinGAT: Financial Graph Attention Networks for  Recommending Top-K Profitable Stocks,"""While conventional stock analysis in FinTech targets at predicting stock prices, less effort is made for profitable stock recommendation.""","Propor um modelo capaz de:
+   1. recomendar ações mais lucrativas (top-K)
+   2. capturar relações latentes entre ações e setores
+   3. Aprender automaticamente essas relações sem depender de estruturas pré-definidas","1. Proposição do modelo FinGAT (Financial Graph Attention Networks)
+
+2. ""FinGAT requires no pre-defined relationships between stocks, comparing to existing studies that presume the relationships between stocks are given.""
+
+3. ""The two-level hierarchy that depicts the belonging between stocks and sectors is used to pass information so that both fine-grained and coarse-grained latent relationships can be modeled.""
+
+4. ""FinGAT leverages a multitask objective that jointly optimizes the loss functions of profitable stock recommendation and stock movement prediction.""","- Incorporar aprendizado da estrutura do grafo (graph structure learning)
+
+- Construir knowledge graphs com metadados de empresas
+
+- Integrar dados de notícias para melhorar a recomendação"
+FinTSB: A Comprehensive and Practical Benchmark for  Financial Time Series Forecasting,"A avaliação de métodos de previsão em séries temporais financeiras apresenta limitações estruturais, como:
+1. ""Diversity Gap"";
+2. ""Standardization Deficit"";
+3. ""Real-World Mismatch"".","1. Propor um benchmark abrangente para avaliação de modelos de previsão financeira
+
+2. Padronizar métricas e protocolos de avaliação
+
+3. Tornar a avaliação mais realista e comparável entre estudos","1. Desenvolvimento do FinTSB, um benchmark para previsão de séries temporais financeiras
+
+2. Introdução de classificação dos padrões de movimento do mercado em diferentes categorias
+
+3. Criação de um framework de avaliação padronizado
+
+4. Incorporação de fatores do mundo real, como taxas de transação e restrições de mercado",- Uso do benchmark para orientar o desenvolvimento de modelos mais aplicáveis na prática
+Harnessing a Hybrid CNN-LSTM Model for Portfolio Performance: A Case Study on Stock Selection and Optimization,"""Portfolio theory underpins portfolio management, a much-researched yet uncharted field.""","Propor um framework completo que:
+   1. Utilize deep learning para seleção de ações (CNN + LSTM)
+   2. Aplique teoria de portfólio para otimização de investimentos (MV model)","1. Pipeline em dois estágios:
+   - Previsão e seleção das melhores ações
+   - Construção de portfólio ótimo via Mean-Variance
+
+2. Demonstração de superioridade do modelo híbrido sobre CNN e LSTM isolados
+
+3. Avaliação robusta com:
+   - Validação cruzada (10-fold)
+   - Testes estatísticos (Kruskal-Wallis, Conover)","- Testar o modelo em outros mercados (além da Índia)
+
+- Incorporar mais variáveis e fontes de dados"
+Hybrid Information Mixing Module for Stock Movement Prediction,"""Proposes a method for predicting stock price movement using stock and news data.""","""A multilayer perceptron-based model, the hybrid information mixing module, is applied to the stock price movement prediction to conduct a price fluctuation prediction experiment in a stock market with high volatility.""","1. Integração de:
+   - features temporais (preço)
+   - features semânticas (texto/notícias)
+
+2. Desenvolvimento de um mecanismo de fusão baseado em MLP com dois blocos de mapeamento (row-wise e column-wise)","- ""use additional data that affect stock market volatility.""
+
+- ""Improve the hybrid information mixing module to analyze the influence of additional variables affecting stock market volatility."""
+Leveraging Temporal Patterns with LSTMs Networks for Financial Forecasting: A New Stastical Machine  Learning Approach,"""The aim of this study is to assess the efficacy of Long Short-Terms Memory (LSTMS) networks, which are advanced recurrent neural network designs, in accurately forecasting financial time-series data.""","1. Avaliar a eficácia de redes LSTM na previsão de séries temporais financeiras
+
+2. Comparar o desempenho de LSTM com modelos tradicionais:
+   - ARIMA
+   - RNN tradicional","1. Demonstração de que LSTM supera ARIMA e RNN em métricas como MAE, MSE e MAPE","- Reduzir o tempo de treinamento (problema de escalabilidade)
+
+- Melhorar a interpretabilidade dos modelos (problema de “caixa preta”)"
+Machine Learning Strategies for Nifty50 Index Trading Optimization,"""The dynamic nature of financial markets, especially Nifty50 trading, requires advanced predictive models for effective decision-making and risk management.""","1. Revisar e analisar diferentes estratégias de machine learning para:
+   - previsão do índice Nifty50
+   - otimização de decisões de trading
+
+2. Investigar o impacto de integração de indicadores financeiros (ex: VIX)","1. Identificação de abordagens promissoras:
+   - LSTM
+   - modelos híbridos
+   - análise de sentimento","- Desenvolver modelos com adaptação em tempo real
+
+- Integrar dados multimodais, como:
+   - sentimento (redes sociais)
+   - indicadores macroeconômicos
+   - fatores ESG"
+Pattern-Based Feature Extraction for Improved Deep Learning in Financial Time Series Classification,"""Existing financial forecasting models often struggle with the inherent volatility and complexity of financial markets, particularly due to their reliance on traditional financial data features which fail to capture intricate price patterns.""","1. Propor um método de:
+   - detecção de padrões em séries financeiras
+   - extração de features mais informativas
+
+2. Melhorar o desempenho de modelos de deep learning (LSTM, GRU)","1. Desenvolvimento de um método de extração de features baseado em padrões de preço
+
+2. Identificação de pontos-chave (pivôs) em séries temporais
+
+3. Integração dessas novas features com dados tradicionais (OHLCV)
+
+4. Realização de ablation study, comprovando a importância das features propostas","- Aplicar o método em outros mercados financeiros
+
+- Refinar técnicas de extração de padrões mais complexos"
+Predicting Market Performance Using Machine and Deep Learning Techniques,"""we aim precisely to forecast the performance of the stock market at the close of the day by applying various machine-learning algorithms on the two data sets ‘‘CoinMarketCap, CryptoCurrency’’ and thus analyze the predictions of the architectures.""","""study the existing state of the art to apply it to a database and thus make predictions and analyze them.""",1. Proposta de melhoria baseada em combinação de previsões (ensemble simples),-Aplicar os modelos em outros mercados financeiros
+Risk Prediction in Financial Markets Using Hybrid AI and Time Series Forecasting Models,Verificar se a previsão de riscos financeiros pode ser otimizada com o uso de modelos hibridos,"Desenvolver um modelo híbrido que:
+   - combine métodos estatísticos (ARIMA)
+   - com inteligência artificial (LSTM)","1. Proposição de um modelo híbrido LSTM + ARIMA para previsão de risco
+
+2. Demonstração de desempenho superior em relação a modelos individuais",- Não fala sobre
+Short-Term Stock Correlation Forecasting Based on CNN-BiLSTM Enhanced by Attention Mechanism,"""The existing time series models usually only take into account the effect of stock historical data characteristics on stock correlation but ignore the fact that stock correlation is affected by multiple factors and undergoes an unknown unstable trend.""","""improve the accuracy of short-term equity correlation forecasts, which is essential for the efficient management of financial asset portfolios.""","1. Proposição do modelo CLATT (CNN-BiLSTM + Attention)
+   - CNN para extração de features
+   - BiLSTM para capturar dependências temporais (local e global)
+   - Attention mechanism para focar nas features mais relevantes
+
+2. Demonstração de melhoria significativa na previsão de correlação (até ~57%)
+
+3. Validação com:
+   - múltiplos modelos de comparação
+   - ablation study","- Considerar mais fatores que influenciam ações
+
+- Testar o modelo em outros mercados financeiros"
+Stock Market Trends Analysis using Extreme Gradient Boosting (XGBoost),"""The market volatility and a wide range of other dependent and independent elements that affect the market value of a particular stock make it challenging to anticipate future values.""","1. Aplicar e comparar diferentes algoritmos de Machine Learning, incluindo:
+   - KNN
+   - AdaBoost
+   - SVM
+   - Random Forest
+   - XGBoost
+
+2. Avaliar os modelos com base em métricas como: MSE, MAE, R²",1. Estudo comparativo entre diversos algoritmos de ML clássico,- Não fala sobre
+Transformer-Gated Recurrent Unit Method for Predicting Stock Price Based on News Sentiments and Technical Indicators,A previsão de preços de ações é limitada porque há dificuldade em quantificar o sentimento de notícias ao longo do tempo,"""propose methods for quantifying news sentiments by considering time sequence data.""","1. Proposição da arquitetura TEGRU (Transformer Encoder + GRU)
+
+2. Introdução de indicadores de sentimento baseados em active learning","- Selecionar notícias mais relevantes e correlacionadas com os ativos
+
+- Melhorar o processo de active learning (ex: reduzir janela temporal)"
+An empirical study of neural networks for trend detection in time series,"""Detecting structure in noisy time series is a difficult task.""","1. Investigar empiricamente a capacidade de diferentes arquiteturas de RNN para detectar tendências em séries temporais.
+
+3. Avaliar quais arquiteturas apresentam maior capacidade de generalização para aplicações financeiras.","1. Comparação empírica entre diferentes estimadores de tendência para séries temporais financeiras simuladas.
+
+2. Demonstração de que determinadas arquiteturas de RNN, especialmente GRU e LSTM, apresentam desempenho superior à ampla variedade de estimadores tradicionais.
+
+3. Mostra que certas RNNs podem ser interpretadas como uma generalização das técnicas de médias móveis, ampliando sua capacidade de modelagem.",- Explorar arquiteturas que mantenham boa capacidade de generalização e sejam menos suscetíveis ao overfitting.
+TCDformer: A transformer framework for non-stationary time series forecasting based on trend and change-point detection,"""Traditional methods often use stabilization techniques to boost predictability, but this often results in the loss of non-stationarity, notably underperforming when tackling major events in practical applications.""",,"1. Proposição do TCDformer (Trend and Change-point Detection Transformer) para previsão de séries temporais não estacionárias.
+
+2. Introdução do módulo LLSA (Local Linear Scaling Approximation) para destacar mudanças abruptas na série temporal.
+
+3. Decomposição da série em componentes de tendência e sazonalidade, utilizando:
+    • MLP para modelagem da tendência;
+    • Wavelet Attention para modelagem da sazonalidade.
+
+4. Demonstração de que a identificação de change points melhora tanto a precisão quanto a interpretabilidade das previsões, permitindo identificar eventos críticos nas séries temporais.
+
+5. Obtenção de desempenho superior aos modelos de referência em seis bases reais, com redução significativa de MSE e MAE.","- Investigar outros métodos de decomposição entre tendência e sazonalidade.
+
+- Expandir a aplicação do TCDformer para outros domínios e cenários de séries temporais."
+Time series trend detection and forecasting using complex network topology analysis,,"""We study time series based on its topological features, observed on a complex network generated from the time series data""","1. Proposição de um método que representa séries temporais como redes complexas, analisando suas propriedades topológicas em vez do espaço temporal tradicional.
+
+2. Desenvolvimento de um algoritmo não supervisionado de detecção de tendências baseado em detecção de comunidades (community detection) e métricas de redes complexas.
+
+3. Demonstração de que a abordagem apresenta melhor absorção de ruído e permite determinar automaticamente o número de padrões (classes) identificados.","- Incorporar um maior número de séries correlacionadas (como taxa de juros, câmbio, PIB e inflação) para estudar relações multivariadas entre variáveis econômicas.
+
+- Adaptar o framework para outros domínios além do mercado financeiro, como agricultura e outras aplicações envolvendo séries temporais multivariadas."

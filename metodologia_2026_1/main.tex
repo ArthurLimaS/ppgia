@@ -1,0 +1,184 @@
+\documentclass[12pt, a4paper, twoside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[top=3.0cm, left=3.0cm, bottom=2.0cm, right=2.0cm]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[alf]{abntex2cite}
+
+\graphicspath{{imagens/}}
+
+\newcommand{\mesatual}{%
+  \ifcase\month\or
+    Janeiro\or Fevereiro\or Março\or Abril\or Maio\or Junho\or
+    Julho\or Agosto\or Setembro\or Outubro\or Novembro\or Dezembro
+  \fi
+}
+
+\begin{document}
+\onehalfspacing
+
+% CAPA
+\begin{titlepage}
+    \begin{center}
+        \includegraphics[height=2cm]{logo-ppgia.jpeg}
+        \vspace{0.5cm}
+
+        % \includegraphics[height=2.8cm]{logo-ufrpe.png}
+        % \hspace{2cm}
+        % % \includegraphics[height=2cm]{logo-ppgia.jpeg}
+        % % \vspace{0.5cm} \\
+        \textbf{UNIVERSIDADE FEDERAL RURAL DE PERNAMBUCO} \\
+        \textbf{PRÓ-REITORIA DE PESQUISA E PÓS-GRADUAÇÃO} \\
+        \textbf{PPG EM INFORMÁTICA APLICADA} \\
+        \vspace{5cm}
+        \textbf{\Large PREVISÃO DE SÉRIES TEMPORAIS FINANCEIRAS: UMA AVALIAÇÃO DE ESTRATÉGIAS DE OTIMIZAÇÃO PARA MODELOS BASEADOS EM LSTM E GRU} \\
+        \vfill
+        \begin{flushright}
+            \textbf{ALUNO:} Arthur Lima Silva \\
+            \textbf{ORIENTADOR:} George Gomes Cabral
+        \end{flushright}
+        \vfill
+        \textbf{RECIFE-PE -- \mesatual/\the\year}
+    \end{center}
+\end{titlepage}
+
+% IDENTIFICAÇÃO DO PLANO
+\newpage
+\begin{center}
+\textbf{Identificação do plano}    
+\end{center}
+
+\vspace{0.5cm}
+
+\noindent \textbf{a) Nome do discente:} Arthur Lima Silva \\
+\textbf{b) Bolsista Sim ( ) Não (X) Agência:} - \\
+\textbf{c) Nível (mestrado/doutorado):} mestrado \\
+\textbf{d) Entrada (ano/semestre):} 2026.1 \\
+\textbf{e) Orientador:} George Gomes Cabral \\
+\textbf{f) Co-orientadores:} - \\
+\textbf{g) Projeto de pesquisa do(a) orientador(a) ao qual está vinculado o plano (projeto guarda-chuva):} Previsão de Séries Temporais para o Mercado de Ações: Integração de Abordagens Estatísticas, Aprendizado de Máquina e Medidas Probabilísticas de Risco \\
+\textbf{h) Área de concentração:} Inteligência Artificial \\
+\textbf{i) Linha de pesquisa:} Aprendizado de Máquina e Previsão de Séries Temporais
+
+\newpage
+
+% 1 INTRODUÇÃO
+\section{Introdução}
+
+A previsão do comportamento dos mercados financeiros é um desafio bastante estudado pelas áreas de finanças quantitativas e inteligência artificial. Historicamente, a motivação primária para a modelagem de séries temporais financeiras centrou-se na maximização de lucros e na gestão de portfólios por parte de investidores e instituições privadas. Contudo, a relevância dessa área de estudo transcende o ganho de capital isolado. Como destacado por \citeonline{li_accurate_2024}, o mercado de ações não apenas reflete o crescimento econômico de um país, mas também serve como base fundamental para a formulação de políticas macroeconômicas.
+
+Nesse contexto, o mercado de ações atua como um termômetro do ânimo dos investidores e do comportamento humano, visto que flutuações no mercado de ações frequentemente antecedem ou acompanham variações no Produto Interno Bruto (PIB) das nações, conforme argumentado por \citeonline{ramkumar_development_2023}. Essa visão é corroborada por \citeonline{sun_novel_2024}, que posicionam o mercado de ações como um ponto focal imprescindível para que os Estados regulem tendências econômicas e mitiguem o impacto de crises sistêmicas.
+
+Além de seu papel como indicador macroeconômico, a previsibilidade financeira afeta diretamente infraestruturas críticas e a tomada de decisão em setores estratégicos. O estudo de \citeonline{hosseini_pattern-based_2025} exemplifica essa dinâmica ao demonstrar que, em mercados como o de energia e eletricidade na Europa, o sucesso operacional e o equilíbrio entre oferta e demanda são fortemente influenciados pela capacidade preditiva dos agentes envolvidos. Portanto, o aprimoramento de modelos de previsão financeira justifica-se não apenas pela mitigação de riscos e contenção de perdas em portfólios de investimento, mas como uma ferramenta essencial de governança, estabilidade econômica e suporte à tomada de decisão.
+
+A complexidade inerente às séries temporais financeiras - caracterizadas por alta volatilidade, não estacionariedade e grande presença de ruído - exige a evolução contínua das metodologias de previsão. Historicamente, abordagens estatísticas tradicionais e algoritmos clássicos de \textit{Machine Learning} estabeleceram as fundações dessa área. Trabalhos recentes \cite{mahjouby_predicting_2024, sharma_stock_2023} ainda documentam o uso de modelos como ARIMA, SVM, \textit{Random Forest} e \textit{Ensembles} de árvores de decisão. Embora esses trabalhos estabeleçam \textit{baselines} sólidas, e o XGBoost ainda apresente resultados competitivos entre as abordagens clássicas, a literatura aponta que esses métodos frequentemente esbarram em limitações quando expostos a padrões ocultos profundos e relações não-lineares severas.
+
+Para superar essas barreiras, o estado da arte tem convergido para o uso de \textit{Deep Learning}, com forte predominância das redes \textit{Long Short-Term Memory} (LSTM), devido à sua capacidade de modelar dependências temporais de longo prazo. Os trabalhos de \citeonline{k_leveraging_2023} e \citeonline{miot_empirical_2020} são alguns dos que marcam essa transição ao evidenciar a superioridade de LSTM’s frente a RNN’s tradicionais e modelos ARIMA. Contudo, a pesquisa contemporânea reconhece que redes neurais individuais também possuem limitações, impulsionando o estudo de modelos híbridos.
+
+Trabalhos recentes \cite{kiruba_risk_2025, ramkumar_development_2023} propõem a integração de LSTM com ARIMA, frequentemente aliados a estratégias de segmentação de dados para ganho de precisão. Na mesma linha de otimização através da combinação de técnicas, \citeonline{liu_application_2024} e \citeonline{choi_hybrid_2023} demonstraram que modelos híbridos são consistentemente superiores na seleção de ativos e mitigação de erros.
+
+Atualmente, o aprimoramento dessas arquiteturas concentra-se em três frentes principais: o desenvolvimento de técnicas de pré-processamento e extração de características para reduzir ruídos e destacar padrões relevantes das séries temporais \cite{sun_novel_2024, li_accurate_2024, hosseini_pattern-based_2025, wan_tcdformer_2024}; a incorporação de mecanismos de atenção e arquiteturas capazes de modelar relacionamentos temporais e estruturais mais complexos, como \textit{Transformers}, \textit{Temporal Convolutional Networks} e \textit{Graph Attention Networks} \cite{biswas_dual_2025, luo_short-term_2024, hsu_fingat_2023, anghinoni_time_2019}; e a integração de informações multimodais, combinando dados históricos com notícias, indicadores econômicos e outras fontes externas para capturar fatores exógenos que influenciam o comportamento do mercado \cite{choi_hybrid_2023, wang_stock_2023, haryono_transformer-gated_2023, anbaee_farimani_adaptive_2024}.
+
+Por fim, é fundamental pontuar o desafio metodológico sistêmico delineado por \citeonline{hu_fintsb_2025}. O artigo diagnostica que a comparação de abordagens entre trabalhos constantemente sofre com a falta de padronização (\textit{Standardization Deficit}), variações nos regimes de dados testados (\textit{Diversity Gap}) e a omissão de fricções do mundo real (\textit{Real-World Mismatch}).
+
+A partir do mapeamento do estado da arte, evidencia-se que a superação das barreiras de predição financeira não reside exclusivamente na criação de redes neurais mais profundas, mas na capacidade de fundir informações contextuais (multimodalidade), técnicas de remoção de ruído (decomposição) e quantificação de incertezas. Sendo assim, o presente projeto de dissertação propõe responder ao seguinte problema de pesquisa: \textbf{Como melhorar o desempenho e a robustez de modelos baseados em LSTM através da extração avançada de características e da integração de dados externos multimodais para a classificação e previsão de séries temporais no mercado de ações?}
+
+\newpage
+
+\section{Objetivos}
+
+\subsection{Geral}
+
+Investigar, desenvolver e validar uma arquitetura híbrida para a previsão de séries temporais do mercado de ações, baseada em modelos recorrentes (como LSTM e GRU), avaliando e integrando diferentes estratégias de otimização metodológica, com o intuito de aumentar a precisão, a capacidade de generalização e a prevenção de riscos sob diferentes regimes de mercado.
+
+\subsection{Específicos}
+
+\begin{itemize}
+    \item Aprofundar a análise do estado da arte referente à predição financeira e a modelos híbridos de \textit{Deep Learning}, com o intuito de identificar lacunas e selecionar estratégias de otimização mais promissoras a serem avaliadas na pesquisa;
+
+    \item Estruturar um \textit{pipeline} de coleta e pré-processamento de dados de ativos financeiros (utilizando plataformas como \textit{Yahoo Finance} e a base FinTSB).
+
+    \item Implementar e validar arquiteturas baseadas em redes recorrentes (LSTM e GRU), estabelecendo um \textit{baseline} de desempenho interno confiável para mensurar o impacto das otimizações subsequentes;
+
+    \item Investigar, de forma comparativa, os efeitos da integração de diferentes estratétigas de aprimoramento do modelo base - avaliando vertentes da literatura como decomposição de seinais, extração de padrões, mecanismos de atenção ou fusão de variáveis exógenos -, a fim de determinar quais abordagens lidam melhor com o ruído e a complexidade das séries temporais financeiras;
+
+    \item Avaliar o desempenho e a robustez das arquiteturas propostas, utilizando análises quantitativas e métricas de erro (MSE, RMSE, MAPE), submetendo os modelos a testes de estresse em cenários variados de tendência e volatilidade disponibilizados pelo \textit{benchmark} FinTSB.
+\end{itemize}
+
+\newpage
+
+\section{Metodologia}
+
+Esta pesquisa caracteriza-se por uma abordagem de natureza aplicada, quantitativa e experimental, direcionada ao desenvolvimento e validação de arquiteturas preditivas para o mercado de ações. A metodológia a ser seguida está estruturada em três fases sequenciais: (1) a definição do problema somada à revisão da literatura; (2) a implementação computacional, geração de resultados empíricos e análise de desempenho — que representa o núcleo prático deste estudo; e (3) a consolidação dos achados por meio da escrita científica. Na segunda fase, o foco experimental residirá na proposição de um módulo preditivo de base híbrida, construído a partir da integração das arquiteturas \textit{Long Short-Term Memory} (LSTM) e \textit{Gated Recurrent Unit} (GRU). A escolha por essas tecnologias não é arbitrária, fundamentando-se no atual estado da arte, que demonstra a eficácia superior de modelos recorrentes no processamento de sequências financeiras \cite{k_leveraging_2023, wang_stock_2023, haryono_transformer-gated_2023}.
+
+Para viabilizar o treinamento e a avaliação inicial dos modelos, o processo de coleta de dados apoia-se em duas fontes de dados. A fonte primária de extração de séries temporais será a plataforma Yahoo Finance, que fornecerá os dados brutos diários (como abertura, fechamento, máximas, mínimas e volume) de ativos específicos selecionados para compor o cenário base de implementação. Contudo, para garantir que os resultados não sejam enviesados pela escolha de um grupo restrito de ações, a pesquisa utilizará um \textit{baseline} complementar. Uma forte candidata para essa função é a base de dados FinTSB \cite{hu_fintsb_2025}. Bases padronizadas de \textit{benchmark} como esta são metodologicamente valiosas pois categorizam e disponibilizam recortes de mercado sob diferentes regimes temporais — tais como tendências de alta (\textit{uptrends}), de baixa (\textit{downtrends}) e eventos de extrema volatilidade (\textit{black swan events}) —, oferecendo um acervo estruturado para testes rigorosos de generalização.
+
+O aprimoramento do modelo preditivo, para além da arquitetura híbrida básica, envolverá a exploração de técnicas em consonância com as tendências recentes da literatura. Uma das possibilidades a serem investigadas durante o desenvolvimento é a otimização do pré-processamento. A literatura contemporânea sugere que a aplicação de técnicas de decomposição de sinais (como CEEMDAN e VMD) ajuda a isolar ruídos de tendências latentes \cite{sun_novel_2024, li_accurate_2024}. Em paralelo, pode-se avaliar a extração de características baseadas em padrões matemáticos de preços, conforme abordado por \citeonline{hosseini_pattern-based_2025}. Outra frente exploratória diz respeito à integração de Mecanismos de Atenção para forçar a rede a priorizar instâncias temporais críticas ou mapear a influência relacional entre diferentes ativos, inspirando-se em implementações em Redes Convolucionais Temporais \cite{biswas_dual_2025} e Redes de Atenção em Grafos \cite{hsu_fingat_2023}.
+
+Ademais, outra via promissora de inovação metodológica a ser considerada é a exploração da multimodalidade. Sabendo que a precificação de ativos sofre forte impacto de variáveis exógenas, a pesquisa poderá investigar a fusão dos dados temporais com informações contextuais, como o sentimento extraído de notícias ou indicadores macroeconômicos. A viabilidade dessa integração tem sido amplamente demonstrada, seja por meio de arranjos baseados em \textit{Multilayer Perceptrons} \cite{choi_hybrid_2023}, seja pela incorporação de \textit{Encoders} da arquitetura \textit{Transformer} em conjunto com redes LSTM/GRU \cite{wang_stock_2023, haryono_transformer-gated_2023}.
+
+Por fim, a avaliação experimental será conduzida por meio de análises comparativas quantitativas. O desempenho do modelo será mensurado utilizando métricas de erro consagradas no escopo de séries temporais financeiras, tais como o Erro Quadrático Médio (MSE), a Raiz do Erro Quadrático Médio (RMSE) e o Erro Absoluto Médio Percentual (MAPE), além de métricas de acurácia direcional que avaliam a classificação correta da tendência. É nesta etapa de validação que o uso de um \textit{baseline} complementar (como o FinTSB) desempenhará seu papel fundamental: ao submeter o modelo proposto a cenários padronizados e comparar seus resultados com outros modelos da literatura, será possível garantir estatisticamente que as melhorias obtidas representam um avanço estrutural genuíno e não um mero sobreajuste (\textit{overfitting}) aos dados inicialmente extraídos do Yahoo Finance.
+
+\newpage
+
+% 4. ORÇAMENTO
+\section{Orçamento}
+
+Não se aplica.
+
+% 5 RESULTADOS ESPERADOS
+\section{Resultados Esperados}
+
+\begin{table}[H]
+\begin{tabular}{lc}
+\hline
+\textbf{Categoria} & \textbf{Número esperado} \\ \hline
+Artigo científico & 2 \\
+Participação em congresso & 1 \\
+Patente ou equivalente & 0 \\
+Livro ou capítulo de livro & 0 \\
+Dissertação de Mestrado & 1 \\ 
+Tese de Doutorado & 0 \\ 
+Participação em Editais & 0 \\ 
+Outras (especificar) & 0 \\ \hline
+\end{tabular}
+\end{table}
+
+% 6 CRONOGRAMA
+\section{Cronograma do discente}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{\textbf{ATIVIDADES}} & \multicolumn{8}{c|}{\textbf{SEMESTRES}} \\ \cline{2-9}
+ & \textbf{1º} & \textbf{2º} & \textbf{3º} & \textbf{4º} & \textbf{5º} & \textbf{6º} & \textbf{7º} & \textbf{8º} \\ \hline
+Créditos de disciplinas & X & X & X & & & & & \\ \hline
+Créditos de orientação & & & & & & & & \\ \hline
+Pesquisa Bibliográfica & X & X & & & & & & \\ \hline
+Obtenção de dados & & X & X & & & & & \\ \hline
+Análise de dados & & X & X & X & & & & \\ \hline
+Proficiências (inglês/espanhol) & & X & & & & & & \\ \hline
+Exame de qualificação* & & & & & & & & \\ \hline
+Revisão e redação da tese/dissertação & & & X & X & & & & \\ \hline
+Defesa da tese/dissertação & & & & X & & & & \\ \hline
+\end{tabular}
+}
+\end{table}
+
+\noindent * Só para doutorado.
+
+% REFERÊNCIAS
+\newpage
+\bibliography{referencias}
+
+\end{document}
