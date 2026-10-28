@@ -336,6 +336,46 @@ concentra a análise nas redes recorrentes LSTM e GRU.
 
 \subsection{Redes Neurais Recorrentes e LSTM}\label{sec:tr-recorrentes}
 
+\textcite{k_leveraging_2023} partem da constatação de que os mercados
+financeiros apresentam padrões temporais complexos e relações não lineares que
+modelos econométricos convencionais, como o ARIMA e o GARCH, não conseguem
+capturar adequadamente, e têm como objetivo avaliar a eficácia das redes
+\textit{Long Short-Term Memory} (LSTM) na previsão de séries temporais
+financeiras, em comparação com modelos clássicos. Os autores utilizam dados
+diários do índice S\&P 500 ao longo de vinte anos, compostos pelo preço de
+fechamento, pelo volume negociado e por indicadores técnicos, como médias
+móveis, índice de força relativa (\textit{Relative Strength Index}, RSI) e
+\textit{momentum}. Os dados são normalizados e enriquecidos com atributos
+defasados (\textit{lag features}), análise de correlação e redução de
+dimensionalidade por análise de componentes principais (\textit{Principal
+Component Analysis}, PCA), e o modelo, composto por uma camada de entrada,
+camadas LSTM intercaladas com \textit{dropout} e uma camada de saída, é treinado
+com o otimizador Adam e a função de perda MSE para prever o preço de fechamento
+do dia seguinte a partir de janelas deslizantes de 60 dias. A contribuição do
+artigo é a comparação empírica da LSTM com o ARIMA e com uma RNN simples, por
+meio do erro quadrático médio (MSE), do erro absoluto médio (MAE) e do erro
+percentual absoluto médio (MAPE). Nos resultados, a LSTM obteve os menores
+erros, com MSE de 0,0052, MAE de 0,054 e MAPE de 2,5\%, contra 0,0138, 0,089 e
+4,3\% do ARIMA e 0,0089, 0,071 e 3,2\% da RNN simples, embora tenha exigido o
+maior tempo de treinamento, cerca de 5 horas, frente a 3,5 horas da RNN e meia
+hora do ARIMA. Os próprios autores reconhecem que esse tempo de treinamento
+compromete a escalabilidade e o uso em tempo real, e que a natureza de
+``caixa-preta'' das redes dificulta a interpretação e a avaliação do modelo;
+como trabalhos futuros, sugerem integrar a LSTM a outras abordagens
+computacionais e incorporar fontes adicionais de dados, como a análise de
+sentimento de notícias. Cabe observar, porém, que o artigo não informa o período
+exato dos dados, a proporção entre os conjuntos de treino, validação e teste, o
+número de camadas e unidades nem os hiperparâmetros da LSTM, tampouco a
+configuração do ARIMA e da RNN usados como referência, o que dificulta a
+reprodução dos resultados. Esse trabalho ilustra a transição da literatura para
+o aprendizado profundo, ao evidenciar a vantagem da LSTM sobre a RNN simples e o
+ARIMA na modelagem de dependências temporais em séries financeiras. Assim como o
+presente trabalho, o artigo trata a previsão do preço de fechamento como um
+problema de regressão com redes recorrentes e compara a LSTM a modelos de
+referência; diferencia-se, no entanto, por avaliar apenas a LSTM, sem considerar
+a GRU, enquanto o presente trabalho concentra a análise nas duas arquiteturas
+recorrentes, LSTM e GRU.
+
 \subsection{Modelos Híbridos}\label{sec:tr-hibridos}
 
 \subsection{Estratégias Recentes de Aprimoramento}\label{sec:tr-aprimoramento}
