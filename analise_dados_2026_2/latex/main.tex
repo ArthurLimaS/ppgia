@@ -376,6 +376,50 @@ referência; diferencia-se, no entanto, por avaliar apenas a LSTM, sem considera
 a GRU, enquanto o presente trabalho concentra a análise nas duas arquiteturas
 recorrentes, LSTM e GRU.
 
+\textcite{miot_empirical_2020} abordam a detecção de tendência em séries
+temporais ruidosas, característica de especial interesse em aplicações
+financeiras, partindo da constatação de que abordagens de filtragem, como as
+médias móveis, funcionam bem em retrospecto, mas demoram a identificar mudanças
+de tendência, e de que rotular tendências em dados históricos é subjetivo. O
+objetivo é investigar empiricamente a eficiência de redes neurais recorrentes
+(\textit{Recurrent Neural Networks}, RNNs) padrão como estimadores de tendência
+de uso geral. Para isso, os autores definem a tendência como o sinal do termo
+de deriva da série e formulam o problema como uma classificação sequência a
+sequência em três classes (queda, ausência de tendência e alta), treinando e
+validando os modelos em séries simuladas a partir de três dinâmicas --- uma
+linha ruidosa por partes, um processo de Ornstein-Uhlenbeck por partes e um
+processo com troca markoviana de regimes ---, com conjuntos de treino de 1.000
+séries e de validação de 300 séries. Mais de 400 combinações de arquitetura
+(RNN simples, LSTM e GRU), hiperparâmetros e dinâmica de treino são avaliadas
+com os otimizadores Adam e RMSprop, e as diferenças de desempenho são analisadas
+por regressão linear e por \textit{bootstrap} com intervalos de confiança. Entre
+as contribuições, os autores mostram que uma RNN simples pode ser interpretada
+como uma generalização da comparação de médias móveis, derivam estimadores de
+máxima verossimilhança para as dinâmicas consideradas e constroem uma GRU de
+referência, comparada com a média móvel, uma rede neural convolucional
+(\textit{Convolutional Neural Network}, CNN), os estimadores de máxima
+verossimilhança e um modelo oculto de Markov (\textit{Hidden Markov Model},
+HMM). Nos resultados, a RNN simples apresentou perdas medianas maiores que a
+LSTM e a GRU, com diferença significativa em relação à GRU, enquanto LSTM e GRU
+não diferiram de forma significativa; a GRU de referência, por sua vez, obteve
+perda mediana de 0,26 contra 0,43 da média móvel, de 0,25 contra 0,58 da CNN e
+de 0,30 contra 0,70 do HMM. Como limitações, os autores reconhecem que as
+distribuições de retornos das séries simuladas podem diferir bastante das
+observadas em ativos reais, que não foi possível chegar a conclusões robustas
+sobre a influência da dinâmica de treino e que a dinâmica com troca de regimes
+permaneceu difícil para todos os estimadores, além de indicarem que a validação
+da abordagem em dados financeiros reais ainda está em andamento. Como trabalhos
+futuros, sugerem usar essas RNNs como blocos de construção de estimadores mais
+complexos, transferir o aprendizado obtido em dados estilizados para dados reais
+e construir estimadores de mercado protegidos contra sobreajuste. Esse trabalho
+reforça que as RNNs com portas superam tanto a RNN simples quanto estimadores
+clássicos e que LSTM e GRU apresentam desempenho equivalente, o que sustenta a
+escolha de estudar ambas as arquiteturas. Assim como o presente trabalho, o
+artigo avalia a LSTM e a GRU sobre séries com características financeiras;
+diferencia-se, porém, por tratar a detecção de tendência como uma tarefa de
+classificação em dados simulados, enquanto o presente trabalho aborda a previsão
+de preços como um problema de regressão sobre séries temporais financeiras.
+
 \subsection{Modelos Híbridos}\label{sec:tr-hibridos}
 
 \subsection{Estratégias Recentes de Aprimoramento}\label{sec:tr-aprimoramento}
