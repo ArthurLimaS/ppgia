@@ -38,18 +38,18 @@ Deixar a seção 3, "Trabalhos Relacionados", de `analise_dados_2026_2/latex/mai
 
 Estados em §5.7. "Pré-requisitos pendentes" lista o que falta para a etapa poder começar.
 
-| ID  | Destino | Conteúdo                                                                    | Estado                 | Pré-requisitos pendentes   |
-| --- | ------- | --------------------------------------------------------------------------- | ---------------------- | -------------------------- |
-| R0  | Seção 3 | Reestruturação (remover 12 parágrafos, criar a estrutura de §3, mover os 8) | Concluída              | —                          |
-| R1  | 3.1     | `hu_fintsb_2025`                                                            | Em execução autorizada | Validação do usuário (P-1) |
-| R2  | 3.2     | `miot_empirical_2020`                                                       | Em execução autorizada | Validação do usuário (P-1) |
-| R3  | 3.2     | `hosseini_pattern-based_2025`                                               | Em execução autorizada | Validação do usuário (P-1) |
-| R4  | 3.2     | `anghinoni_time_2019`                                                       | Em execução autorizada | Validação do usuário (P-1) |
-| R5  | 3.2     | `wan_tcdformer_2024`                                                        | Em execução autorizada | Validação do usuário (P-1) |
-| R6  | 3.3     | `biswas_dual_2025`                                                          | Em execução autorizada | Validação do usuário (P-1) |
-| R7  | 3.3     | `anbaee_farimani_adaptive_2024`                                             | Em execução autorizada | Validação do usuário (P-1) |
-| R8  | 3.3     | `luo_short-term_2024`                                                       | Em execução autorizada | Validação do usuário (P-1) |
-| R9  | Seção 3 | Conferência final                                                           | Não iniciada           | R1–R8 validadas            |
+| ID  | Destino | Conteúdo                                                                    | Estado                 | Pré-requisitos pendentes          |
+| --- | ------- | --------------------------------------------------------------------------- | ---------------------- | --------------------------------- |
+| R0  | Seção 3 | Reestruturação (remover 12 parágrafos, criar a estrutura de §3, mover os 8) | Concluída              | —                                 |
+| R1  | 3.1     | `hu_fintsb_2025`                                                            | Concluída              | —                                 |
+| R2  | 3.2     | `miot_empirical_2020`                                                       | Concluída              | —                                 |
+| R3  | 3.2     | `hosseini_pattern-based_2025`                                               | Concluída              | —                                 |
+| R4  | 3.2     | `anghinoni_time_2019`                                                       | Concluída              | —                                 |
+| R5  | 3.2     | `wan_tcdformer_2024`                                                        | Concluída              | —                                 |
+| R6  | 3.3     | `biswas_dual_2025`                                                          | Concluída              | —                                 |
+| R7  | 3.3     | `anbaee_farimani_adaptive_2024`                                             | Concluída              | —                                 |
+| R8  | 3.3     | `luo_short-term_2024`                                                       | Concluída              | —                                 |
+| R9  | Seção 3 | Conferência final                                                           | Em execução autorizada | Compilação e validação do usuário |
 
 R1 a R8 podem ser feitas em qualquer ordem depois da R0. Por padrão, siga a ordem dos IDs.
 
@@ -62,7 +62,7 @@ R1 a R8 podem ser feitas em qualquer ordem depois da R0. Por padrão, siga a ord
 
 ### 1.6 Próximo passo
 
-R1–R8 aplicadas em uma única passada (pedido do usuário); aguardando a validação manual de cada parágrafo (P-1). Depois, **R9** (conferência final).
+R0–R8 concluídas. **R9:** correções aplicadas; aguardando a compilação e a validação do usuário para concluir a seção 3.
 
 ---
 
@@ -173,7 +173,7 @@ Cada artigo tem **exatamente um parágrafo**, contínuo e condensado (D23); a ex
 2. **Abordagem**, com ênfase no que interessa ao presente trabalho (ver a ficha da etapa).
 3. **Contribuições e resultados** principais, em poucas frases; números só quando ajudam a sustentar o ponto do parágrafo.
 4. **Limitações e trabalhos futuros**, quando declarados e relevantes para o presente trabalho. Uma crítica de protocolo só entra se servir ao argumento da seção (por exemplo, vazamento de informação na preparação dos dados).
-5. **Relação com o presente trabalho:** o que o artigo oferece à PP1, à PP2 ou à preparação reproduzível, e em que o presente trabalho se diferencia. A comparação nunca atribui ao artigo atual modelagem, avaliação preditiva ou resultados que estão fora do escopo (D07).
+5. **Relação com o presente trabalho (revisado em 2026-10-28, R9):** fica na introdução de cada subseção (D06), que explica o que os trabalhos oferecem à PP1, à PP2 ou à preparação dos dados. Os parágrafos dos artigos trazem só o que vem da fonte, sem frase final de ligação nem de diferença. Exceção: na 3.1, o uso do FinTSB pelo presente trabalho fica em um parágrafo próprio, sem citação (D24). Nenhum trecho atribui ao presente trabalho modelagem, avaliação preditiva ou resultados fora do escopo (D07).
 6. **Citação** com a chave correspondente (§5.3).
 
 Regras de evidência:
@@ -269,7 +269,7 @@ Registre "compilação a cargo do usuário" em §8. Ao concluir, atualize a fich
 - Entrada `@misc` (arXiv). Também citado na Introdução: o parágrafo não deve repetir a justificativa da PP1.
 - **Foco:** os três problemas sistêmicos (_Diversity Gap_, _Standardization Deficit_, _Real-World Mismatch_; Abstract e 2 Issues ❶–❸, p. 1–3); os quatro padrões de movimento e a definição de eventos extremos por variação extrema (4.1.1, p. 5); a ressalva de que conjuntos com três a cinco anos podem não representar todos os padrões e de que conjuntos com mais de uma década sofrem mudança de distribuição (Issue ❶, p. 2–3); erro de previsão baixo com pouca relação com retorno efetivo (Issue ❷, p. 3; 4.3.3). Resultados só qualitativos (5.3, 5.4).
 - **Relação:** base metodológica do recorte; o presente trabalho usa o FinTSB como referência, não como fonte de dados nem como _benchmark_, e não executa simulação de negociação.
-- **Estado:** Em execução autorizada (2026-10-28). Parágrafo reescrito na passada única de R1–R8; falta a validação do usuário (P-1).
+- **Estado:** Concluída (2026-10-28). Parágrafo ajustado com o usuário e validado ("Com isso terminamos os R1-R8").
 
 ### R2 — `miot_empirical_2020` → 3.2
 
@@ -277,48 +277,48 @@ Registre "compilação a cargo do usuário" em §8. Ao concluir, atualize a fich
 - **Foco:** a tendência definida como o sinal do termo de deriva da série; a constatação de que médias móveis funcionam em retrospecto mas demoram a identificar mudanças de tendência, e de que rotular tendências em dados históricos é subjetivo; as dinâmicas simuladas, inclusive a troca markoviana de regimes, que permaneceu difícil para todos os estimadores. As redes recorrentes aparecem só como os estimadores avaliados.
 - **Limitação a manter:** avaliação apenas em dados simulados, cujas distribuições de retornos podem diferir das de ativos reais (2.4 ¶1; 6 Summary ¶1).
 - **Relação:** fundamento conceitual para definir e caracterizar tendência na PP1; diferença: o presente trabalho caracteriza uma série real (PETR4) sem treinar estimadores.
-- **Estado:** Em execução autorizada (2026-10-28). Parágrafo reescrito na passada única de R1–R8; falta a validação do usuário (P-1).
+- **Estado:** Concluída (2026-10-28). Parágrafo ajustado com o usuário e validado ("Com isso terminamos os R1-R8").
 
 ### R3 — `hosseini_pattern-based_2025` → 3.2
 
 - **Foco:** a detecção de pivôs (máximos e mínimos marcados por variação mínima de 5% em relação ao pivô anterior) e o agrupamento de sequências de pivôs em padrões (II.A–II.B); o efeito da escolha da normalização (III, Tabela 2).
 - **Crítica a manter:** segmentos embaralhados antes da divisão dos dados (III, ¶ final, p. 7), relevante para a preparação reproduzível.
 - **Relação:** referência para segmentar a série em movimentos de alta e baixa por limiar percentual (PP1) e para as decisões de preparação; diferença: dados intradiários de um mercado de energia e uso dos padrões como atributos de classificação.
-- **Estado:** Em execução autorizada (2026-10-28). Parágrafo reescrito na passada única de R1–R8; falta a validação do usuário (P-1).
+- **Estado:** Concluída (2026-10-28). Parágrafo ajustado com o usuário e validado ("Com isso terminamos os R1-R8").
 
 ### R4 — `anghinoni_time_2019` → 3.2
 
 - **Foco:** detecção não supervisionada de tendências no **índice Bovespa** (20 anos, suavizado por média móvel de cinco dias); atributos de ruído, gradiente e posição relativa entre máximo e mínimo em curto e longo prazo; comunidades de redes complexas rotuladas como alta ou baixa; número de padrões determinado automaticamente (3, 4.4).
 - **Crítica a manter:** no Bovespa, a acurácia de previsão é medida contra os rótulos gerados pelo próprio método (4.5).
 - **Relação:** o trabalho mais próximo da PP1 e o único sobre o Ibovespa (contexto da PP2); diferença: o presente trabalho caracteriza as condições sem prever a tendência com classificadores.
-- **Estado:** Em execução autorizada (2026-10-28). Parágrafo reescrito na passada única de R1–R8; falta a validação do usuário (P-1).
+- **Estado:** Concluída (2026-10-28). Parágrafo ajustado com o usuário e validado ("Com isso terminamos os R1-R8").
 
 ### R5 — `wan_tcdformer_2024` → 3.2
 
 - **Foco:** a não estacionariedade e a constatação de que técnicas de estabilização (normalização, diferenciação) eliminam informação relevante; a detecção de pontos de mudança antes da análise de tendência; a decomposição em tendência e sazonalidade; a identificação de períodos e eventos relevantes pela concentração de pontos de mudança (1; 3.4; 4.3(6)).
 - **Limitação a manter:** dependência da qualidade e da completude dos dados históricos (5).
 - **Relação:** referência para delimitar períodos e mudanças de regime (PP1) e para as decisões de transformação na preparação; diferença: arquitetura de previsão multivariada em domínios variados, com só uma base financeira (câmbio).
-- **Estado:** Em execução autorizada (2026-10-28). Parágrafo reescrito na passada única de R1–R8; falta a validação do usuário (P-1).
+- **Estado:** Concluída (2026-10-28). Parágrafo ajustado com o usuário e validado ("Com isso terminamos os R1-R8").
 
 ### R6 — `biswas_dual_2025` → 3.3
 
 - **Foco:** a volatilidade medida como desvio-padrão dos retornos diários em janela móvel e o índice de Sharpe como métrica de risco; o tratamento de valores ausentes por preenchimento com a última observação e a normalização (III.A; IV.A).
 - **Limitação a manter:** avaliação restrita a duas empresas do mesmo setor e ausência de fatores externos (V).
 - **Relação:** referência para operacionalizar a volatilidade (PP1) e para decisões de preparação; diferença: o artigo prevê preços e métricas de risco, e o presente trabalho apenas caracteriza a série.
-- **Estado:** Em execução autorizada (2026-10-28). Parágrafo reescrito na passada única de R1–R8; falta a validação do usuário (P-1).
+- **Estado:** Concluída (2026-10-28). Parágrafo ajustado com o usuário e validado ("Com isso terminamos os R1-R8").
 
 ### R7 — `anbaee_farimani_adaptive_2024` → 3.3
 
 - **Foco:** a caracterização da não estacionariedade das séries (teste KPSS) e das distribuições de retornos (assimetria e curtose elevadas, Tabela 6); a mudança da distribuição dos dados a cada janela, tratada por normalização adaptativa (V.C, V.D); a motivação pela hipótese de distribuição mista.
 - **Relação:** referência para caracterizar estatisticamente a volatilidade e a não estacionariedade na PP1 e na análise exploratória; diferença: modelo multimodal de regressão em dados horários de câmbio, ouro e criptomoedas.
-- **Estado:** Em execução autorizada (2026-10-28). Parágrafo reescrito na passada única de R1–R8; falta a validação do usuário (P-1).
+- **Estado:** Concluída (2026-10-28). Parágrafo ajustado com o usuário e validado ("Com isso terminamos os R1-R8").
 
 ### R8 — `luo_short-term_2024` → 3.3
 
 - **Foco:** a correlação entre ações como grandeza que varia no tempo e é afetada por múltiplos fatores; o uso de um modelo multifatorial para calculá-la; a inclusão dos retornos como informação complementar (Abstract; III.A–III.B; IV.A).
 - **Crítica a manter:** apenas oito ações de um mercado e divisão dos dados sem indicação de ordem cronológica (IV.B).
 - **Relação:** referência para a associação entre retornos na PP2 e para tratar a relação entre séries como variável no tempo; diferença: o artigo prevê a correlação, e o presente trabalho a mede entre PETR4 e Ibovespa nos períodos da PP1.
-- **Estado:** Em execução autorizada (2026-10-28). Parágrafo reescrito na passada única de R1–R8; falta a validação do usuário (P-1).
+- **Estado:** Concluída (2026-10-28). Parágrafo ajustado com o usuário e validado ("Com isso terminamos os R1-R8").
 
 ### R9 — Conferência final da seção
 
@@ -332,7 +332,7 @@ Registre "compilação a cargo do usuário" em §8. Ao concluir, atualize a fich
   6. **Compilação:** não compile (D15). Peça ao usuário que compile e trate só os problemas da seção 3.
 - **Alterações permitidas após autorização:** correções pontuais apontadas no relatório e aprovadas uma a uma.
 - **Critérios de conclusão:** relatório entregue, correções aprovadas aplicadas, itens 1 a 6 registrados em §8 e validação do usuário.
-- **Estado:** Não iniciada.
+- **Estado:** Em execução autorizada (2026-10-28). Correções aprovadas aplicadas; falta a compilação e a validação do usuário.
 
 ---
 
@@ -378,3 +378,7 @@ Registre "compilação a cargo do usuário" em §8. Ao concluir, atualize a fich
 | 2026-10-28 | R1–R5    | A pedido do usuário, criado `analise_dados_2026_2/latex/rastreabilidade-trabalhos-relacionados.md` com a localização (D19) de cada afirmação de `hu_fintsb_2025`, `miot_empirical_2020`, `hosseini_pattern-based_2025`, `anghinoni_time_2019` e `wan_tcdformer_2024`, conferida nas páginas lidas como imagem. Divergências registradas no documento, sem alterar o `main.tex`: em `miot`, a fonte fala de abordagens de filtragem em geral (não de médias móveis) e a dificuldade com troca de regimes foi mostrada só para a rede e a média móvel. 3.3 a incluir após a reescrita.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | 2026-10-28 | R2–R5    | Ajustes do usuário na 3.2: removidos por ele a frase de previsibilidade de `anghinoni` e as frases finais de ligação com o presente trabalho dos quatro parágrafos. Aplicados pelo agente, com aprovação: `miot` ("abordagens de filtragem, como as médias móveis"; troca de regimes difícil "tanto para a rede quanto para a média móvel") e `hosseini` (removida a inferência sobre vazamento de informação; mantido só o fato do embaralhamento antes da divisão); removida uma linha solta ("preparação.") deixada pela edição. Documento de rastreabilidade atualizado.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | 2026-10-28 | R6–R8    | Parágrafos da 3.3 reescritos no padrão da 3.2 validada: cada um abre pelo eixo citado na introdução da subseção (medida da volatilidade, caracterização estatística da não estacionariedade, associação entre ativos variando no tempo), só com afirmações da fonte e sem frase final de ligação com o presente trabalho. `biswas` 117, `anbaee_farimani` 144 e `luo` 133 palavras. Conferido por script: nada fora dos três parágrafos mudou. Rastreabilidade da 3.3 incluída no documento auxiliar, com as páginas principais lidas como imagem (`biswas` p. 9; `anbaee_farimani` p. 1–2, 12 e 15; `luo` p. 7–8). Compilação a cargo do usuário.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| 2026-10-28 | R1–R9    | R1–R8 validadas pelo usuário ("Com isso terminamos os R1-R8") e marcadas como Concluídas. Parágrafo de `anbaee_farimani_adaptive_2024` envolvido em `sloppypar` para corrigir um _overfull hbox_ de ~1 pt relatado pelo usuário (sobrenomes em maiúsculas sem hifenização no fim da linha); confirmação pela compilação do usuário. R9 iniciada: verificações por script (8 chaves, todas no `.bib`, só `\textcite`; nenhum `\ref` aos labels antigos; títulos e labels de §3 intactos) e relatório com correções propostas no chat, sem editar o `main.tex`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| 2026-10-28 | R9       | Decisão do usuário sobre o item 5 do relatório da R9: a relação com o presente trabalho fica nas introduções das subseções, não em cada parágrafo de artigo; §5.4, item 5, atualizado. Item 6 (fluxo da 3.1): proposta de reorganização apresentada no chat, aguardando aprovação.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| 2026-10-28 | R9       | Correções aprovadas pelo usuário ("pode aplicar todas as correções") aplicadas na 3.1: "A primeira é…"; terceiro problema nomeado "o descompasso com o mundo real"; "presente trabalho" uniformizado; espaço sobrando removido; fluxo reorganizado (problemas → detalhes de cada problema → uso no presente trabalho), com o ponto sobre erros e retorno ligado ao _Real-World Mismatch_ (base: 4.3.3 do artigo, que cita custos de transação) e um único `\textcite` no início. Rastreabilidade atualizada (item 7 de `hu_fintsb_2025` e linhas de todos os parágrafos). Conferido: só `presente trabalho` na seção 3; nenhum espaço sobrando; 8 chaves, todas no `.bib`. Compilação a cargo do usuário.                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| 2026-10-28 | R9       | A pedido do usuário, o ponto sobre erros e retorno voltou a ser ligado ao _Standardization Deficit_, como no artigo (Introduction ¶6, p. 3): "Quanto à padronização, ao organizar as métricas de avaliação em três categorias (ordenação, carteira e erro), observam que métricas de erro baixas, como o MSE ou o MAE, têm pouca relação com o retorno efetivo dos investimentos." Rastreabilidade atualizada. Compilação a cargo do usuário.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
