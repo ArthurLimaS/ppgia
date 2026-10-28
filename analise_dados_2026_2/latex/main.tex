@@ -285,114 +285,56 @@ Renault, 1991). Focar apenas os algoritmos que serão utilizados no trabalho
 % ---------------------------------------------------------------------------
 \section{Trabalhos Relacionados}\label{sec:trabalhos-relacionados}
 
-\subsection{Abordagens Estatísticas e de Aprendizado de Máquina Clássico}\label{sec:tr-classicos}
+\subsection{Diversidade e Padronização na Avaliação de Séries Financeiras}\label{sec:tr-padronizacao}
 
-\textcite{mahjouby_predicting_2024} abordam a previsão do preço de fechamento
-diário em séries temporais financeiras, cuja não linearidade, não
-estacionariedade e presença de ruído dificultam a modelagem, com o objetivo de
-comparar algoritmos de aprendizado de máquina e de aprendizado profundo e, assim,
-apoiar decisões de investimento. Os autores utilizam duas bases de preços diários
-de criptomoedas, ativos cujas séries se assemelham às de ações, denominadas
-CoinMarketCap e CryptoCurrency, com os atributos de abertura (\textit{Open}), máxima (\textit{High}), mínima (\textit{Low}) e
-fechamento (\textit{Close}) entre 2013 e 2023. Sobre elas, avaliam a regressão linear, o
-\textit{SGDRegressor}, o \textit{Random Forest}, o \textit{AdaBoost}, o
-\textit{Bagging}, uma rede LSTM e o modelo ARIMA, adotando o coeficiente de
-determinação ($R^2$) como métrica. A contribuição do artigo é essa comparação
-empírica entre modelos estatísticos, de aprendizado de máquina clássico e de
-aprendizado profundo nas duas bases. Na base CryptoCurrency, a regressão linear
-obteve o melhor desempenho, com $R^2$ de 99,82\%, seguida do
-\textit{SGDRegressor} (99,72\%) e do \textit{Bagging} (99,25\%), enquanto a LSTM
-alcançou 98,49\% na base CoinMarketCap e 98,35\% na base CryptoCurrency; para o
-ARIMA, são apresentados apenas gráficos, sem valores de $R^2$. Os autores não
-discutem limitações e apontam, como trabalho futuro, a aplicação dos algoritmos a
-outros mercados de ações. Cabe observar, porém, que o artigo não descreve a
-divisão entre dados de treino e teste, os hiperparâmetros nem a arquitetura da
-LSTM, o que dificulta a reprodução e a interpretação dos resultados. Esse
-trabalho evidencia que modelos estatísticos e clássicos, como o ARIMA, ainda são
-empregados em pesquisas recentes, e suas fragilidades metodológicas reforçam a
-necessidade de protocolos de avaliação mais robustos. Assim como o presente
-trabalho, o artigo trata a previsão de preços como um problema de regressão sobre
-séries temporais financeiras e inclui a LSTM entre os modelos avaliados; dele se
-diferencia, contudo, por considerar a LSTM apenas uma entre sete alternativas,
-sem detalhar sua configuração e sem incluir a GRU, ao passo que o presente
-trabalho concentra a análise nas redes recorrentes LSTM e GRU.
+\textcite{hu_fintsb_2025} partem da constatação de que a avaliação de métodos de
+previsão de séries temporais financeiras apresenta três limitações sistêmicas:
+não contempla toda a variedade de padrões de movimento dos mercados
+(\textit{Diversity Gap}), carece de protocolos unificados que permitam comparar
+estudos (\textit{Standardization Deficit}) e ignora restrições da estrutura de
+mercado, o que infla os resultados e reduz sua aplicabilidade prática
+(\textit{Real-World Mismatch}). O objetivo é propor um \textit{benchmark}
+abrangente e prático para essa área, o FinTSB. Para construí-lo, os autores
+dividem 15 anos de dados históricos de ações em segmentos não sobrepostos de
+250 pregões e classificam as ações de cada segmento, pela taxa de variação
+diária, em quatro padrões de movimento: tendência de alta, tendência de baixa,
+volatilidade e eventos extremos (\textit{black swan events}); os dados são
+anonimizados e normalizados entre as ações a cada dia, para evitar vazamento de
+informação futura, resultando em 20 conjuntos de dados, cinco por padrão, cada
+um com 300 ações e 250 pregões, divididos em 70\% para treino, 10\% para
+validação e 20\% para teste. A avaliação é padronizada em onze métricas de três
+dimensões: ordenação, como o coeficiente de informação (\textit{Information
+Coefficient}, IC); carteira, como retorno anualizado, volatilidade, perda máxima
+e índice de Sharpe; e erro, MSE e MAE. Um \textit{pipeline} unificado, com
+camadas de dados, treinamento, simulação histórica (\textit{backtesting}) e
+retorno de resultados, incorpora restrições reais, como taxas de transação de
+0,1\% e a estratégia de carteira Top$K$-Drop, que limita a rotatividade. A
+contribuição do artigo é esse \textit{benchmark}, com a classificação dos padrões
+de movimento, o protocolo padronizado de avaliação e a modelagem de restrições
+de mercado, acompanhado de uma comparação ampla entre estratégias clássicas,
+modelos de aprendizado de máquina, como XGBoost, LightGBM e ARIMA, de
+aprendizado profundo, como LSTM, GRU, TCN, \textit{Transformer} e PatchTST, de
+aprendizado por reforço, generativos e baseados em grandes modelos de
+linguagem. Nos resultados, nenhum método obteve o melhor desempenho nas três
+dimensões de métricas, houve grande heterogeneidade mesmo entre modelos de uma
+mesma família, e técnicas modernas de aprendizado profundo não superaram de
+forma consistente as estratégias quantitativas tradicionais nem os modelos
+baseados em árvores; os modelos treinados no FinTSB e testados no índice CSI 300
+em 2024, sem novo treinamento, mantiveram desempenho consistente. Os autores
+ressaltam ainda que erros de previsão baixos têm pouca correlação com o retorno
+efetivo dos investimentos. O artigo não discute limitações do próprio
+\textit{benchmark} nem aponta trabalhos futuros específicos. Esse trabalho
+evidencia a necessidade de protocolos de avaliação padronizados, diversificados
+quanto aos regimes de mercado e próximos das condições reais de negociação,
+ponto que se relaciona às fragilidades de protocolo observadas em vários dos
+trabalhos discutidos nesta seção. Assim como o presente trabalho, o artigo
+avalia a LSTM e a GRU sobre séries temporais financeiras; diferencia-se, no
+entanto, por propor uma infraestrutura de avaliação, e não um modelo, com foco
+na previsão de retornos para ordenação de ações e construção de carteiras,
+enquanto o presente trabalho aborda a previsão de preços como um problema de
+regressão, com foco nas redes recorrentes LSTM e GRU.
 
-\textcite{sharma_stock_2023} tratam da previsão do preço de ações, dificultada
-pela volatilidade do mercado e pela variedade de fatores que influenciam o valor
-dos papéis, como taxas de juros, câmbio e o comportamento, racional ou
-irracional, dos investidores, com o objetivo de aplicar diferentes algoritmos de
-aprendizado de máquina à previsão do preço de fechamento e identificar o mais
-preciso. Os autores utilizam preços históricos da Reliance Industries obtidos no
-Yahoo Finance, dos quais mantêm apenas a data (\textit{Date}) e o preço de
-fechamento (\textit{Close}), e preveem o fechamento de cada dia a partir dos 100
-dias anteriores. São avaliados o k-vizinhos mais próximos (\textit{k-Nearest
-Neighbors}, k-NN), o \textit{Random Forest}, a regressão por vetores de suporte
-(\textit{Support Vector Regression}, SVR) com \textit{kernel} RBF, o
-\textit{AdaBoost} e o XGBoost, com as métricas erro absoluto médio (MAE), erro
-quadrático médio (MSE) e coeficiente de determinação ($R^2$). A contribuição do
-artigo é essa comparação entre modelos clássicos de aprendizado de máquina na
-previsão de preços de ações. Nos resultados, o XGBoost obteve o menor MAE
-(0,014) e o maior $R^2$ (0,995), seguido de perto pelo \textit{AdaBoost} (MAE de
-0,015 e $R^2$ de 0,993), enquanto o \textit{Random Forest} apresentou o menor MSE
-(0,001, contra 0,004 do XGBoost); com base nesses resultados, os autores
-concluem que o XGBoost supera os demais modelos. O artigo não discute limitações
-nem aponta trabalhos futuros. Cabe observar, porém, que a descrição dos dados é
-inconsistente, pois a mesma seção menciona também ações da Apple entre 2010 e
-2019 e uma configuração de camadas e \textit{dropout} própria de redes neurais,
-que não estão entre os modelos avaliados, e que o artigo não informa a proporção
-entre treino e teste, os hiperparâmetros dos modelos nem o procedimento de
-escalonamento dos dados, o que dificulta a reprodução dos resultados. Esse
-trabalho mostra que modelos clássicos, em especial os \textit{ensembles} de
-árvores de decisão como o XGBoost, seguem presentes e competitivos em pesquisas
-recentes, mas suas fragilidades metodológicas reforçam a necessidade de
-protocolos de avaliação mais robustos. Assim como o presente trabalho, o artigo
-formula a previsão do preço de fechamento como um problema de regressão sobre
-séries temporais financeiras; diferencia-se, no entanto, por se restringir a
-modelos clássicos, pois, embora sua revisão da literatura discuta abordagens
-baseadas em LSTM, os autores não as avaliam, enquanto o presente trabalho
-concentra a análise nas redes recorrentes LSTM e GRU.
-
-\subsection{Redes Neurais Recorrentes e LSTM}\label{sec:tr-recorrentes}
-
-\textcite{k_leveraging_2023} partem da constatação de que os mercados
-financeiros apresentam padrões temporais complexos e relações não lineares que
-modelos econométricos convencionais, como o ARIMA e o GARCH, não conseguem
-capturar adequadamente, e têm como objetivo avaliar a eficácia das redes
-\textit{Long Short-Term Memory} (LSTM) na previsão de séries temporais
-financeiras, em comparação com modelos clássicos. Os autores utilizam dados
-diários do índice S\&P 500 ao longo de vinte anos, compostos pelo preço de
-fechamento, pelo volume negociado e por indicadores técnicos, como médias
-móveis, índice de força relativa (\textit{Relative Strength Index}, RSI) e
-\textit{momentum}. Os dados são normalizados e enriquecidos com atributos
-defasados (\textit{lag features}), análise de correlação e redução de
-dimensionalidade por análise de componentes principais (\textit{Principal
-Component Analysis}, PCA), e o modelo, composto por uma camada de entrada,
-camadas LSTM intercaladas com \textit{dropout} e uma camada de saída, é treinado
-com o otimizador Adam e a função de perda MSE para prever o preço de fechamento
-do dia seguinte a partir de janelas deslizantes de 60 dias. A contribuição do
-artigo é a comparação empírica da LSTM com o ARIMA e com uma RNN simples, por
-meio do erro quadrático médio (MSE), do erro absoluto médio (MAE) e do erro
-percentual absoluto médio (MAPE). Nos resultados, a LSTM obteve os menores
-erros, com MSE de 0,0052, MAE de 0,054 e MAPE de 2,5\%, contra 0,0138, 0,089 e
-4,3\% do ARIMA e 0,0089, 0,071 e 3,2\% da RNN simples, embora tenha exigido o
-maior tempo de treinamento, cerca de 5 horas, frente a 3,5 horas da RNN e meia
-hora do ARIMA. Os próprios autores reconhecem que esse tempo de treinamento
-compromete a escalabilidade e o uso em tempo real, e que a natureza de
-``caixa-preta'' das redes dificulta a interpretação e a avaliação do modelo;
-como trabalhos futuros, sugerem integrar a LSTM a outras abordagens
-computacionais e incorporar fontes adicionais de dados, como a análise de
-sentimento de notícias. Cabe observar, porém, que o artigo não informa o período
-exato dos dados, a proporção entre os conjuntos de treino, validação e teste, o
-número de camadas e unidades nem os hiperparâmetros da LSTM, tampouco a
-configuração do ARIMA e da RNN usados como referência, o que dificulta a
-reprodução dos resultados. Esse trabalho ilustra a transição da literatura para
-o aprendizado profundo, ao evidenciar a vantagem da LSTM sobre a RNN simples e o
-ARIMA na modelagem de dependências temporais em séries financeiras. Assim como o
-presente trabalho, o artigo trata a previsão do preço de fechamento como um
-problema de regressão com redes recorrentes e compara a LSTM a modelos de
-referência; diferencia-se, no entanto, por avaliar apenas a LSTM, sem considerar
-a GRU, enquanto o presente trabalho concentra a análise nas duas arquiteturas
-recorrentes, LSTM e GRU.
+\subsection{Detecção de Tendências e Mudanças de Regime}\label{sec:tr-tendencia}
 
 \textcite{miot_empirical_2020} abordam a detecção de tendência em séries
 temporais ruidosas, característica de especial interesse em aplicações
@@ -438,223 +380,6 @@ diferencia-se, porém, por tratar a detecção de tendência como uma tarefa de
 classificação em dados simulados, enquanto o presente trabalho aborda a previsão
 de preços como um problema de regressão sobre séries temporais financeiras.
 
-\subsection{Modelos Híbridos}\label{sec:tr-hibridos}
-
-\textcite{kiruba_risk_2025} tratam da previsão de riscos financeiros, partindo da
-constatação de que os mercados são instáveis por natureza e de que modelos
-estatísticos como o ARIMA capturam bem relações lineares, mas falham diante de
-padrões não lineares e de mudanças bruscas, com o objetivo de aprimorar essa
-previsão combinando um modelo tradicional de séries temporais com uma técnica de
-inteligência artificial. Os autores reúnem preços de abertura, máxima, mínima e
-fechamento, volume negociado, indicadores macroeconômicos, como inflação e taxa
-de juros, e escores de sentimento extraídos de notícias e redes sociais,
-abrangendo registros de ações (50.000), câmbio (30.000) e criptomoedas (40.000).
-O pré-processamento inclui o tratamento de valores ausentes por interpolação e
-preenchimento, a detecção de \textit{outliers} por intervalo interquartil e
-escore Z, a normalização \textit{min-max} e logarítmica, a decomposição sazonal
-STL e a criação de variáveis defasadas, e os atributos são enriquecidos com
-indicadores técnicos, como bandas de Bollinger, RSI, MACD, médias móveis e ATR, e
-selecionados por correlação de Pearson, informação mútua, PCA, eliminação
-recursiva de atributos e Lasso. No modelo híbrido, o ARIMA, com ordem escolhida
-pelos critérios AIC e BIC, modela a componente linear da série, e os resíduos de
-suas previsões alimentam uma rede LSTM com \textit{dropout}, treinada com Adam ou
-RMSprop, que modela a componente não linear; os dados são divididos em ordem
-cronológica, com 70\% para treino, 15\% para validação e 15\% para teste. A
-contribuição do artigo é essa proposta de modelo híbrido LSTM-ARIMA, associada a
-técnicas de seleção de atributos, comparada com os dois modelos isolados. Nos
-resultados, o modelo híbrido obteve os menores erros, com MSE de 1,57, RMSE de
-1,25, MAE de 0,82 e MAPE de 2,8\%, contra 1,92, 1,38, 0,95 e 3,2\% da LSTM e
-2,21, 1,48, 1,1 e 3,8\% do ARIMA. Os autores não discutem limitações nem apontam
-trabalhos futuros. Cabe observar, porém, que o artigo não define qual grandeza é
-prevista como ``risco'', não identifica as fontes nem o período dos dados, não
-separa os resultados por mercado e menciona que os testes ocorreram em ambiente
-simulado com dados financeiros fictícios; além disso, descreve a combinação
-entre os modelos ora como modelagem sequencial dos resíduos, ora como média
-ponderada ou \textit{ensemble} das saídas, e anuncia análises, como
-\textit{backtesting}, matrizes de confusão e análise de sensibilidade, cujos
-resultados não apresenta, o que dificulta a reprodução e a interpretação dos
-resultados. Esse trabalho ilustra a estratégia de combinar um modelo estatístico
-com uma rede recorrente, atribuindo a cada um a parcela linear ou não linear da
-série. Assim como o presente trabalho, o artigo emprega a LSTM na modelagem de
-séries temporais financeiras e a compara com o ARIMA; diferencia-se, no entanto,
-por combinar a LSTM com o ARIMA em uma arquitetura híbrida voltada à previsão de
-risco, com variáveis macroeconômicas e de sentimento, sem considerar a GRU,
-enquanto o presente trabalho concentra a análise nas redes recorrentes LSTM e
-GRU.
-
-\textcite{ramkumar_development_2023} abordam a previsão de índices e de preços de
-ações, considerada um dos problemas mais complexos do aprendizado de máquina por
-depender de muitos fatores que afetam a oferta e a demanda, com o objetivo de
-propor uma abordagem híbrida que combine uma rede LSTM e o modelo ARIMA e de
-investigar o efeito da segmentação dos dados sobre o desempenho. Os autores
-utilizam o índice NIFTY da Bolsa Nacional de Valores da Índia (\textit{National
-Stock Exchange}, NSE), com os atributos data, abertura, fechamento, máxima e
-mínima. A LSTM, treinada por retropropagação com a função de perda MSE e o
-otimizador Adam sobre janelas deslizantes de dados normalizados, captura padrões
-de longo prazo, enquanto o ARIMA, com a diferenciação para tornar a série
-estacionária e as ordens identificadas pelas funções de autocorrelação e de
-autocorrelação parcial, captura tendências de curto prazo; as previsões dos dois
-modelos são então combinadas por média ponderada. Para melhorar o desempenho, o
-conjunto de dados é dividido em 15 segmentos, cada um fornecido separadamente à
-LSTM. A contribuição do artigo é essa proposta de modelo híbrido LSTM-ARIMA,
-associada à estratégia de segmentação dos dados. Nos resultados, o modelo
-proposto obteve acurácia de 98,58\%, contra 94,37\% da LSTM, 93,48\% de uma rede
-neural convolucional (CNN), 92,58\% de um \textit{ensemble} de redes neurais
-artificiais (ANN) e 92,02\% de uma ANN, e exigiu o menor tempo de computação,
-cerca de 60 minutos, frente a 96 a 158 minutos dos demais modelos; o ARIMA
-isolado alcançou acurácia média de 97,66\%. Os autores reconhecem que essa
-acurácia do ARIMA exigiu um grande volume de dados e de épocas de treinamento,
-e, como trabalhos futuros, sugerem explorar \textit{embeddings} de caracteres
-com arquiteturas mais elaboradas e incorporar outras fontes de informação para
-enriquecer os atributos. Cabe observar, porém, que o artigo informa dois
-períodos distintos para os dados (de abril de 2008 a abril de 2018 e de
-novembro de 2019 a agosto de 2020), descreve trechos de um método baseado em
-histogramas bidimensionais e CNN que não integram o modelo proposto, emprega a
-acurácia em uma tarefa de previsão de valores sem defini-la, não apresenta os
-valores das métricas de erro que anuncia (MSE, MAE e RMSE), não detalha os pesos
-da combinação nem o critério de segmentação e não informa a proporção entre
-treino e teste nem os hiperparâmetros da LSTM, o que dificulta a reprodução e a
-interpretação dos resultados. Esse trabalho ilustra, como o anterior, a
-combinação de um modelo estatístico com uma rede recorrente, aqui por meio da
-fusão das previsões dos dois modelos. Assim como o presente trabalho, o artigo
-emprega a LSTM na previsão de preços em séries temporais financeiras;
-diferencia-se, no entanto, por combinar a LSTM com o ARIMA em uma arquitetura
-híbrida e por não considerar a GRU, enquanto o presente trabalho concentra a
-análise nas redes recorrentes LSTM e GRU.
-
-\textcite{liu_application_2024} partem da constatação de que modelos individuais
-de aprendizado profundo apresentam desempenho limitado na previsão do mercado
-de ações, com erros elevados e baixo poder explicativo, e têm como objetivo
-comparar algoritmos amplamente usados em previsão financeira e, a partir dessa
-comparação, construir um modelo híbrido que combine seus pontos fortes e
-atenue suas fraquezas. Os autores utilizam dados de negociação de empresas do
-índice S\&P 500, com preços de abertura, fechamento, máxima e mínima ajustados
-por desdobramentos. Os valores ausentes são imputados pela mediana, os registros
-duplicados são removidos, os dados são padronizados e normalizados no intervalo
-de 0 a 1, e janelas deslizantes de 30 passos de tempo são usadas para prever o
-valor seguinte, com a separação entre treino e teste feita por validação
-cruzada temporal (\textit{TimeSeriesSplit}). O modelo proposto é um
-\textit{ensemble} por empilhamento (\textit{stacking}) que usa como modelos de
-base uma LSTM de duas camadas com 100 unidades e \textit{dropout} e uma rede
-neural artificial (\textit{Artificial Neural Network}, ANN) com duas camadas
-ocultas, e uma regressão linear como metamodelo que combina as previsões de
-ambos. A contribuição do artigo é essa proposta de modelo híbrido LSTM+ANN,
-acompanhada da comparação com modelos individuais, como BiLSTM, CNN, ANN, LSTM,
-RNN e ARIMA, e com outras combinações, como BiLSTM+CNN, LSTM+CNN e ANN+CNN,
-pelas métricas $R^2$, MAE, MSE e RMSE. Nos resultados, o modelo LSTM+ANN obteve o
-maior $R^2$ (0,5375) e os menores erros (MAE de 37,78, MSE de 4.865,23 e RMSE de
-69,75), seguido do \textit{stacking} ANN+CNN ($R^2$ de 0,4631) e da ANN
-($R^2$ de 0,4098), enquanto a LSTM isolada alcançou $R^2$ de 0,2717 e modelos
-como BiLSTM, RNN e ARIMA apresentaram $R^2$ negativo; os autores ressaltam que,
-antes da combinação, nenhum modelo individual além da ANN tinha valor prático e
-que o modelo híbrido é o primeiro a superar $R^2$ de 0,5. O artigo não discute
-limitações do próprio trabalho e, como trabalho futuro, indica apenas a
-continuidade da exploração de arquiteturas híbridas por empilhamento. Cabe
-observar, porém, que o artigo não informa o período dos dados, quais ações e
-qual atributo são previstos, os hiperparâmetros de treinamento nem a
-configuração dos modelos de comparação, e menciona a avaliação de outros
-modelos, como o PatchTST, cujos resultados não apresenta, o que dificulta a
-reprodução e a interpretação dos resultados. Esse trabalho ilustra a combinação
-de redes neurais distintas por um metamodelo como forma de superar o baixo
-desempenho dos modelos individuais. Assim como o presente trabalho, o artigo
-trata a previsão de preços como um problema de regressão sobre séries temporais
-financeiras e avalia a LSTM; diferencia-se, no entanto, por propor um
-\textit{ensemble} da LSTM com uma ANN, sem considerar a GRU, enquanto o
-presente trabalho concentra a análise nas redes recorrentes LSTM e GRU.
-
-\subsection{Estratégias Recentes de Aprimoramento}\label{sec:tr-aprimoramento}
-
-\subsubsection{Pré-processamento e Extração de Características}\label{sec:tr-preprocessamento}
-
-\textcite{sun_novel_2024} abordam a previsão de preços de ações, dificultada pela
-não linearidade, pela complexidade e pelo alto nível de ruído das séries
-temporais financeiras, com o objetivo de propor um método de previsão de alta
-precisão e bom ajuste que combine decomposição modal e aprendizado de máquina.
-Os autores utilizam dados diários de seis ações de setores distintos
-(Salesforce, Alibaba, Walt Disney, Electronic Arts, Netflix e AMD), obtidos na
-plataforma Kaggle, entre janeiro de 2013 e dezembro de 2022, com os atributos de
-fechamento, máxima, mínima, abertura, fechamento ajustado, volume e a diferença
-entre fechamento e abertura. Cada atributo é decomposto pela decomposição
-empírica de modos completa por conjunto com ruído adaptativo
-(\textit{Complete Ensemble Empirical Mode Decomposition with Adaptive Noise},
-CEEMDAN) em funções de modo intrínseco (\textit{Intrinsic Mode Functions}, IMFs)
-e resíduo, que, no caso da Salesforce, somam 67 componentes; após a
-normalização \textit{min-max}, são mantidos apenas os componentes com
-correlação de Pearson superior a 50\% com o movimento de alta ou queda da ação,
-o que reduz a entrada a três componentes. Os componentes selecionados são
-previstos individualmente por uma LSTM de duas camadas, com janela deslizante de
-cinco dias, e essas previsões compõem um novo conjunto de dados, a partir do qual
-o LightGBM, cujos hiperparâmetros são otimizados por recozimento simulado
-(\textit{Simulated Annealing}, SA) com validação cruzada de cinco partições,
-gera a previsão final; os dados são divididos em ordem cronológica, com 80\% para
-treino e 20\% para teste. A contribuição do artigo é o modelo híbrido
-CEEMDAN-LSTM-SA-LightGBM, comparado com outros nove modelos, entre híbridos sem
-decomposição ou sem otimização, LSTM e RNN, pelas métricas RMSE e MAE e pela
-acurácia na previsão da direção do preço. Nos resultados para a Salesforce, o
-modelo proposto obteve RMSE de 4,48, MAE de 3,22 e acurácia direcional de
-70,23\%, contra 5,12, 3,90 e 61,11\% do mesmo modelo sem a otimização por
-recozimento simulado e 15,99, 15,29 e 50,79\% da LSTM isolada; nas outras cinco
-ações, também apresentou os menores erros e acurácia superior a 67\%. Os
-autores reconhecem que a decomposição pela CEEMDAN é demorada, que a escolha de
-parâmetros como o tamanho da janela deslizante ainda é subjetiva, que a LSTM de
-duas camadas pode não explorar plenamente os padrões das séries decompostas e
-que faltam informações mais abrangentes sobre as ações, e sugerem, como
-trabalhos futuros, otimizar os parâmetros do modelo e comparar diferentes
-limiares de correlação na seleção de atributos. Cabe observar, porém, que a
-decomposição e a seleção de componentes são descritas como aplicadas à série
-completa antes da divisão entre treino e teste, o que pode levar informação do
-período de teste ao treinamento. Esse trabalho ilustra o uso da decomposição de
-sinais como etapa de pré-processamento para atenuar o ruído das séries
-financeiras antes da modelagem. Assim como o presente trabalho, o artigo trata a
-previsão do preço de ações como um problema de regressão sobre séries temporais
-financeiras e emprega a LSTM; diferencia-se, no entanto, por usá-la como
-componente de uma arquitetura híbrida com decomposição de sinais e
-\textit{ensemble} de árvores, sem considerar a GRU, enquanto o presente trabalho
-concentra a análise nas redes recorrentes LSTM e GRU.
-
-\textcite{li_accurate_2024} tratam da previsão de preços de ações, cuja não
-linearidade, não estacionariedade, alta volatilidade e presença de ruído
-dificultam previsões precisas e robustas, com o objetivo de melhorar essa
-previsão por meio de uma estratégia de dividir para conquistar, que decompõe a
-série e prevê separadamente seus componentes. Os autores utilizam os preços
-diários de fechamento de três índices, o índice composto de Xangai (SSEC), o
-índice de componentes de Shenzhen (SZI) e o S\&P 500 (SPX), obtidos no Yahoo
-Finance, de 1990 a maio de 2023, reservando as últimas 800 observações de cada
-índice para teste, normalizando os dados pelo método \textit{min-max} e prevendo
-o fechamento de cada dia a partir dos 30 dias anteriores. No modelo proposto,
-denominado \textit{Hierarchical Decomposition-based Forecasting Model} (HDFM), a
-série é inicialmente decomposta pela CEEMDAN; as IMFs resultantes são agrupadas
-pelo algoritmo \textit{K-means}, com a entropia amostral como medida de
-complexidade e o número de grupos definido pelo método do cotovelo, e as IMFs de
-cada grupo são somadas; o grupo de maior frequência é novamente decomposto pela
-decomposição variacional de modos (\textit{Variational Mode Decomposition}, VMD);
-por fim, cada subsérie é prevista por uma GRU, e as previsões são combinadas para
-obter o preço final. A contribuição do artigo é o modelo HDFM, que introduz o
-agrupamento das subséries para reduzir o custo da previsão e a redecomposição do
-componente de alta frequência, avaliado contra o passeio aleatório, o ARIMA, a
-SVR, a regressão por \textit{Random Forest}, a LSTM, a GRU, a combinação
-CEEMDAN-GRU e o modelo híbrido McVCsB, pelas métricas $R^2$, RMSE, MAE e MAPE e
-pelo teste de Diebold-Mariano. Nos resultados, o HDFM obteve o melhor desempenho
-nos três índices; no SSEC, por exemplo, alcançou $R^2$ de 0,9856, RMSE de 27,25
-e MAPE de 0,65\%, contra 0,9822, 30,31 e 0,76\% do McVCsB, 0,9523, 49,64 e
-1,13\% da GRU e 0,9457, 52,94 e 1,21\% da LSTM, com superioridade sobre os
-modelos de referência ao nível de significância de 1\% no teste de
-Diebold-Mariano. Os estudos de ablação mostraram ainda que a GRU superou a LSTM,
-a RNN e a rede neural densa como modelo de base nos três índices, que a CEEMDAN
-superou a EMD e a EEMD como método de decomposição e que a VMD foi o melhor
-método de redecomposição. Como limitação, os autores reconhecem que a precisão
-da previsão das subséries de alta frequência ainda é inferior à das subséries de
-média e baixa frequência, e, como trabalho futuro, propõem explorar a previsão
-de múltiplos passos à frente. Esse trabalho ilustra o uso da decomposição
-hierárquica de sinais como pré-processamento para reduzir a complexidade das
-séries financeiras, e seus estudos de ablação indicam vantagem da GRU sobre a
-LSTM nesse cenário. Assim como o presente trabalho, o artigo trata a previsão do
-preço de fechamento como um problema de regressão sobre séries temporais
-financeiras e compara a LSTM e a GRU; diferencia-se, no entanto, por empregar a
-GRU como componente de uma arquitetura com decomposição e agrupamento de
-subséries, enquanto o presente trabalho concentra a análise nas redes
-recorrentes LSTM e GRU.
-
 \textcite{hosseini_pattern-based_2025} partem da constatação de que os modelos
 de previsão financeira têm dificuldade com a volatilidade e a complexidade dos
 mercados, em parte porque dependem de atributos tradicionais, que não capturam
@@ -698,6 +423,49 @@ uma classificação da direção do preço em dados intradiários de um mercado 
 energia e por concentrar sua contribuição na extração de atributos, enquanto o
 presente trabalho aborda a previsão de preços como um problema de regressão,
 com foco nas redes recorrentes LSTM e GRU.
+
+\textcite{anghinoni_time_2019} partem da constatação de que a natureza
+estocástica das séries temporais ainda deixa em aberto muitos problemas de
+extração de conhecimento e têm como objetivo estudar as séries a partir de suas
+propriedades topológicas, observadas em uma rede complexa gerada com os dados,
+em vez do espaço temporal ou espectral usado pelas técnicas tradicionais, para
+detectar e prever tendências. O método extrai seis séries de atributos da série
+original, os ruídos, os gradientes e as posições relativas entre máximos e
+mínimos, cada um em curto e longo prazo, calculados a partir de médias móveis;
+esses atributos são normalizados pelo escore Z e discretizados, e cada vetor
+distinto torna-se um nó de uma rede em que dias consecutivos são ligados por
+arestas. Um algoritmo de detecção de comunidades baseado em modularidade agrupa
+os nós, e cada comunidade é rotulada como tendência de alta ou de baixa
+conforme a variação média da série nos dias que a compõem; por fim, cinco
+classificadores, \textit{Naive Bayes}, árvore de decisão, MLP, SVM e k-NN, são
+treinados para prever a tendência de cada dia a partir dos atributos. Os autores
+avaliam o método em uma série senoidal artificial com ruído gaussiano e no
+índice Bovespa ao longo de 20 anos, suavizado por uma média móvel de cinco dias,
+com períodos de 25 e 125 dias para os atributos de curto e longo prazo. A
+contribuição do artigo é esse algoritmo não supervisionado de detecção de
+tendências por comunidades de redes complexas, que determina automaticamente o
+número de padrões e absorve melhor o ruído. Nos resultados com a série
+artificial, a acurácia de classificação ficou próxima de 80\% para ruídos
+baixos e caiu a 50\% com variância do ruído de 0,20, enquanto a acurácia de
+previsão permaneceu em torno de 60\%; no Bovespa, o método identificou 38
+comunidades, gerou retornos acumulados positivos em todos os horizontes
+testados, ao contrário dos atributos usados isoladamente, e a previsão superou
+95\% de acurácia com a árvore de decisão para o período de 25 dias, com
+resultados semelhantes ao trocar o algoritmo de detecção de comunidades. Os
+autores não discutem limitações e, como trabalhos futuros, sugerem incorporar
+séries correlacionadas, como taxa de juros, câmbio, PIB e inflação, para estudar
+relações multivariadas, e adaptar o método a outros domínios, como a
+agricultura. Cabe observar, porém, que, no Bovespa, a acurácia de previsão é
+medida em relação aos rótulos de tendência gerados pelo próprio método sobre a
+série suavizada, e não em relação à variação efetiva dos preços. Esse trabalho
+ilustra uma representação estrutural alternativa das séries financeiras, em que
+padrões temporais são capturados pela topologia de redes complexas. Assim como
+o presente trabalho, o artigo analisa séries temporais financeiras com o
+objetivo de prever seu comportamento; diferencia-se, no entanto, por tratar a
+tendência como uma classificação obtida por detecção de comunidades em redes
+complexas, sem empregar redes recorrentes, enquanto o presente trabalho aborda a
+previsão de preços como um problema de regressão, com foco nas redes
+recorrentes LSTM e GRU.
 
 \textcite{wan_tcdformer_2024} partem da constatação de que os modelos de
 previsão baseados na arquitetura \textit{Transformer} perdem desempenho em séries
@@ -746,7 +514,7 @@ multivariada de longo horizonte em domínios variados, sem avaliar redes
 recorrentes, enquanto o presente trabalho concentra a análise nas redes
 recorrentes LSTM e GRU aplicadas a séries financeiras.
 
-\subsubsection{Mecanismos de Atenção e Arquiteturas Temporais e Estruturais}\label{sec:tr-atencao}
+\subsection{Volatilidade, Não Estacionariedade e Relações entre Ativos}\label{sec:tr-volatilidade}
 
 \textcite{biswas_dual_2025} tratam da previsão de preços de ações e da
 avaliação de risco, tarefas dificultadas pela não linearidade, pelo ruído e
@@ -790,276 +558,6 @@ alternativa às redes recorrentes na previsão financeira. Assim como o presente
 trabalho, o artigo trata a previsão de preços de ações como um problema de
 regressão e compara seu modelo com a LSTM; diferencia-se, no entanto, por propor
 uma arquitetura convolucional com atenção e saída dupla, sem considerar a GRU,
-enquanto o presente trabalho concentra a análise nas redes recorrentes LSTM e
-GRU.
-
-\textcite{luo_short-term_2024} tratam da previsão de curto prazo da correlação
-entre ações, essencial para a gestão de carteiras e a diversificação de risco,
-partindo da constatação de que os modelos de séries temporais existentes
-consideram apenas o histórico das ações e ignoram que a correlação é afetada
-por múltiplos fatores e segue tendências instáveis, com o objetivo de melhorar a
-precisão dessa previsão. Os autores utilizam dados diários de oito ações do
-mercado acionário chinês, divididas em dois grupos de quatro, entre janeiro de
-2017 e janeiro de 2022, totalizando 1.227 pregões, com dados de exposição a
-fatores fornecidos por uma corretora e dados de negociação de mercado. Os
-fatores de risco do modelo Barra, como capitalização de mercado, lucros,
-crescimento e alavancagem, são tratados quanto a valores extremos e ausentes,
-padronizados e neutralizados, e um modelo multifatorial explica os retornos e
-permite calcular a correlação entre as ações. O modelo proposto,
-CNN-BiLSTM-\textit{Attention} (CLATT), recebe as séries de correlação e de
-retornos, com janela de 68 dias escolhida experimentalmente: a CNN extrai
-características de alta dimensão, uma LSTM bidirecional (BiLSTM) de duas
-camadas captura as dependências temporais locais e globais, e um mecanismo de
-atenção pondera as saídas da BiLSTM; o treinamento usa a função de perda MSE, e
-os dados são divididos em 80\% para treino e 20\% para teste. A contribuição do
-artigo é o modelo CLATT, associado ao uso de um modelo multifatorial para
-quantificar a correlação e à inclusão dos retornos como entrada adicional,
-comparado com CNN, LSTM, CNN-LSTM e CNN-BiLSTM pelas métricas MSE, RMSE, MAE,
-MAPE e $R^2$. Nos resultados, o CLATT obteve $R^2$ de 0,9825 e 0,9661 nos dois
-grupos, contra 0,9577 e 0,9184 da LSTM e 0,9647 e 0,9329 da CNN-BiLSTM, e
-reduziu o MAPE em 57,32\% e 33\% em relação à LSTM e em 56,06\% e 28,87\% em
-relação à CNN-BiLSTM; o estudo de ablação mostrou que incluir os retornos como
-entrada reduz os erros em relação ao uso exclusivo das séries de correlação. Os
-autores reconhecem que a natureza caótica do sistema financeiro ainda limita a
-precisão, que os fatores considerados poderiam ser mais abrangentes e que, por
-restrições de tempo e de dados, não usaram ações de outros mercados, e indicam
-esses pontos como trabalhos futuros. Cabe observar, porém, que a avaliação usa
-apenas oito ações de um único mercado e que o artigo não informa se a divisão
-entre treino e teste respeita a ordem cronológica. Esse trabalho ilustra a
-combinação de convoluções, redes recorrentes bidirecionais e mecanismos de
-atenção para modelar relações temporais e estruturais entre ativos. Assim como o
-presente trabalho, o artigo trata uma tarefa de regressão sobre séries
-temporais financeiras e compara seu modelo com a LSTM; diferencia-se, no
-entanto, por prever a correlação entre ações, e não seus preços, com uma
-arquitetura híbrida que combina CNN, BiLSTM e atenção, sem considerar a GRU,
-enquanto o presente trabalho concentra a análise nas redes recorrentes LSTM e
-GRU.
-
-\textcite{hsu_fingat_2023} partem da constatação de que a análise de ações
-costuma visar a previsão de preços, com pouca atenção à recomendação de ações
-lucrativas, e de que as abordagens existentes ignoram as relações entre ações e
-setores ou as tomam como predefinidas, sem capturar suas interações latentes,
-com o objetivo de recomendar as $K$ ações com maior retorno esperado no dia
-seguinte a partir das séries de preços e da informação de setor, sem depender
-de relações predefinidas entre as ações. Os autores utilizam dados diários de
-ações de Taiwan (100 ações de 5 setores), do S\&P 500 (424 ações de 9 setores)
-e do NASDAQ (1.026 ações de 112 setores), com preços de abertura, máxima,
-mínima, fechamento e fechamento ajustado, razão de retorno e atributos derivados
-de razões de preço e de médias móveis, organizados em janelas de 15 pregões para
-prever o seguinte e divididos em 60\% para treino, 20\% para validação e 20\% para
-teste. O modelo proposto, \textit{Financial Graph Attention Networks} (FinGAT),
-aprende padrões sequenciais de curto prazo, dentro de cada semana, com uma GRU
-com atenção, e de longo prazo, ao longo das semanas, com outra GRU; constrói
-grafos completamente conectados entre as ações de um mesmo setor e entre os
-setores, aos quais aplica redes de atenção em grafos (\textit{Graph Attention
-Networks}, GAT) para aprender as interações latentes; e otimiza conjuntamente,
-em um objetivo multitarefa, a ordenação das ações por retorno e a previsão da
-direção do preço. A contribuição do artigo é o modelo FinGAT, que dispensa
-relações predefinidas entre as ações, usa uma hierarquia de dois níveis, ações e
-setores, para propagar informação e combina recomendação e previsão de
-movimento, comparado com MLP, GRU, GRU com atenção, FineNet e RankLSTM pelas
-métricas de ordenação (\textit{Mean Reciprocal Rank}, MRR, e precisão no topo
-da lista) e pela acurácia direcional. Nos resultados, o FinGAT superou os
-modelos de comparação nas três bases, sobretudo nas métricas de ordenação para
-as cinco primeiras ações, com ganhos médios de 12,23\% em MRR e de 7,93\% em
-precisão sobre o RankLSTM, e manteve bom desempenho mesmo sem a informação de
-setor. Os autores reconhecem que o modelo não produz ganhos significativos na
-previsão da direção do preço e que, no NASDAQ com dez ações recomendadas, ficou
-abaixo do RankLSTM; como trabalhos futuros, sugerem inferir a estrutura dos
-grafos em vez de usar grafos completamente conectados, construir grafos de
-conhecimento a partir de metadados das empresas e aprender representações de
-notícias relacionadas às ações. Esse trabalho ilustra o uso de mecanismos de
-atenção sobre grafos para modelar relações estruturais entre ativos, combinados
-com redes recorrentes para as dependências temporais. Assim como o presente
-trabalho, o artigo emprega redes recorrentes, no caso a GRU, sobre séries
-temporais de preços de ações; diferencia-se, no entanto, por formular o problema
-como recomendação de ações por ordenação de retornos e previsão de direção, com
-uma arquitetura baseada em grafos, enquanto o presente trabalho aborda a
-previsão de preços como um problema de regressão, com foco nas redes
-recorrentes LSTM e GRU.
-
-\textcite{anghinoni_time_2019} partem da constatação de que a natureza
-estocástica das séries temporais ainda deixa em aberto muitos problemas de
-extração de conhecimento e têm como objetivo estudar as séries a partir de suas
-propriedades topológicas, observadas em uma rede complexa gerada com os dados,
-em vez do espaço temporal ou espectral usado pelas técnicas tradicionais, para
-detectar e prever tendências. O método extrai seis séries de atributos da série
-original, os ruídos, os gradientes e as posições relativas entre máximos e
-mínimos, cada um em curto e longo prazo, calculados a partir de médias móveis;
-esses atributos são normalizados pelo escore Z e discretizados, e cada vetor
-distinto torna-se um nó de uma rede em que dias consecutivos são ligados por
-arestas. Um algoritmo de detecção de comunidades baseado em modularidade agrupa
-os nós, e cada comunidade é rotulada como tendência de alta ou de baixa
-conforme a variação média da série nos dias que a compõem; por fim, cinco
-classificadores, \textit{Naive Bayes}, árvore de decisão, MLP, SVM e k-NN, são
-treinados para prever a tendência de cada dia a partir dos atributos. Os autores
-avaliam o método em uma série senoidal artificial com ruído gaussiano e no
-índice Bovespa ao longo de 20 anos, suavizado por uma média móvel de cinco dias,
-com períodos de 25 e 125 dias para os atributos de curto e longo prazo. A
-contribuição do artigo é esse algoritmo não supervisionado de detecção de
-tendências por comunidades de redes complexas, que determina automaticamente o
-número de padrões e absorve melhor o ruído. Nos resultados com a série
-artificial, a acurácia de classificação ficou próxima de 80\% para ruídos
-baixos e caiu a 50\% com variância do ruído de 0,20, enquanto a acurácia de
-previsão permaneceu em torno de 60\%; no Bovespa, o método identificou 38
-comunidades, gerou retornos acumulados positivos em todos os horizontes
-testados, ao contrário dos atributos usados isoladamente, e a previsão superou
-95\% de acurácia com a árvore de decisão para o período de 25 dias, com
-resultados semelhantes ao trocar o algoritmo de detecção de comunidades. Os
-autores não discutem limitações e, como trabalhos futuros, sugerem incorporar
-séries correlacionadas, como taxa de juros, câmbio, PIB e inflação, para estudar
-relações multivariadas, e adaptar o método a outros domínios, como a
-agricultura. Cabe observar, porém, que, no Bovespa, a acurácia de previsão é
-medida em relação aos rótulos de tendência gerados pelo próprio método sobre a
-série suavizada, e não em relação à variação efetiva dos preços. Esse trabalho
-ilustra uma representação estrutural alternativa das séries financeiras, em que
-padrões temporais são capturados pela topologia de redes complexas. Assim como
-o presente trabalho, o artigo analisa séries temporais financeiras com o
-objetivo de prever seu comportamento; diferencia-se, no entanto, por tratar a
-tendência como uma classificação obtida por detecção de comunidades em redes
-complexas, sem empregar redes recorrentes, enquanto o presente trabalho aborda a
-previsão de preços como um problema de regressão, com foco nas redes
-recorrentes LSTM e GRU.
-
-\subsubsection{Integração de Dados Multimodais}\label{sec:tr-multimodal}
-
-\textcite{choi_hybrid_2023} tratam da previsão da direção do preço de ações em
-mercados de alta volatilidade, partindo da constatação de que a análise técnica
-baseada apenas em preços não revela todos os padrões que afetam as oscilações e
-de que, em mercados eficientes, as informações de diferentes fontes se refletem
-rapidamente nos preços, com o objetivo de combinar dados de preços e de textos
-para melhorar essa previsão. Os autores utilizam a base StockNet, com 503
-pregões entre janeiro de 2014 e janeiro de 2016 de 85 empresas negociadas na
-Bolsa de Nova York e no NASDAQ, contendo preços de abertura, máxima, mínima,
-fechamento e volume, além de \textit{tweets} sobre cada empresa. No modelo
-proposto, as características temporais dos preços são extraídas por uma GRU de
-quatro camadas, e as características semânticas dos \textit{tweets} de cada dia,
-pela média das representações contextuais do BERT (\textit{Bidirectional
-Encoder Representations from Transformers}); as duas são concatenadas em uma
-característica mista, processada por um módulo híbrido de mistura de
-informações, composto por dois blocos MLP que operam alternadamente sobre as
-linhas e as colunas dessa característica, e por um classificador binário que
-indica se o fechamento do dia seguinte será maior ou menor que o anterior, a
-partir de janelas de 30 dias. Os dados são divididos em 80\% para treino e
-20\% para validação, e o treinamento usa o otimizador AdamW e a entropia
-cruzada binária. A contribuição do artigo é esse módulo de mistura baseado em
-MLP, estruturalmente mais simples que modelos com autoatenção, que integra
-informações temporais e semânticas de forma híbrida e multimodal. Nos
-resultados, o módulo alcançou acurácia de 69,20\%, coeficiente de correlação de
-Matthews (MCC) de 0,43 e F1 de 76,17\%, superando a substituição do módulo por
-uma LSTM, uma GRU ou um codificador \textit{Transformer}, com ganhos de acurácia
-de cerca de 15,67, 16,18 e 17,59 pontos percentuais, respectivamente; no estudo
-de ablação, a GRU superou ligeiramente a LSTM como extratora das
-características de preço (acurácia de 69,20\% contra 68,53\%). Os autores
-reconhecem que usaram um único conjunto de validação, sem validação cruzada, e,
-como trabalhos futuros, propõem incorporar outras variáveis que afetam a
-volatilidade, em especial dados de relacionamento entre empresas, e aprimorar o
-módulo para combinar três tipos de informação. Cabe observar, porém, que a
-revocação de 95,19\% acompanhada de especificidade de 41,37\% indica uma
-tendência do modelo a prever alta, e que a acurácia reportada se refere ao
-conjunto de validação, sem um conjunto de teste separado. Esse trabalho ilustra
-a integração de dados textuais e de preços, com redes recorrentes como
-extratoras de características temporais, em uma arquitetura multimodal e
-híbrida. Assim como o presente trabalho, o artigo emprega e compara a LSTM e a
-GRU sobre séries de preços de ações; diferencia-se, no entanto, por usá-las
-apenas como extratoras de características em um modelo multimodal que
-classifica a direção do preço, enquanto o presente trabalho aborda a previsão
-de preços como um problema de regressão, com foco nas redes recorrentes LSTM e
-GRU.
-
-\textcite{wang_stock_2023} tratam da previsão do preço de ações, dificultada
-pela alta volatilidade do mercado e pelo ruído aleatório, partindo da
-constatação de que modelos baseados em \textit{Transformer} são pouco usados
-para prever preços, em vez da direção, e de que muitos estudos avaliam poucos
-ativos e apresentam resultados instáveis no tempo, com o objetivo de melhorar a
-precisão e a estabilidade dessa previsão. Os autores propõem o método
-BiLSTM-MTRAN-TCN, no qual os dados, após a codificação posicional, são
-processados por uma BiLSTM, que captura as dependências sequenciais, e depois
-por um \textit{Transformer} modificado (MTRAN-TCN), em que o codificador com
-atenção multicabeça é mantido e o decodificador é substituído por uma rede
-convolucional temporal e uma camada densa, que preveem o fechamento do dia
-seguinte a partir de janelas de 10 dias. O método é avaliado em cinco índices
-chineses, obtidos na plataforma JoinQuant, e em 14 ações das bolsas de Xangai e
-Shenzhen, obtidas na plataforma Tushare e escolhidas por uma estratégia de
-seleção que combina porte, grandes e pequenas empresas, e setor, como finanças,
-imobiliário, carvão, aço e automotivo, usando os últimos 2.700 pregões, de
-fevereiro de 2012 a maio de 2023, com preços de fechamento, máxima, mínima e
-abertura, variação, giro e volume, além de médias móveis de 5 e 10 dias para as
-ações; os dados são padronizados pelo escore Z, e o treinamento usa a função de
-perda MSE e o otimizador Adam. A contribuição do artigo é o método
-BiLSTM-MTRAN-TCN, acompanhado da estratégia de seleção de ações e de testes de
-estabilidade em diferentes períodos, comparado com LSTM, BiLSTM, CNN-BiLSTM,
-CNN-BiLSTM com atenção e BiLSTM com autoatenção e TCN pelas métricas MSE, MAE,
-RMSE e $R^2$. Nos resultados, a média nos cinco índices, em valores
-padronizados, foi de MAE de 0,098, RMSE de 0,118 e $R^2$ de 0,986 para o
-método proposto, contra MAE de 0,121 e RMSE de 0,162 da BiLSTM e de 0,138 e
-0,185 da LSTM; nas 14 ações, o método obteve o melhor $R^2$ em 85,7\% dos casos e
-o melhor RMSE em 78,6\%, com redução do RMSE entre 24,3\% e 93,5\%, e o estudo
-de ablação mostrou que a inclusão da BiLSTM antes do \textit{Transformer}
-modificado reduziu o RMSE em 49,1\%. Os testes em quatro janelas de tempo
-indicaram desempenho estável, com $R^2$ médio entre 0,973 e 0,987. Os autores
-reconhecem que a previsão de algumas ações individuais ainda pode melhorar e,
-como trabalhos futuros, propõem otimizar a estrutura da rede, integrar
-múltiplas fontes de dados, como índices e informações fundamentalistas, e
-considerar janelas de tempo de diferentes tamanhos. Cabe observar, porém, que o
-artigo não informa a proporção entre os conjuntos de treino e de teste. Esse
-trabalho ilustra a combinação de redes recorrentes bidirecionais com
-codificadores \textit{Transformer} e convoluções temporais; ressalte-se que ele
-utiliza apenas dados de negociação e indicadores técnicos, apontando a
-integração de outras fontes de dados como trabalho futuro. Assim como o presente
-trabalho, o artigo trata a previsão do preço de fechamento como um problema de
-regressão sobre séries temporais financeiras e avalia a LSTM; diferencia-se, no
-entanto, por propor uma arquitetura híbrida que combina BiLSTM,
-\textit{Transformer} e TCN, sem considerar a GRU, enquanto o presente trabalho
-concentra a análise nas redes recorrentes LSTM e GRU.
-
-\textcite{haryono_transformer-gated_2023} partem da constatação de que o
-sentimento das notícias influencia indiretamente os preços das ações, além dos
-indicadores técnicos, e de que quantificar esse sentimento ao longo do tempo é
-o principal desafio para incorporá-lo à previsão, com o objetivo de propor um
-método de quantificação do sentimento que considere a sequência temporal e de
-usá-lo na previsão do preço de fechamento. Os autores utilizam manchetes de um
-portal de notícias indonésio, de janeiro de 2017 a março de 2022, nas
-categorias investimento, finanças, indústria, nacional e internacional, e preços
-diários de oito ações indonésias, cinco de grande capitalização e três entre as
-de maior valorização no período, obtidos pela biblioteca \textit{yfinance} do
-Yahoo Finance. As manchetes são rotuladas quanto ao sentimento por tradução para
-o inglês e por um modelo RoBERTa pré-treinado e, em seguida, classificadas por
-aspecto e sentimento com um modelo IndoBERT atualizado mensalmente por
-aprendizado ativo, cujos escores diários de confiança formam 35 indicadores de
-sentimento; os cinco atributos de preço e volume são expandidos para 43
-indicadores técnicos, e a seleção de atributos reduz a multicolinearidade. O
-modelo proposto, \textit{Transformer Encoder Gated Recurrent Unit} (TEGRU), usa
-um codificador \textit{Transformer} com atenção multicabeça para aprender os
-padrões temporais e uma camada GRU, no lugar do decodificador, para prever o
-fechamento do dia seguinte; ele é comparado com o codificador
-\textit{Transformer}, o \textit{Transformer} completo, o Informer e o FEDformer
-em cinco cenários de atributos (fechamento univariado, indicadores técnicos
-originais, indicadores expandidos, fechamento com sentimento e indicadores
-expandidos com sentimento) e em janelas de 5 a 200 dias, pelas métricas $R^2$,
-RMSE, MSE e MAPE e por uma nova métrica, o AcMAPE, que combina o MAPE com o erro
-de classificação da direção do preço. A contribuição do artigo é o método de
-quantificação do sentimento por aprendizado ativo, a arquitetura TEGRU e a
-métrica AcMAPE. Nos resultados, os modelos de aprendizado ativo alcançaram
-acurácias de 0,87 na categorização de aspectos e de 0,88 na classificação de
-sentimento, com redução de até 63,4\% no volume de dados de treino; a TEGRU
-superou as demais arquiteturas na maioria das ações e cenários, empatando com o
-FEDformer no cenário com indicadores expandidos e sentimento, e o cenário com
-fechamento e sentimento obteve o menor MAPE médio (5,22) e o melhor AcMAPE
-(1,00), com o sentimento influenciando sobretudo as ações de maior valorização
-e menos as de grande capitalização. Os próprios autores reconhecem, porém, que
-esse cenário acertou a direção do preço em apenas 52\% dos casos, e que
-configurações com MAPE baixo, como 1,19\%, podem ter acurácia direcional de
-50\%, o que representa risco para o investidor; como trabalhos futuros, propõem
-selecionar notícias mais correlacionadas com cada ação, reduzir a periodicidade
-do aprendizado ativo de mensal para semanal e usar o AcMAPE como função de
-perda. Esse trabalho ilustra a integração do sentimento de notícias com
-indicadores técnicos em uma arquitetura que combina \textit{Transformer} e GRU,
-além de evidenciar que métricas de erro baixas não garantem acerto na direção
-do preço. Assim como o presente trabalho, o artigo trata a previsão do preço de
-fechamento como um problema de regressão sobre séries temporais financeiras e
-emprega a GRU; diferencia-se, no entanto, por usá-la como decodificador de um
-\textit{Transformer} alimentado por dados multimodais, sem compará-la com a LSTM,
 enquanto o presente trabalho concentra a análise nas redes recorrentes LSTM e
 GRU.
 
@@ -1109,54 +607,47 @@ adaptativa, em dados horários de câmbio, ouro e criptomoedas, sem considerar a
 GRU, enquanto o presente trabalho concentra a análise nas redes recorrentes
 LSTM e GRU.
 
-\subsection{Padronização e Avaliação Metodológica}\label{sec:tr-avaliacao}
-
-\textcite{hu_fintsb_2025} partem da constatação de que a avaliação de métodos de
-previsão de séries temporais financeiras apresenta três limitações sistêmicas:
-não contempla toda a variedade de padrões de movimento dos mercados
-(\textit{Diversity Gap}), carece de protocolos unificados que permitam comparar
-estudos (\textit{Standardization Deficit}) e ignora restrições da estrutura de
-mercado, o que infla os resultados e reduz sua aplicabilidade prática
-(\textit{Real-World Mismatch}). O objetivo é propor um \textit{benchmark}
-abrangente e prático para essa área, o FinTSB. Para construí-lo, os autores
-dividem 15 anos de dados históricos de ações em segmentos não sobrepostos de
-250 pregões e classificam as ações de cada segmento, pela taxa de variação
-diária, em quatro padrões de movimento: tendência de alta, tendência de baixa,
-volatilidade e eventos extremos (\textit{black swan events}); os dados são
-anonimizados e normalizados entre as ações a cada dia, para evitar vazamento de
-informação futura, resultando em 20 conjuntos de dados, cinco por padrão, cada
-um com 300 ações e 250 pregões, divididos em 70\% para treino, 10\% para
-validação e 20\% para teste. A avaliação é padronizada em onze métricas de três
-dimensões: ordenação, como o coeficiente de informação (\textit{Information
-Coefficient}, IC); carteira, como retorno anualizado, volatilidade, perda máxima
-e índice de Sharpe; e erro, MSE e MAE. Um \textit{pipeline} unificado, com
-camadas de dados, treinamento, simulação histórica (\textit{backtesting}) e
-retorno de resultados, incorpora restrições reais, como taxas de transação de
-0,1\% e a estratégia de carteira Top$K$-Drop, que limita a rotatividade. A
-contribuição do artigo é esse \textit{benchmark}, com a classificação dos padrões
-de movimento, o protocolo padronizado de avaliação e a modelagem de restrições
-de mercado, acompanhado de uma comparação ampla entre estratégias clássicas,
-modelos de aprendizado de máquina, como XGBoost, LightGBM e ARIMA, de
-aprendizado profundo, como LSTM, GRU, TCN, \textit{Transformer} e PatchTST, de
-aprendizado por reforço, generativos e baseados em grandes modelos de
-linguagem. Nos resultados, nenhum método obteve o melhor desempenho nas três
-dimensões de métricas, houve grande heterogeneidade mesmo entre modelos de uma
-mesma família, e técnicas modernas de aprendizado profundo não superaram de
-forma consistente as estratégias quantitativas tradicionais nem os modelos
-baseados em árvores; os modelos treinados no FinTSB e testados no índice CSI 300
-em 2024, sem novo treinamento, mantiveram desempenho consistente. Os autores
-ressaltam ainda que erros de previsão baixos têm pouca correlação com o retorno
-efetivo dos investimentos. O artigo não discute limitações do próprio
-\textit{benchmark} nem aponta trabalhos futuros específicos. Esse trabalho
-evidencia a necessidade de protocolos de avaliação padronizados, diversificados
-quanto aos regimes de mercado e próximos das condições reais de negociação,
-ponto que se relaciona às fragilidades de protocolo observadas em vários dos
-trabalhos discutidos nesta seção. Assim como o presente trabalho, o artigo
-avalia a LSTM e a GRU sobre séries temporais financeiras; diferencia-se, no
-entanto, por propor uma infraestrutura de avaliação, e não um modelo, com foco
-na previsão de retornos para ordenação de ações e construção de carteiras,
-enquanto o presente trabalho aborda a previsão de preços como um problema de
-regressão, com foco nas redes recorrentes LSTM e GRU.
+\textcite{luo_short-term_2024} tratam da previsão de curto prazo da correlação
+entre ações, essencial para a gestão de carteiras e a diversificação de risco,
+partindo da constatação de que os modelos de séries temporais existentes
+consideram apenas o histórico das ações e ignoram que a correlação é afetada
+por múltiplos fatores e segue tendências instáveis, com o objetivo de melhorar a
+precisão dessa previsão. Os autores utilizam dados diários de oito ações do
+mercado acionário chinês, divididas em dois grupos de quatro, entre janeiro de
+2017 e janeiro de 2022, totalizando 1.227 pregões, com dados de exposição a
+fatores fornecidos por uma corretora e dados de negociação de mercado. Os
+fatores de risco do modelo Barra, como capitalização de mercado, lucros,
+crescimento e alavancagem, são tratados quanto a valores extremos e ausentes,
+padronizados e neutralizados, e um modelo multifatorial explica os retornos e
+permite calcular a correlação entre as ações. O modelo proposto,
+CNN-BiLSTM-\textit{Attention} (CLATT), recebe as séries de correlação e de
+retornos, com janela de 68 dias escolhida experimentalmente: a CNN extrai
+características de alta dimensão, uma LSTM bidirecional (BiLSTM) de duas
+camadas captura as dependências temporais locais e globais, e um mecanismo de
+atenção pondera as saídas da BiLSTM; o treinamento usa a função de perda MSE, e
+os dados são divididos em 80\% para treino e 20\% para teste. A contribuição do
+artigo é o modelo CLATT, associado ao uso de um modelo multifatorial para
+quantificar a correlação e à inclusão dos retornos como entrada adicional,
+comparado com CNN, LSTM, CNN-LSTM e CNN-BiLSTM pelas métricas MSE, RMSE, MAE,
+MAPE e $R^2$. Nos resultados, o CLATT obteve $R^2$ de 0,9825 e 0,9661 nos dois
+grupos, contra 0,9577 e 0,9184 da LSTM e 0,9647 e 0,9329 da CNN-BiLSTM, e
+reduziu o MAPE em 57,32\% e 33\% em relação à LSTM e em 56,06\% e 28,87\% em
+relação à CNN-BiLSTM; o estudo de ablação mostrou que incluir os retornos como
+entrada reduz os erros em relação ao uso exclusivo das séries de correlação. Os
+autores reconhecem que a natureza caótica do sistema financeiro ainda limita a
+precisão, que os fatores considerados poderiam ser mais abrangentes e que, por
+restrições de tempo e de dados, não usaram ações de outros mercados, e indicam
+esses pontos como trabalhos futuros. Cabe observar, porém, que a avaliação usa
+apenas oito ações de um único mercado e que o artigo não informa se a divisão
+entre treino e teste respeita a ordem cronológica. Esse trabalho ilustra a
+combinação de convoluções, redes recorrentes bidirecionais e mecanismos de
+atenção para modelar relações temporais e estruturais entre ativos. Assim como o
+presente trabalho, o artigo trata uma tarefa de regressão sobre séries
+temporais financeiras e compara seu modelo com a LSTM; diferencia-se, no
+entanto, por prever a correlação entre ações, e não seus preços, com uma
+arquitetura híbrida que combina CNN, BiLSTM e atenção, sem considerar a GRU,
+enquanto o presente trabalho concentra a análise nas redes recorrentes LSTM e
+GRU.
 
 % ---------------------------------------------------------------------------
 % 4. Método
