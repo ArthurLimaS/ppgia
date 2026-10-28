@@ -160,66 +160,28 @@ aproximadamente.
 % ---------------------------------------------------------------------------
 \section{Introdução}\label{sec:introducao}
 
-A introdução deve possuir exatamente a mesma estrutura do resumo. Contudo,
-enquanto no resumo cada uma das 5 dimensões (contexto, problema, solução atual,
-proposta e resultados) possui de 2 a 4 linhas, aqui cada dimensão deve possuir
-de 1 a 2 parágrafos.
+O mercado de ações ocupa posição central na economia: além de refletir o crescimento econômico de um país, ele serve de base para a formulação de políticas econômicas \parencite{li_accurate_2024} e é um ponto de atenção para que o Estado acompanhe tendências econômicas e se antecipe a crises \parencite{sun_novel_2024}. Para investidores e instituições, compreender o comportamento dos preços também orienta decisões de alocação e de gestão de risco. Por isso, a análise e a previsão de séries temporais financeiras mobilizam há décadas a estatística, as finanças quantitativas e, mais recentemente, o aprendizado de máquina.
 
-Lembre-se que você deve incluir referências para os tópicos que sejam abordados
-e explicados a partir da introdução e não apenas na seção de trabalhos
-relacionados (SOBRENOME1, A., 2000; SOBRENOME2, B., 2001). A notação deve ser
-conforme apresentado na frase anterior, caso tenham dois a 3 autores, a notação
-é um pouco diferente (SOBRENOME1, A., SOBRENOME2, B. e SOBRENOME3, C., 2002).
-Caso tenha a partir de 4 autores, utiliza-se o primeiro autor seguido de
-\emph{et al.} (SOBRENOME1, A. \emph{et al.} 2003).
+Essas séries, contudo, são difíceis de analisar. Elas apresentam não linearidade, não estacionariedade, alta volatilidade e muito ruído \parencite{li_accurate_2024, sun_novel_2024}, e alternam ao longo do tempo períodos de alta, de baixa e de maior ou menor volatilidade \parencite{hu_fintsb_2025}. Assim, as conclusões obtidas a partir de uma série dependem fortemente do período analisado e das condições de mercado que ele contém.
 
-Evite usar links como referência. Se precisar incluir algum link, dê preferência
-a colocar explicitamente no texto (\url{https://abnt.org.br/}) , ou mesmo como
-rodapé\footnote{\url{https://www.todamateria.com.br/normas-abnt-trabalhos/}}.
-Caso seja necessário incluir uma referência como link, é preciso incluir o
-último acesso à página e dar preferência a links que não baixo risco de sair do
-ar e que sejam consolidados (como site do uml, ou de uma linguagem de
-programação).
+Boa parte da literatura de previsão financeira concentra-se em propor e comparar modelos e trata a base de dados apenas como insumo. Como apontam \textcite{hu_fintsb_2025}, as bases utilizadas frequentemente não contemplam a variedade de padrões de movimento dos mercados, e a ausência de protocolos padronizados de preparação e avaliação dificulta comparar e reproduzir os resultados. Quando não se sabe quais condições de tendência e volatilidade uma base contém, nem como ela foi preparada, fica difícil avaliar o alcance das conclusões que dela derivam, inclusive das que venham a se apoiar em modelos treinados sobre ela.
 
-Diante desse contexto, este trabalho investiga as seguintes perguntas de
-pesquisa.
+Esse problema tem sido enfrentado de duas formas principais. A primeira é a construção de \textit{benchmarks} que reúnem séries com diferentes padrões de movimento e padronizam a avaliação, como o FinTSB \parencite{hu_fintsb_2025}. A segunda é o uso de técnicas que caracterizam o comportamento das séries: a definição e a detecção de tendências \parencite{miot_empirical_2020, hosseini_pattern-based_2025, anghinoni_time_2019}, a identificação de pontos de mudança \parencite{wan_tcdformer_2024}, a medição da volatilidade e da não estacionariedade \parencite{biswas_dual_2025, anbaee_farimani_adaptive_2024} e a análise da associação entre ativos ao longo do tempo \parencite{luo_short-term_2024}, discutidas na Seção~\ref{sec:trabalhos-relacionados}.
 
-\textbf{PP1:} Quais condições de tendência e volatilidade aparecem na série de
-preços da PETR4 e como elas se distribuem ao longo do período analisado?
+Nos trabalhos analisados, porém, essas técnicas aparecem em geral como etapas de modelos preditivos, e não como instrumentos para descrever e documentar a base em si. Além disso, um \textit{benchmark} não substitui a análise da base específica construída para um estudo. Entre os trabalhos analisados, apenas um trata do mercado brasileiro: ele caracteriza as tendências do índice Bovespa, sem relacioná-las a um ativo individual \parencite{anghinoni_time_2019}. Falta, portanto, caracterizar de forma reproduzível as condições de mercado presentes na base de um ativo brasileiro e situá-las em relação ao comportamento do mercado.
 
-Esta pergunta busca caracterizar a diversidade temporal da série da PETR4. Isto
-é, identificar quais condições de tendência e volatilidade estão presentes na
-amostra, por quanto tempo se mantêm e como se alternam ao longo do período. A
-PETR4, ação preferencial da Petrobras, é um ativo conhecido do mercado acionário
-brasileiro e apresenta, em uma exploração preliminar dos últimos cinco anos,
-valorização do preço de fechamento entremeada por períodos de queda, o que a
-torna um caso de interesse para estudos sobre séries de ações. Esse interesse,
-porém, não garante que a série seja adequada para análise: como apontam
-\textcite{hu_fintsb_2025}, bases de dados de ações frequentemente não contemplam
-a variedade de padrões de movimento observados nos mercados
-(\textit{Diversity Gap}), e conjuntos com apenas três a cinco anos de dados podem
-não representar todos esses padrões. Assim, embora cinco anos sejam adotados
-como janela inicial, esse período pode não ser suficiente, o que torna
-necessário verificar quais condições de tendência e volatilidade a base de fato
-contém e se essa variedade a torna interessante de explorar. Os critérios de caracterização da tendência e da
-volatilidade serão definidos e justificados na Seção~\ref{sec:metodo}.
+Este trabalho, recorte de um projeto de dissertação sobre previsão de séries temporais financeiras, propõe preparar, de forma reproduzível, uma base com as séries da PETR4 e do índice Ibovespa, obtidas no \textit{Yahoo Finance} com janela inicial de cinco anos, e analisar a sua diversidade temporal. Em vez de propor um modelo preditivo, o trabalho documenta as decisões de coleta e de preparação, caracteriza as condições de tendência e volatilidade da PETR4, compara-as com o comportamento do índice e discute as limitações da base. Essa investigação é orientada pelas seguintes perguntas de pesquisa.
 
-\textbf{PP2:} Como o comportamento da PETR4 se relaciona com o do índice
-Ibovespa nos períodos identificados na PP1?
+\textbf{PP1:} Quais condições de tendência e volatilidade aparecem na série de preços da PETR4 e como elas se distribuem ao longo do período analisado?
 
-Esta pergunta busca contextualizar o comportamento da PETR4 em relação ao índice
-Ibovespa, tomado como referência de mercado, em termos de concordância ou
-divergência de tendência, volatilidade e de associação entre os retornos das
-duas séries. Isto é, verificar em quais períodos o ativo acompanha o índice e em
-quais se afasta dele. Ela complementa o objetivo principal ao situar a
-caracterização da PETR4 em um referencial de mercado. A análise respeita limites
-claros: a associação entre retornos não implica relação causal, a comparação com
-um único índice não representa o mercado como um todo nem outros ativos, e os
-resultados não serão usados para avaliar a capacidade preditiva de modelos.
+Esta pergunta busca caracterizar a diversidade temporal da série da PETR4. Isto é, identificar quais condições de tendência e volatilidade estão presentes na amostra, por quanto tempo se mantêm e como se alternam ao longo do período. A PETR4, ação preferencial da Petrobras, é um ativo conhecido do mercado acionário brasileiro e apresenta, em uma exploração preliminar dos últimos cinco anos, valorização do preço de fechamento entremeada por períodos de queda, o que a torna um caso de interesse para estudos sobre séries de ações. Esse interesse, porém, não garante que a série seja adequada para análise: como apontam \textcite{hu_fintsb_2025}, bases de dados de ações frequentemente não contemplam a variedade de padrões de movimento observados nos mercados (\textit{Diversity Gap}), e conjuntos com apenas três a cinco anos de dados podem não representar todos esses padrões. Assim, embora cinco anos sejam adotados como janela inicial, esse período pode não ser suficiente, o que torna necessário verificar quais condições de tendência e volatilidade a base de fato contém e se essa variedade a torna interessante de explorar. Os critérios de caracterização da tendência e da volatilidade serão definidos e justificados na Seção~\ref{sec:metodo}.
 
-Deve-se ainda dar uma ideia rápida de algum resultado alcançado. Por isso, esta
-seção precisa ser ajustada no fim do trabalho. (Alguns trabalhos ainda colocam
-um parágrafo indicando as seções do artigo).
+\textbf{PP2:} Como o comportamento da PETR4 se relaciona com o do índice Ibovespa nos períodos identificados na PP1?
+
+Esta pergunta busca contextualizar o comportamento da PETR4 em relação ao índice Ibovespa, tomado como referência de mercado, em termos de concordância ou divergência de tendência, volatilidade e de associação entre os retornos das duas séries. Isto é, verificar em quais períodos o ativo acompanha o índice e em quais se afasta dele. Ela complementa o objetivo principal ao situar a caracterização da PETR4 em um referencial de mercado. A análise respeita limites claros: a associação entre retornos não implica relação causal, a comparação com um único índice não representa o mercado como um todo nem outros ativos, e os resultados não serão usados para avaliar a capacidade preditiva de modelos.
+
+% Resultados: 1 a 2 parágrafos, a redigir após a análise exploratória
+% (indícios que respondem à PP1 e à PP2).
 
 \subsection{Objetivos}\label{sec:objetivos}
 
