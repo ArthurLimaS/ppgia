@@ -21,7 +21,7 @@ Construir a seção 3, "Trabalhos Relacionados", de `analise_dados_2026_2/latex/
 
 ### 1.2 Estado atual verificado (2026-10-27)
 
-- Só `mahjouby_predicting_2024` está citada no `main.tex` (E01, 3.1). As outras 19 chaves ainda não.
+- Estão citadas no `main.tex` `mahjouby_predicting_2024` (E01) e `sharma_stock_2023` (E02), ambas na 3.1. As outras 18 chaves ainda não.
 - O esqueleto de subseções foi criado na E00 (2026-10-27). A seção 3 tem só os oito títulos de §3, sem parágrafos.
 - `artigos/` contém `.gitignore`, rastreado no commit `990cbee`, e `mahjouby_predicting_2024.pdf`, ignorado pelo Git. **As fontes dos outros 19 artigos ainda não existem.**
 - Os artigos-fonte podem ser `.pdf` ou `.md` (D17). A leitura de PDF depende do `poppler-utils`, instalado em 2026-10-27.
@@ -34,30 +34,30 @@ Construir a seção 3, "Trabalhos Relacionados", de `analise_dados_2026_2/latex/
 
 Os estados possíveis estão definidos em §5.7. O campo "Pré-requisitos pendentes" lista o que falta para a etapa poder ser iniciada.
 
-| ID  | Destino | Chave                             | Estado       | Pré-requisitos pendentes       |
-| --- | ------- | --------------------------------- | ------------ | ------------------------------ |
-| E00 | —       | Preparação, inventário e proteção | Concluída    | —                              |
-| E01 | 3.1     | `mahjouby_predicting_2024`        | Concluída    | —                              |
-| E02 | 3.1     | `sharma_stock_2023`               | Não iniciada | fonte                          |
-| E03 | 3.2     | `k_leveraging_2023`               | Não iniciada | fonte                          |
-| E04 | 3.2     | `miot_empirical_2020`             | Não iniciada | fonte                          |
-| E05 | 3.3     | `kiruba_risk_2025`                | Não iniciada | fonte                          |
-| E06 | 3.3     | `ramkumar_development_2023`       | Não iniciada | fonte                          |
-| E07 | 3.3     | `liu_application_2024`            | Não iniciada | fonte                          |
-| E08 | 3.4.1   | `sun_novel_2024`                  | Não iniciada | fonte                          |
-| E09 | 3.4.1   | `li_accurate_2024`                | Não iniciada | fonte                          |
-| E10 | 3.4.1   | `hosseini_pattern-based_2025`     | Não iniciada | fonte                          |
-| E11 | 3.4.1   | `wan_tcdformer_2024`              | Não iniciada | fonte                          |
-| E12 | 3.4.2   | `biswas_dual_2025`                | Não iniciada | fonte                          |
-| E13 | 3.4.2   | `luo_short-term_2024`             | Não iniciada | fonte                          |
-| E14 | 3.4.2   | `hsu_fingat_2023`                 | Não iniciada | fonte                          |
-| E15 | 3.4.2   | `anghinoni_time_2019`             | Não iniciada | fonte                          |
-| E16 | 3.4.3   | `choi_hybrid_2023`                | Não iniciada | fonte                          |
-| E17 | 3.4.3   | `wang_stock_2023`                 | Não iniciada | fonte                          |
-| E18 | 3.4.3   | `haryono_transformer-gated_2023`  | Não iniciada | fonte                          |
-| E19 | 3.4.3   | `anbaee_farimani_adaptive_2024`   | Não iniciada | fonte                          |
-| E20 | 3.5     | `hu_fintsb_2025`                  | Não iniciada | fonte                          |
-| E21 | Seção 3 | Revisão integrada                 | Não iniciada | E02–E20 concluídas; PE-3; PE-4 |
+| ID  | Destino | Chave                             | Estado                 | Pré-requisitos pendentes       |
+| --- | ------- | --------------------------------- | ---------------------- | ------------------------------ |
+| E00 | —       | Preparação, inventário e proteção | Concluída              | —                              |
+| E01 | 3.1     | `mahjouby_predicting_2024`        | Concluída              | —                              |
+| E02 | 3.1     | `sharma_stock_2023`               | Em execução autorizada | Validação do usuário           |
+| E03 | 3.2     | `k_leveraging_2023`               | Não iniciada           | fonte                          |
+| E04 | 3.2     | `miot_empirical_2020`             | Não iniciada           | fonte                          |
+| E05 | 3.3     | `kiruba_risk_2025`                | Não iniciada           | fonte                          |
+| E06 | 3.3     | `ramkumar_development_2023`       | Não iniciada           | fonte                          |
+| E07 | 3.3     | `liu_application_2024`            | Não iniciada           | fonte                          |
+| E08 | 3.4.1   | `sun_novel_2024`                  | Não iniciada           | fonte                          |
+| E09 | 3.4.1   | `li_accurate_2024`                | Não iniciada           | fonte                          |
+| E10 | 3.4.1   | `hosseini_pattern-based_2025`     | Não iniciada           | fonte                          |
+| E11 | 3.4.1   | `wan_tcdformer_2024`              | Não iniciada           | fonte                          |
+| E12 | 3.4.2   | `biswas_dual_2025`                | Não iniciada           | fonte                          |
+| E13 | 3.4.2   | `luo_short-term_2024`             | Não iniciada           | fonte                          |
+| E14 | 3.4.2   | `hsu_fingat_2023`                 | Não iniciada           | fonte                          |
+| E15 | 3.4.2   | `anghinoni_time_2019`             | Não iniciada           | fonte                          |
+| E16 | 3.4.3   | `choi_hybrid_2023`                | Não iniciada           | fonte                          |
+| E17 | 3.4.3   | `wang_stock_2023`                 | Não iniciada           | fonte                          |
+| E18 | 3.4.3   | `haryono_transformer-gated_2023`  | Não iniciada           | fonte                          |
+| E19 | 3.4.3   | `anbaee_farimani_adaptive_2024`   | Não iniciada           | fonte                          |
+| E20 | 3.5     | `hu_fintsb_2025`                  | Não iniciada           | fonte                          |
+| E21 | Seção 3 | Revisão integrada                 | Não iniciada           | E02–E20 concluídas; PE-3; PE-4 |
 
 Na coluna de pré-requisitos, "fonte" significa que nem `artigos/<chave>.pdf` nem `artigos/<chave>.md` existe ainda (D17). Os artigos são adicionados aos poucos: cada etapa depende apenas da **própria** fonte, não da presença dos 20 (D16).
 
@@ -65,14 +65,14 @@ Na coluna de pré-requisitos, "fonte" significa que nem `artigos/<chave>.pdf` ne
 
 | ID   | Descrição                                                                                                                                                                                                                                                                                                             | Afeta                                  | Quem resolve                                                      |
 | ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ----------------------------------------------------------------- |
-| PF-1 | Só a fonte de `mahjouby_predicting_2024` existe (`.pdf`); faltam as outras 19. Elas serão adicionadas aos poucos, em `.pdf` ou `.md`, e cada etapa só exige a própria (D16, D17).                                                                                                                                     | Cada etapa de E02–E20, individualmente | Usuário                                                           |
+| PF-1 | Existem as fontes de `mahjouby_predicting_2024` e `sharma_stock_2023` (`.pdf`); faltam as outras 18. Elas serão adicionadas aos poucos, em `.pdf` ou `.md`, e cada etapa só exige a própria (D16, D17).                                                                                                               | Cada etapa de E03–E20, individualmente | Usuário                                                           |
 | PE-1 | O escopo de comparação é provisório (D07). Se a Introdução ou os Objetivos do `main.tex` forem preenchidos, confira se há divergência.                                                                                                                                                                                | E01–E21                                | Agente verifica; usuário decide                                   |
 | PE-3 | Os parágrafos de E01–E20 são completos e detalhados de propósito (D20) e resumem os artigos muito melhor que a planilha de refinamento. Antes de qualquer condensação na E21, o usuário deve copiá-los e guardá-los fora do `main.tex`, para reutilizar depois (por exemplo, nas entregas do projeto de dissertação). | E21 (bloqueia a condensação)           | Usuário                                                           |
 | PE-4 | Os parágrafos estão completos demais para um artigo de disciplina. Na E21 eles devem ser refinados para reduzir o tamanho e o detalhamento. O grau de redução depende da opinião do professor da disciplina, que o usuário vai consultar.                                                                             | E21                                    | Usuário (com o professor) decide; agente executa após autorização |
 
 ### 1.5 Próximo passo
 
-E00 e E01 concluídas. Próxima etapa: a primeira de E02–E20 cuja fonte chegar em `artigos/` (PF-1). Manter o nível de detalhe da E01 (D20).
+E00 e E01 concluídas. **E02** (`sharma_stock_2023`): parágrafo inserido em 2026-10-28 (linhas 302–335 do `main.tex`); aguardando a validação do usuário para concluir. Manter o nível de detalhe da E01 (D20).
 
 ---
 
@@ -434,8 +434,14 @@ Cada ficha traz só o que é específico da etapa. "Plano" indica as linhas de `
 #### E02 — `sharma_stock_2023` → 3.1
 
 - Plano: 82. CSV: 19 (Trabalhos Futuros "Não fala sobre"; confirmar no artigo).
-- Verificar se o SVM atribuído pelo Plano (linha 82) a `mahjouby` e `sharma` vem deste artigo. Na E01, constatou-se que `mahjouby` só cita SVM em II. Literature Review, ¶1 (p. 2).
-- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a fonte.
+- SVM do Plano (linha 82): verificado em 2026-10-28 que vem deste artigo. Ele é descrito em III.D Methods Used, item 3 (p. 3), e avaliado como regressão (SVR) na Tabela 1 (p. 5). `mahjouby` só cita SVM na revisão da literatura.
+- Fonte: `artigos/sharma_stock_2023.pdf` (6 páginas), presente desde 2026-10-28.
+- Orientações do usuário para a redação (2026-10-28):
+  - Mesmo papel e mesma crítica da E01: trabalho recente que ainda usa modelos clássicos; lacunas de protocolo (proporção treino/teste, hiperparâmetros, escalonamento).
+  - Descrever os dados como preços da Reliance Industries obtidos no Yahoo Finance e mencionar como crítica a descrição inconsistente de III.A (Apple 2010–2019, camadas e _dropout_).
+  - Reportar os resultados por métrica: XGBoost com menor MAE e maior R²; _Random Forest_ com menor MSE.
+  - Usar a terminologia correta (SVR, regressão por vetores de suporte), sem apontar o uso impreciso do termo pelos autores.
+- Estado: Em execução autorizada (2026-10-28). Parágrafo inserido nas linhas 302–335. Próximo passo: validação do usuário (§6.E).
 
 #### E03 — `k_leveraging_2023` → 3.2
 
@@ -568,3 +574,6 @@ Cada ficha traz só o que é específico da etapa. "Plano" indica as linhas de `
 | 2026-10-27 | E01   | Autorização expressa do usuário ("Autorizado"). Parágrafo inserido como primeiro da 3.1 (linhas 272–300), com `\textcite{mahjouby_predicting_2024}`. Conferido por leitura: o `git diff` do `main.tex` tem um único bloco (`@@ -271,0 +272,30 @@`), entre o título da 3.1 e o da 3.2; a chave aparece uma única vez no `main.tex`; não há `\citep`/`\citet`; a chave existe no `.bib` do projeto. Critérios de §6.E atendidos, exceto a validação do usuário. Compilação a cargo do usuário.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | 2026-10-28 | E01   | Parágrafo validado pelo usuário ("Está bom"); E01 **Concluída**. Antes da validação, o usuário acrescentou ao parágrafo os termos em inglês dos atributos (`\textit{Open}`, `\textit{High}`, `\textit{Low}`, `\textit{Close}`). Compilação a cargo do usuário.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | 2026-10-28 | E21   | A pedido do usuário: decisão D20 (E01–E20 mantêm parágrafos completos; polimento só na E21) e pendências PE-3 (usuário guarda os textos completos antes de condensar) e PE-4 (condensar conforme a orientação do professor). A ficha E21 ganhou os itens 8 e 9, e o quadro passou a listar PE-3 e PE-4 como pré-requisitos.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| 2026-10-28 | E02   | Passos A e B executados, sem edição do manuscrito. A1: E00 concluída; fonte `artigos/sharma_stock_2023.pdf` (6 páginas, lidas integralmente; números da Tabela 1 conferidos também na camada de texto); chave presente no `.bib` (`@inproceedings`); nenhuma menção à chave, ao sobrenome, ao título ou a "XGBoost" no `main.tex`. A4: CSV registro 19 e Plano linha 82 lidos; Trabalhos Futuros "Não fala sobre" confirmado (ausente no artigo). A5: Introdução e Objetivos ainda são texto do template, então vale D07. A6: SVM do Plano confirmado neste artigo. Dúvidas abertas: (1) descrição inconsistente dos dados em III.A (Apple 2010–2019 e configuração de camadas e _dropout_ × Reliance nos resultados); (2) XGBoost declarado melhor, mas o _Random Forest_ tem o menor MSE na Tabela 1; (3) aplicar o mesmo enquadramento e a mesma crítica da E01.                                                                                                                                                                                                                                                                     |
+| 2026-10-28 | E02   | Dúvidas 1–3 e o ponto informativo aprovados pelo usuário; orientações registradas na ficha E02. E02 passa a **Aguardando autorização**.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| 2026-10-28 | E02   | Autorização expressa do usuário ("Autorizado"). Parágrafo inserido na 3.1, depois do parágrafo da E01 (linhas 302–335), com `\textcite{sharma_stock_2023}`. Conferido por leitura: o `git diff` do `main.tex` tem um único bloco (`@@ -301,0 +302,35 @@`), antes do título da 3.2; a chave aparece uma única vez no `main.tex`; não há `\citep`/`\citet`; a chave existe no `.bib` do projeto. Critérios de §6.E atendidos, exceto a validação do usuário. Compilação a cargo do usuário. |

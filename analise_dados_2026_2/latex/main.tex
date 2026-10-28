@@ -299,6 +299,41 @@ diferencia, contudo, por considerar a LSTM apenas uma entre sete alternativas,
 sem detalhar sua configuração e sem incluir a GRU, ao passo que o presente
 trabalho concentra a análise nas redes recorrentes LSTM e GRU.
 
+\textcite{sharma_stock_2023} tratam da previsão do preço de ações, dificultada
+pela volatilidade do mercado e pela variedade de fatores que influenciam o valor
+dos papéis, como taxas de juros, câmbio e o comportamento, racional ou
+irracional, dos investidores, com o objetivo de aplicar diferentes algoritmos de
+aprendizado de máquina à previsão do preço de fechamento e identificar o mais
+preciso. Os autores utilizam preços históricos da Reliance Industries obtidos no
+Yahoo Finance, dos quais mantêm apenas a data (\textit{Date}) e o preço de
+fechamento (\textit{Close}), e preveem o fechamento de cada dia a partir dos 100
+dias anteriores. São avaliados o k-vizinhos mais próximos (\textit{k-Nearest
+Neighbors}, k-NN), o \textit{Random Forest}, a regressão por vetores de suporte
+(\textit{Support Vector Regression}, SVR) com \textit{kernel} RBF, o
+\textit{AdaBoost} e o XGBoost, com as métricas erro absoluto médio (MAE), erro
+quadrático médio (MSE) e coeficiente de determinação ($R^2$). A contribuição do
+artigo é essa comparação entre modelos clássicos de aprendizado de máquina na
+previsão de preços de ações. Nos resultados, o XGBoost obteve o menor MAE
+(0,014) e o maior $R^2$ (0,995), seguido de perto pelo \textit{AdaBoost} (MAE de
+0,015 e $R^2$ de 0,993), enquanto o \textit{Random Forest} apresentou o menor MSE
+(0,001, contra 0,004 do XGBoost); com base nesses resultados, os autores
+concluem que o XGBoost supera os demais modelos. O artigo não discute limitações
+nem aponta trabalhos futuros. Cabe observar, porém, que a descrição dos dados é
+inconsistente, pois a mesma seção menciona também ações da Apple entre 2010 e
+2019 e uma configuração de camadas e \textit{dropout} própria de redes neurais,
+que não estão entre os modelos avaliados, e que o artigo não informa a proporção
+entre treino e teste, os hiperparâmetros dos modelos nem o procedimento de
+escalonamento dos dados, o que dificulta a reprodução dos resultados. Esse
+trabalho mostra que modelos clássicos, em especial os \textit{ensembles} de
+árvores de decisão como o XGBoost, seguem presentes e competitivos em pesquisas
+recentes, mas suas fragilidades metodológicas reforçam a necessidade de
+protocolos de avaliação mais robustos. Assim como o presente trabalho, o artigo
+formula a previsão do preço de fechamento como um problema de regressão sobre
+séries temporais financeiras; diferencia-se, no entanto, por se restringir a
+modelos clássicos, pois, embora sua revisão da literatura discuta abordagens
+baseadas em LSTM, os autores não as avaliam, enquanto o presente trabalho
+concentra a análise nas redes recorrentes LSTM e GRU.
+
 \subsection{Redes Neurais Recorrentes e LSTM}\label{sec:tr-recorrentes}
 
 \subsection{Modelos Híbridos}\label{sec:tr-hibridos}
