@@ -21,7 +21,7 @@ Construir a seção 3, "Trabalhos Relacionados", de `analise_dados_2026_2/latex/
 
 ### 1.2 Estado atual verificado (2026-10-27)
 
-- Nenhuma das 20 chaves está citada no `main.tex`.
+- Só `mahjouby_predicting_2024` está citada no `main.tex` (E01, 3.1). As outras 19 chaves ainda não.
 - O esqueleto de subseções foi criado na E00 (2026-10-27). A seção 3 tem só os oito títulos de §3, sem parágrafos.
 - `artigos/` contém `.gitignore`, rastreado no commit `990cbee`, e `mahjouby_predicting_2024.pdf`, ignorado pelo Git. **As fontes dos outros 19 artigos ainda não existem.**
 - Os artigos-fonte podem ser `.pdf` ou `.md` (D17). A leitura de PDF depende do `poppler-utils`, instalado em 2026-10-27.
@@ -34,46 +34,45 @@ Construir a seção 3, "Trabalhos Relacionados", de `analise_dados_2026_2/latex/
 
 Os estados possíveis estão definidos em §5.7. O campo "Pré-requisitos pendentes" lista o que falta para a etapa poder ser iniciada.
 
-| ID  | Destino | Chave                             | Estado       | Pré-requisitos pendentes |
-| --- | ------- | --------------------------------- | ------------ | ------------------------ |
-| E00 | —       | Preparação, inventário e proteção | Concluída    | —                        |
-| E01 | 3.1     | `mahjouby_predicting_2024`        | Não iniciada | —                        |
-| E02 | 3.1     | `sharma_stock_2023`               | Não iniciada | fonte                    |
-| E03 | 3.2     | `k_leveraging_2023`               | Não iniciada | fonte; PB-1              |
-| E04 | 3.2     | `miot_empirical_2020`             | Não iniciada | fonte                    |
-| E05 | 3.3     | `kiruba_risk_2025`                | Não iniciada | fonte                    |
-| E06 | 3.3     | `ramkumar_development_2023`       | Não iniciada | fonte                    |
-| E07 | 3.3     | `liu_application_2024`            | Não iniciada | fonte                    |
-| E08 | 3.4.1   | `sun_novel_2024`                  | Não iniciada | fonte                    |
-| E09 | 3.4.1   | `li_accurate_2024`                | Não iniciada | fonte                    |
-| E10 | 3.4.1   | `hosseini_pattern-based_2025`     | Não iniciada | fonte                    |
-| E11 | 3.4.1   | `wan_tcdformer_2024`              | Não iniciada | fonte                    |
-| E12 | 3.4.2   | `biswas_dual_2025`                | Não iniciada | fonte                    |
-| E13 | 3.4.2   | `luo_short-term_2024`             | Não iniciada | fonte                    |
-| E14 | 3.4.2   | `hsu_fingat_2023`                 | Não iniciada | fonte; PB-2              |
-| E15 | 3.4.2   | `anghinoni_time_2019`             | Não iniciada | fonte                    |
-| E16 | 3.4.3   | `choi_hybrid_2023`                | Não iniciada | fonte                    |
-| E17 | 3.4.3   | `wang_stock_2023`                 | Não iniciada | fonte                    |
-| E18 | 3.4.3   | `haryono_transformer-gated_2023`  | Não iniciada | fonte                    |
-| E19 | 3.4.3   | `anbaee_farimani_adaptive_2024`   | Não iniciada | fonte                    |
-| E20 | 3.5     | `hu_fintsb_2025`                  | Não iniciada | fonte                    |
-| E21 | Seção 3 | Revisão integrada                 | Não iniciada | E01–E20 concluídas       |
+| ID  | Destino | Chave                             | Estado       | Pré-requisitos pendentes       |
+| --- | ------- | --------------------------------- | ------------ | ------------------------------ |
+| E00 | —       | Preparação, inventário e proteção | Concluída    | —                              |
+| E01 | 3.1     | `mahjouby_predicting_2024`        | Concluída    | —                              |
+| E02 | 3.1     | `sharma_stock_2023`               | Não iniciada | fonte                          |
+| E03 | 3.2     | `k_leveraging_2023`               | Não iniciada | fonte                          |
+| E04 | 3.2     | `miot_empirical_2020`             | Não iniciada | fonte                          |
+| E05 | 3.3     | `kiruba_risk_2025`                | Não iniciada | fonte                          |
+| E06 | 3.3     | `ramkumar_development_2023`       | Não iniciada | fonte                          |
+| E07 | 3.3     | `liu_application_2024`            | Não iniciada | fonte                          |
+| E08 | 3.4.1   | `sun_novel_2024`                  | Não iniciada | fonte                          |
+| E09 | 3.4.1   | `li_accurate_2024`                | Não iniciada | fonte                          |
+| E10 | 3.4.1   | `hosseini_pattern-based_2025`     | Não iniciada | fonte                          |
+| E11 | 3.4.1   | `wan_tcdformer_2024`              | Não iniciada | fonte                          |
+| E12 | 3.4.2   | `biswas_dual_2025`                | Não iniciada | fonte                          |
+| E13 | 3.4.2   | `luo_short-term_2024`             | Não iniciada | fonte                          |
+| E14 | 3.4.2   | `hsu_fingat_2023`                 | Não iniciada | fonte                          |
+| E15 | 3.4.2   | `anghinoni_time_2019`             | Não iniciada | fonte                          |
+| E16 | 3.4.3   | `choi_hybrid_2023`                | Não iniciada | fonte                          |
+| E17 | 3.4.3   | `wang_stock_2023`                 | Não iniciada | fonte                          |
+| E18 | 3.4.3   | `haryono_transformer-gated_2023`  | Não iniciada | fonte                          |
+| E19 | 3.4.3   | `anbaee_farimani_adaptive_2024`   | Não iniciada | fonte                          |
+| E20 | 3.5     | `hu_fintsb_2025`                  | Não iniciada | fonte                          |
+| E21 | Seção 3 | Revisão integrada                 | Não iniciada | E02–E20 concluídas; PE-3; PE-4 |
 
 Na coluna de pré-requisitos, "fonte" significa que nem `artigos/<chave>.pdf` nem `artigos/<chave>.md` existe ainda (D17). Os artigos são adicionados aos poucos: cada etapa depende apenas da **própria** fonte, não da presença dos 20 (D16).
 
 ### 1.4 Pendências e bloqueios
 
-| ID   | Descrição                                                                                                                                                                                                                                                               | Afeta                                  | Quem resolve                    |
-| ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ------------------------------- |
-| PF-1 | Só a fonte de `mahjouby_predicting_2024` existe (`.pdf`); faltam as outras 19. Elas serão adicionadas aos poucos, em `.pdf` ou `.md`, e cada etapa só exige a própria (D16, D17).                                                                                      | Cada etapa de E02–E20, individualmente | Usuário                         |
-| PB-1 | Em `k_leveraging_2023`, o primeiro autor está registrado como `K, Thinakaran`, e a citação sai `(K et al., 2023)`. "K" provavelmente é uma inicial, então a identidade do sobrenome é duvidosa. O coautor `V, Dilli Ganesh` tem o mesmo padrão, sem bloquear a citação. | E03 (bloqueia)                         | Usuário, no `.bib`              |
-| PB-2 | O título de `hsu_fingat_2023` contém `Top-{KK}`, que sai "Top-KK" na lista de referências. O CSV registra "Top-K".                                                                                                                                                      | E14 (bloqueia)                         | Usuário, no `.bib`              |
-| PB-3 | O coautor `S, Raghavi`, de `ramkumar_development_2023`, tem o mesmo padrão de PB-1. Afeta só a lista de referências.                                                                                                                                                    | E06 (informar, não bloqueia)           | Usuário, se quiser              |
-| PE-1 | O escopo de comparação é provisório (D07). Se a Introdução ou os Objetivos do `main.tex` forem preenchidos, confira se há divergência.                                                                                                                                  | E01–E21                                | Agente verifica; usuário decide |
+| ID   | Descrição                                                                                                                                                                                                                                                                                                             | Afeta                                  | Quem resolve                                                      |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ----------------------------------------------------------------- |
+| PF-1 | Só a fonte de `mahjouby_predicting_2024` existe (`.pdf`); faltam as outras 19. Elas serão adicionadas aos poucos, em `.pdf` ou `.md`, e cada etapa só exige a própria (D16, D17).                                                                                                                                     | Cada etapa de E02–E20, individualmente | Usuário                                                           |
+| PE-1 | O escopo de comparação é provisório (D07). Se a Introdução ou os Objetivos do `main.tex` forem preenchidos, confira se há divergência.                                                                                                                                                                                | E01–E21                                | Agente verifica; usuário decide                                   |
+| PE-3 | Os parágrafos de E01–E20 são completos e detalhados de propósito (D20) e resumem os artigos muito melhor que a planilha de refinamento. Antes de qualquer condensação na E21, o usuário deve copiá-los e guardá-los fora do `main.tex`, para reutilizar depois (por exemplo, nas entregas do projeto de dissertação). | E21 (bloqueia a condensação)           | Usuário                                                           |
+| PE-4 | Os parágrafos estão completos demais para um artigo de disciplina. Na E21 eles devem ser refinados para reduzir o tamanho e o detalhamento. O grau de redução depende da opinião do professor da disciplina, que o usuário vai consultar.                                                                             | E21                                    | Usuário (com o professor) decide; agente executa após autorização |
 
 ### 1.5 Próximo passo
 
-E00 concluída em 2026-10-27. Próxima etapa disponível: **E01** (`mahjouby_predicting_2024`), cujo `.pdf` já está na pasta.
+E00 e E01 concluídas. Próxima etapa: a primeira de E02–E20 cuja fonte chegar em `artigos/` (PF-1). Manter o nível de detalhe da E01 (D20).
 
 ---
 
@@ -140,8 +139,9 @@ Referência em `metodologia_2026_1/main.tex`. As linhas foram verificadas em 202
 A fonte de cada artigo é `artigos/<chave>.pdf` **ou** `artigos/<chave>.md`, com o nome exatamente igual à chave do `.bib` (D17). Exemplo: `artigos/hosseini_pattern-based_2025.pdf`. Se nenhum dos dois existir, a etapa correspondente não pode ser iniciada. Não procure nem invente outros nomes.
 
 - Nunca há `.pdf` e `.md` da mesma chave ao mesmo tempo. Se os dois aparecerem, pare e pergunte qual vale. Não escolha por conta própria.
-- **PDF:** leia diretamente com a ferramenta de leitura de arquivos (`Read` com o parâmetro `pages`), que renderiza cada página como imagem. Leia em blocos de até 20 páginas. O texto extraído por `pdftotext` serve só para localizar trechos: ele embaralha fórmulas e não substitui a leitura da página. A evidência é indicada pela **página do PDF** (1 a N, na ordem do arquivo); a paginação da revista pode vir junto, entre parênteses.
-- **Markdown:** a evidência é indicada pela seção ou pelo título do `.md`.
+- **PDF:** leia diretamente com a ferramenta de leitura de arquivos (`Read` com o parâmetro `pages`), que renderiza cada página como imagem. Leia em blocos de até 20 páginas. O texto extraído por `pdftotext` serve só para localizar trechos: ele embaralha fórmulas e não substitui a leitura da página. A localização da evidência segue D19.
+- **Markdown:** a localização da evidência também segue D19, sem o número de página.
+- **Localização das evidências (D19):** indique a **seção ou subseção** como o artigo a nomeia (ex.: "Abstract", "I. Introduction", "V.B Methodology"), o **parágrafo** dentro dela (¶1 = primeiro parágrafo após o título; um parágrafo que continua na coluna ou página seguinte conta como o mesmo), as **palavras iniciais** do parágrafo entre aspas e, no PDF, a **página** (1 a N, na ordem do arquivo). Itens de lista são indicados como "item n"; figuras e tabelas, pelo número e pela legenda. Exemplo: V.C Evaluation Measure, ¶1 ("One metric, including R²…"), p. 4.
 - **Falha de leitura × problema do artigo:** falha de leitura é ferramenta indisponível, página ilegível ou trecho que não se consegue ler. Nesse caso, use "não encontrado no arquivo fornecido" (§5.4), pare e informe. Já texto confuso, métrica mal definida, tabela sem identificação ou afirmação sem respaldo são problemas do **conteúdo** do artigo: não interrompem a leitura e vão para o relatório como divergências ou dúvidas (§6.B).
 
 ---
@@ -183,11 +183,14 @@ Todas foram aprovadas pelo usuário em 2026-10-27 (D17 numa revisão posterior d
 | D10 | `\subsubsection` fica com a formatação padrão do `article`, sem ajuste no preâmbulo.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | D11 | `artigos/` é protegida pelo `artigos/.gitignore` existente (`*` e `!.gitignore`). **Não** criar `.gitkeep`, porque não há diferença de efeito. Nenhuma etapa escreve em `artigos/`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | D12 | A E00 remove os três parágrafos de instrução do template na seção 3 e cria o esqueleto de §3. O texto original continua preservado em `analise_dados_2026_2/template.md`. A E00 exige autorização específica no momento da execução.                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| D13 | As pendências bibliográficas PB-1 e PB-2 são resolvidas na primeira etapa que usa a referência (E03 e E14). A etapa para até o usuário corrigir o `.bib`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| D13 | **Substituída por D18.** (Texto original: as pendências bibliográficas PB-1 e PB-2 seriam resolvidas na primeira etapa que usa a referência, que pararia até a correção do `.bib`.)                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | D14 | Termos técnicos em inglês vão em `\textit{}` no parágrafo, como no plano (ex.: `\textit{Machine Learning}`). Resolve a antiga PE-2.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | D15 | **O agente nunca compila.** Não executar `latexmk`, `pdflatex`, `biber` nem qualquer outra ferramenta de build do LaTeX, nem mesmo em cópia temporária. O usuário compila manualmente e reporta o resultado.                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| D16 | Os artigos-fonte são adicionados aos poucos. Uma etapa de artigo pode começar assim que a **própria** fonte (`artigos/<chave>.pdf` ou `.md`, D17) estiver na pasta, sem esperar as demais. A E00 não depende de nenhum artigo.                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| D17 | **Formato das fontes (aprovada em 2026-10-27).** Os artigos-fonte podem ser fornecidos em PDF (`artigos/<chave>.pdf`), lido diretamente, ou em Markdown (`artigos/<chave>.md`). O usuário garante que nunca haverá os dois para a mesma chave. Regras de leitura e de localização das evidências em §2.3. |
+| D16 | Os artigos-fonte são adicionados aos poucos. Uma etapa de artigo pode começar assim que a **própria** fonte (`artigos/<chave>.pdf` ou `.md`, D17) estiver na pasta, sem esperar as demais. A E00 não depende de nenhum artigo.                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| D17 | **Formato das fontes (aprovada em 2026-10-27).** Os artigos-fonte podem ser fornecidos em PDF (`artigos/<chave>.pdf`), lido diretamente, ou em Markdown (`artigos/<chave>.md`). O usuário garante que nunca haverá os dois para a mesma chave. Regras de leitura e de localização das evidências em §2.3.                                                                                                                                                                                                                                                                                                                                              |
+| D18 | **Entradas do `.bib` aceitas como estão (aprovada em 2026-10-27).** Todas as referências foram extraídas do Google Scholar e podem ser usadas sem correção. Não questionar a grafia de autores ou títulos, nem a forma como a citação é renderizada. Só a falta de uma entrada interrompe a etapa (§5.3). Encerra PB-1 a PB-4.                                                                                                                                                                                                                                                                                                                         |
+| D19 | **Localização das evidências (aprovada em 2026-10-27).** Nos relatórios, toda evidência é localizada por seção, parágrafo, palavras iniciais e página, conforme §2.3. Só a página não basta.                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| D20 | **Nível de detalhe dos parágrafos (aprovada em 2026-10-28).** As etapas E01–E20 continuam entregando parágrafos completos, no nível da E01, cobrindo todos os itens de §5.4. Não condensar nessas etapas: primeiro se reúne toda a informação, depois se faz o polimento, só na E21 (PE-3 e PE-4).                                                                                                                                                                                                                                                                                                                                                     |
 
 ---
 
@@ -215,13 +218,13 @@ Todas foram aprovadas pelo usuário em 2026-10-27 (D17 numa revisão posterior d
 
 - Cite **somente** com `\parencite{chave}` ou `\textcite{chave}` (`\cite` também funciona). `\citep` e `\citet` não existem, porque o `natbib` não está carregado. Nunca escreva citação em texto puro.
 - A chave precisa existir em `analise_dados_2026_2/latex/referencias.bib`. Estar no `.bib` da metodologia não basta.
-- Se faltar uma entrada, se a identidade bibliográfica for duvidosa ou se for preciso corrigir dados, **interrompa a etapa** e peça ao usuário que cadastre ou corrija. Nunca edite o `.bib`.
+- Se faltar uma entrada, **interrompa a etapa** e peça ao usuário que a cadastre. As entradas existentes são usadas como estão, sem questionar autores, títulos ou a forma da citação (D18). Nunca edite o `.bib`.
 - Não altere preâmbulo, pacotes ou estilo para resolver incompatibilidades. Reporte e aguarde.
 - O template da disciplina é só um guia. Contradições ou instruções vagas relevantes devem ser reportadas, não seguidas cegamente. Por exemplo: a introdução do template pede citação com iniciais, `(SOBRENOME, A., 2000)`, enquanto a seção 3 pede só sobrenome e ano. Vale D09.
 
 ### 5.4 Requisitos de cada resumo
 
-Cada artigo recebe **exatamente um parágrafo**, salvo pedido explícito posterior de expansão. O parágrafo é contínuo e integra, na medida das evidências:
+Cada artigo recebe **exatamente um parágrafo**, salvo pedido explícito posterior de expansão. Nas etapas E01–E20 o parágrafo é completo e detalhado (D20); a redução de tamanho fica para a E21. O parágrafo é contínuo e integra, na medida das evidências:
 
 1. **Problema de pesquisa e objetivos.**
 2. **Método ou abordagem.**
@@ -235,7 +238,7 @@ Cada artigo recebe **exatamente um parágrafo**, salvo pedido explícito posteri
 Regras de evidência:
 
 - Afirmações sobre a publicação vêm da fonte do artigo (`artigos/<chave>.pdf` ou `.md`, D17). O CSV e o plano servem de apoio. Se divergirem do artigo, reporte a divergência e pergunte.
-- Registre no relatório onde está cada evidência: página do PDF ou seção/título do `.md` (§2.3).
+- Registre no relatório onde está cada evidência: seção, parágrafo, palavras iniciais e página (D19, §2.3).
 - Quando faltar uma informação, diga qual dos dois casos se aplica:
   - **"não encontrado no arquivo fornecido"**: a extração ou a leitura pode estar incompleta (seções faltando, texto truncado, tabelas ou figuras perdidas, páginas de PDF ilegíveis);
   - **"ausente no artigo"**: o texto está completo e não trata do item.
@@ -285,7 +288,7 @@ Este procedimento segue o fluxo da skill `.claude/skills/redacao-trabalhos-relac
 
    > Se o quadro (§1.3) divergir do estado real, reporte a divergência antes de seguir.
 
-2. **Pare** se faltar a fonte desta etapa (a falta de outros artigos não bloqueia, D16), se existirem `.pdf` e `.md` da mesma chave, se faltar a chave no `.bib`, se houver pendência PB da etapa ou se a E00 não estiver concluída. Registre a etapa como Bloqueada e informe o motivo.
+2. **Pare** se faltar a fonte desta etapa (a falta de outros artigos não bloqueia, D16), se existirem `.pdf` e `.md` da mesma chave, se faltar a chave no `.bib` ou se a E00 não estiver concluída. Registre a etapa como Bloqueada e informe o motivo.
 3. Leia **integralmente** a fonte, conforme §2.3. Em PDF, leia todas as páginas, em blocos. Avalie se a extração ou a leitura parece completa e separe falhas de leitura de problemas do conteúdo (§2.3).
 4. Leia o registro do CSV (§2.2) e os parágrafos do plano em que o artigo aparece (ficha da etapa).
 5. Confira se o `main.tex` foi preenchido com escopo próprio (Introdução e Objetivos). Se divergir de D07, pare e pergunte.
@@ -295,9 +298,9 @@ Este procedimento segue o fluxo da skill `.claude/skills/redacao-trabalhos-relac
 
 Apresente de forma objetiva:
 
-- Pontos extraídos: problema e objetivos, método, contribuições, resultados, limitações e trabalhos futuros, cada um com a localização da evidência ou com "não encontrado no arquivo fornecido" ou "ausente no artigo" (§5.4).
+- Pontos extraídos: problema e objetivos, método, contribuições, resultados, limitações e trabalhos futuros, cada um com a localização da evidência (D19) ou com "não encontrado no arquivo fornecido" ou "ausente no artigo" (§5.4).
 - Semelhanças e diferenças propostas em relação ao trabalho atual, marcadas como **sugestão**.
-- Status bibliográfico: chave confirmada, pendências e a forma da citação.
+- Status bibliográfico: chave confirmada e forma da citação (D18).
 - Local exato de inserção (§5.5): subseção e posição relativa aos parágrafos já existentes.
 - Divergências entre o artigo, o CSV e o plano, e dúvidas objetivas.
 
@@ -419,18 +422,25 @@ Cada ficha traz só o que é específico da etapa. "Plano" indica as linhas de `
 
 - Plano: 82. CSV: 16.
 - Fonte: `artigos/mahjouby_predicting_2024.pdf` (8 páginas), presente desde 2026-10-27. O `.md` anterior foi apagado pelo usuário.
-- Estado: Não iniciada. Pendências: nenhuma. Próximo passo: iniciar a análise (§6).
+- Orientações do usuário para a redação (2026-10-27):
+  - Papel do artigo na 3.1: mostrar que trabalhos recentes ainda usam ARIMA e modelos clássicos. A fragilidade metodológica do artigo reforça que abordagens desse tipo são menos robustas.
+  - Omitir a "combinação de previsões" citada na Conclusão (VII, ¶1), porque o método não a descreve.
+  - Reportar a métrica como R² (V.C Evaluation Measure, ¶1); "accuracy" e "precision" são usados pelos autores como sinônimos dela.
+  - Limitações: ausentes no artigo. O item 1 da lista de VI.A (p. 6) não é usado.
+  - Mencionar como crítica as lacunas de protocolo: divisão treino/teste, hiperparâmetros e arquitetura da LSTM.
+  - Descrever os dados como bases de criptomoedas, um tipo de dado semelhante ao de ações, sem apontar a divergência com o título.
+- Estado: Concluída (2026-10-28). Parágrafo nas linhas 272–300, validado pelo usuário. É a referência de nível de detalhe para E02–E20 (D20).
 
 #### E02 — `sharma_stock_2023` → 3.1
 
 - Plano: 82. CSV: 19 (Trabalhos Futuros "Não fala sobre"; confirmar no artigo).
+- Verificar se o SVM atribuído pelo Plano (linha 82) a `mahjouby` e `sharma` vem deste artigo. Na E01, constatou-se que `mahjouby` só cita SVM em II. Literature Review, ¶1 (p. 2).
 - Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a fonte.
 
 #### E03 — `k_leveraging_2023` → 3.2
 
 - Plano: 84 e 120 (metodologia). CSV: 13.
-- **Bloqueio PB-1:** antes de redigir, peça ao usuário que confirme ou corrija no `.bib` o nome do primeiro autor (hoje `K, Thinakaran`) e o coautor `V, Dilli Ganesh`. Use o próprio artigo como evidência da grafia.
-- Estado: Não iniciada. Pendências: PF-1, PB-1. Próximo passo: aguardar a fonte e a correção do `.bib`.
+- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a fonte.
 
 #### E04 — `miot_empirical_2020` → 3.2
 
@@ -446,7 +456,7 @@ Cada ficha traz só o que é específico da etapa. "Plano" indica as linhas de `
 #### E06 — `ramkumar_development_2023` → 3.3
 
 - Plano: 78 (contexto) e 86. CSV: 8.
-- Confirmar a integração LSTM/ARIMA afirmada pelo plano (§6.A6). Informar PB-3, que não bloqueia.
+- Confirmar a integração LSTM/ARIMA afirmada pelo plano (§6.A6).
 - Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a fonte.
 
 #### E07 — `liu_application_2024` → 3.3
@@ -487,8 +497,7 @@ Cada ficha traz só o que é específico da etapa. "Plano" indica as linhas de `
 #### E14 — `hsu_fingat_2023` → 3.4.2
 
 - Plano: 88 e 124 (metodologia). CSV: 9.
-- **Bloqueio PB-2:** antes de redigir, peça ao usuário que corrija no `.bib` o título `Top-{KK}`. Use o artigo como evidência do título correto. O ano no `.bib` é 2023 e o DOI é `10.1109/TKDE.2021.3079496`. Se o artigo indicar outra data de publicação, reporte.
-- Estado: Não iniciada. Pendências: PF-1, PB-2. Próximo passo: aguardar a fonte e a correção do `.bib`.
+- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a fonte.
 
 #### E15 — `anghinoni_time_2019` → 3.4.2
 
@@ -524,18 +533,20 @@ Cada ficha traz só o que é específico da etapa. "Plano" indica as linhas de `
 
 ### E21 — Revisão integrada da seção
 
-- **Objetivo:** conferir a seção 3 completa. Esta etapa **não** autoriza reescrever a seção nem tocar em outras seções.
-- **Pré-requisitos:** E01–E20 concluídas, ou removidas por decisão registrada em §4.
+- **Objetivo:** conferir a seção 3 completa e, depois, condensar os parágrafos (PE-4). Esta etapa **não** autoriza reescrever a seção além do previsto nos itens 8 e 9, nem tocar em outras seções.
+- **Pré-requisitos:** E01–E20 concluídas, ou removidas por decisão registrada em §4. Para os itens 8 e 9, também PE-3 resolvida e a orientação do professor sobre PE-4.
 - **Procedimento:**
   1. **Cobertura:** cada artigo do escopo vigente tem exatamente um parágrafo, na subseção correta e em ordem de ID. Não há resumo de artigo fora do escopo.
   2. **Duplicação:** nenhuma chave tem dois resumos. `choi` aparece só na 3.4.3.
   3. **Estrutura:** os títulos e labels de §3 estão intactos. Não há parágrafos de abertura, transição ou síntese sem aprovação.
   4. **Consistência:** terminologia, tempo verbal e termos em inglês em `\textit{}` (D14) uniformes, e a distinção entre contribuições, resultados, limitações e trabalhos futuros mantida.
   5. **Comparações:** todas estão dentro do escopo de D07 e não se contradizem.
-  6. **Citações:** só `\parencite` ou `\textcite`, todas as chaves resolvidas e a lista de referências sem pendências PB abertas.
+  6. **Citações:** só `\parencite` ou `\textcite`, todas as chaves resolvidas (dados do `.bib` aceitos como estão, D18).
   7. **Compilação:** não compile (D15). Peça ao usuário que compile e reporte erros e avisos, e trate só os ligados à seção 3.
-- **Alterações permitidas após autorização:** só correções pontuais apontadas no relatório e aprovadas uma a uma.
-- **Critérios de conclusão:** relatório da revisão entregue, correções aprovadas aplicadas e todos os itens 1 a 7 conferidos e registrados em §8.
+  8. **Preservação dos textos completos (PE-3):** antes de qualquer condensação, confirme com o usuário que ele copiou e guardou os parágrafos completos de E01–E20 fora do `main.tex`. Sem essa confirmação, não condense nada.
+  9. **Condensação (PE-4):** com a orientação do professor registrada em §4, proponha versões reduzidas dos parágrafos, mantendo exatamente um por artigo, a citação e a ordem dos IDs. Apresente as propostas e aplique só as aprovadas.
+- **Alterações permitidas após autorização:** correções pontuais apontadas no relatório e aprovadas uma a uma; e a condensação do item 9, aprovada pelo usuário.
+- **Critérios de conclusão:** relatório da revisão entregue, correções aprovadas aplicadas e todos os itens 1 a 9 conferidos e registrados em §8.
 - **Estado:** Não iniciada.
 
 ---
@@ -550,4 +561,10 @@ Cada ficha traz só o que é específico da etapa. "Plano" indica as linhas de `
 | 2026-10-27 | —     | Guia v2: incorporados os comentários do usuário. Novas decisões D14 (termos em inglês em `\textit{}`, que resolve a PE-2), D15 (o agente nunca compila; critérios de compilação substituídos por conferência de citações por leitura) e D16 (artigos adicionados aos poucos; cada etapa só exige o próprio `.md`). PF-1 reescrita. Comentários removidos.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | 2026-10-27 | E00   | Partes 1 e 2 executadas, sem edição do manuscrito. **Inventário:** nenhum dos 20 `artigos/<chave>.md` existia (PF-1). As 20 chaves aparecem uma vez cada no `.bib` do projeto, e `cmp` confirma que ele é idêntico ao da metodologia. O CSV foi lido com `csv.reader`: UTF-8 sem BOM, CRLF, 23 registros, 5 colunas. As 20 associações de §2.2 foram confirmadas por comparação normalizada de títulos com o `.bib`. Os campos vazios são só Objetivos (reg. 22) e Problema de Pesquisa (reg. 23), e Trabalhos Futuros "Não fala sobre" aparece só nos reg. 17 e 19, tudo conforme §2.2. A seção 3 (linhas 268–283) tem só os três parágrafos do template e nenhuma das 20 chaves está no `main.tex`. **Git:** `git ls-files artigos` mostra só `artigos/.gitignore`. Com `git check-ignore -v`, `artigos/teste.md` e `artigos/sub/teste.md` são ignorados (`artigos/.gitignore:1:*`), e `artigos/.gitignore` não é (rc=1). O `.gitignore` da raiz, o `analise_dados_2026_2/.gitignore` e `.git/info/exclude` não têm negação que reinclua `artigos/`, e não há `core.excludesFile`. `git status` limpo. Compilação a cargo do usuário. |
 | 2026-10-27 | E00   | Parte 3 executada com autorização expressa do usuário ("Pode implementar a parte 3"). Os três parágrafos de instrução do template saíram da seção 3 e os oito títulos e labels de §3 entraram, na ordem, logo após `\section{Trabalhos Relacionados}`. O `git diff` do `main.tex` tem um único bloco (`@@ -270,14 +270,15 @@`), dentro da seção 3. O comentário `% 4. Método` e as demais seções ficaram intactos. Verificado que `artigos/mahjouby_predicting_2024.md` está presente. Todos os critérios da E00 foram atendidos: **Concluída**. Compilação a cargo do usuário (aviso `Empty bibliography` esperado).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| 2026-10-27 | —     | Guia v3: decisão D17 aprovada pelo usuário — fontes em `.pdf` ou `.md`, nunca as duas para a mesma chave. Ajustados §1.2, §1.3 (pré-requisito "fonte"), PF-1, §1.5, §2, §2.3, D16, §5.4, §6.A e as fichas E01–E20. Verificado: o `poppler-utils` foi instalado pelo usuário, e a ferramenta de leitura renderizou as 8 páginas de `artigos/mahjouby_predicting_2024.pdf`, com texto, Tabela 1 e figuras legíveis. O `.md` dessa chave foi apagado pelo usuário. `git check-ignore -v` confirmou que `artigos/mahjouby_predicting_2024.pdf` e `artigos/teste.pdf` são ignorados (`artigos/.gitignore:1:*`). A E01 continua Não iniciada: a leitura de teste não substitui o procedimento de §6. |
+| 2026-10-27 | —     | Guia v3: decisão D17 aprovada pelo usuário — fontes em `.pdf` ou `.md`, nunca as duas para a mesma chave. Ajustados §1.2, §1.3 (pré-requisito "fonte"), PF-1, §1.5, §2, §2.3, D16, §5.4, §6.A e as fichas E01–E20. Verificado: o `poppler-utils` foi instalado pelo usuário, e a ferramenta de leitura renderizou as 8 páginas de `artigos/mahjouby_predicting_2024.pdf`, com texto, Tabela 1 e figuras legíveis. O `.md` dessa chave foi apagado pelo usuário. `git check-ignore -v` confirmou que `artigos/mahjouby_predicting_2024.pdf` e `artigos/teste.pdf` são ignorados (`artigos/.gitignore:1:*`). A E01 continua Não iniciada: a leitura de teste não substitui o procedimento de §6.                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| 2026-10-27 | E01   | Passos A e B executados, sem edição do manuscrito. A1: esqueleto presente (3.1 na linha 270); fonte `artigos/mahjouby_predicting_2024.pdf` (8 páginas, lidas integralmente); chave presente no `.bib` (`@article`); nenhuma menção à chave, ao sobrenome ou ao título no `main.tex`. A4: CSV registro 16 e Plano linha 82 lidos. A5: Introdução e Objetivos do `main.tex` ainda são texto do template, então vale D07. A6: o Plano atribui a `mahjouby` e `sharma` o uso de ARIMA, SVM, _Random Forest_ e _ensembles_; o artigo não usa SVM (só cita na revisão, p. 2). Não afeta o agrupamento. Pendência nova: PB-4 (grafia "El Mahjouby"). Dúvidas abertas: (1) contribuição do CSV ("combinação de previsões") afirmada na conclusão (p. 7) sem descrição no método; (2) métrica R² (p. 4) × "accuracy" nos resultados; (3) trecho truncado da p. 6, item 1, como limitação; (4) menção às lacunas de protocolo experimental. Etapa **Bloqueada**.                                                                                                                                                                                  |
+| 2026-10-27 | —     | Decisões D18 (entradas do `.bib` aceitas como estão, vindas do Google Scholar; D13 substituída) e D19 (evidências localizadas por seção, parágrafo, palavras iniciais e página) aprovadas pelo usuário. PB-1, PB-2, PB-3 e PB-4 encerradas e removidas de §1.4 e das fichas E01, E03, E06 e E14. Ajustados §2.3, §5.3, §5.4, §6.A2, §6.B e E21. E01 passa de Bloqueada a Em análise; o relatório prévio foi reapresentado no formato D19.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| 2026-10-27 | E01   | Dúvidas 1–4 respondidas pelo usuário; orientações registradas na ficha E01. A divergência sobre a pergunta de I. Introduction, ¶3 foi descartada (interpretação errada do agente). O trecho do item 1 de VI.A (p. 6) colado pelo usuário é idêntico ao lido no PDF; a redação truncada é do original. Verificação do SVM anotada na ficha E02. E01 passa a **Aguardando autorização**.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| 2026-10-27 | E01   | Autorização expressa do usuário ("Autorizado"). Parágrafo inserido como primeiro da 3.1 (linhas 272–300), com `\textcite{mahjouby_predicting_2024}`. Conferido por leitura: o `git diff` do `main.tex` tem um único bloco (`@@ -271,0 +272,30 @@`), entre o título da 3.1 e o da 3.2; a chave aparece uma única vez no `main.tex`; não há `\citep`/`\citet`; a chave existe no `.bib` do projeto. Critérios de §6.E atendidos, exceto a validação do usuário. Compilação a cargo do usuário.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| 2026-10-28 | E01   | Parágrafo validado pelo usuário ("Está bom"); E01 **Concluída**. Antes da validação, o usuário acrescentou ao parágrafo os termos em inglês dos atributos (`\textit{Open}`, `\textit{High}`, `\textit{Low}`, `\textit{Close}`). Compilação a cargo do usuário.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| 2026-10-28 | E21   | A pedido do usuário: decisão D20 (E01–E20 mantêm parágrafos completos; polimento só na E21) e pendências PE-3 (usuário guarda os textos completos antes de condensar) e PE-4 (condensar conforme a orientação do professor). A ficha E21 ganhou os itens 8 e 9, e o quadro passou a listar PE-3 e PE-4 como pré-requisitos.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |

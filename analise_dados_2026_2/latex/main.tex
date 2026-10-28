@@ -269,6 +269,36 @@ Renault, 1991). Focar apenas os algoritmos que serão utilizados no trabalho
 
 \subsection{Abordagens Estatísticas e de Aprendizado de Máquina Clássico}\label{sec:tr-classicos}
 
+\textcite{mahjouby_predicting_2024} abordam a previsão do preço de fechamento
+diário em séries temporais financeiras, cuja não linearidade, não
+estacionariedade e presença de ruído dificultam a modelagem, com o objetivo de
+comparar algoritmos de aprendizado de máquina e de aprendizado profundo e, assim,
+apoiar decisões de investimento. Os autores utilizam duas bases de preços diários
+de criptomoedas, ativos cujas séries se assemelham às de ações, denominadas
+CoinMarketCap e CryptoCurrency, com os atributos de abertura (\textit{Open}), máxima (\textit{High}), mínima (\textit{Low}) e
+fechamento (\textit{Close}) entre 2013 e 2023. Sobre elas, avaliam a regressão linear, o
+\textit{SGDRegressor}, o \textit{Random Forest}, o \textit{AdaBoost}, o
+\textit{Bagging}, uma rede LSTM e o modelo ARIMA, adotando o coeficiente de
+determinação ($R^2$) como métrica. A contribuição do artigo é essa comparação
+empírica entre modelos estatísticos, de aprendizado de máquina clássico e de
+aprendizado profundo nas duas bases. Na base CryptoCurrency, a regressão linear
+obteve o melhor desempenho, com $R^2$ de 99,82\%, seguida do
+\textit{SGDRegressor} (99,72\%) e do \textit{Bagging} (99,25\%), enquanto a LSTM
+alcançou 98,49\% na base CoinMarketCap e 98,35\% na base CryptoCurrency; para o
+ARIMA, são apresentados apenas gráficos, sem valores de $R^2$. Os autores não
+discutem limitações e apontam, como trabalho futuro, a aplicação dos algoritmos a
+outros mercados de ações. Cabe observar, porém, que o artigo não descreve a
+divisão entre dados de treino e teste, os hiperparâmetros nem a arquitetura da
+LSTM, o que dificulta a reprodução e a interpretação dos resultados. Esse
+trabalho evidencia que modelos estatísticos e clássicos, como o ARIMA, ainda são
+empregados em pesquisas recentes, e suas fragilidades metodológicas reforçam a
+necessidade de protocolos de avaliação mais robustos. Assim como o presente
+trabalho, o artigo trata a previsão de preços como um problema de regressão sobre
+séries temporais financeiras e inclui a LSTM entre os modelos avaliados; dele se
+diferencia, contudo, por considerar a LSTM apenas uma entre sete alternativas,
+sem detalhar sua configuração e sem incluir a GRU, ao passo que o presente
+trabalho concentra a análise nas redes recorrentes LSTM e GRU.
+
 \subsection{Redes Neurais Recorrentes e LSTM}\label{sec:tr-recorrentes}
 
 \subsection{Modelos Híbridos}\label{sec:tr-hibridos}
