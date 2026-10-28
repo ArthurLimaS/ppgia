@@ -181,34 +181,41 @@ Caso seja necessário incluir uma referência como link, é preciso incluir o
 ar e que sejam consolidados (como site do uml, ou de uma linguagem de
 programação).
 
-Após descrever a solução atual dos demais trabalhos, elaborar 2 perguntas de
-pesquisa que demonstrem os problemas que se propõe a resolver neste trabalho
-(\href{https://www.questionpro.com/blog/pt-br/perguntas-de-pesquisa/}{link 1}).
-Converse com alguma LLM (ex.: ChatGPT, Deepseek) a fim de aprimorar as perguntas
-de pesquisa.
+Diante desse contexto, este trabalho investiga as seguintes perguntas de
+pesquisa.
 
-\begin{itemize}
-  \item \textbf{PP1:} Escrever a primeira pergunta de pesquisa como uma pergunta
-    é válido, ou devo escrever como uma afirmação?
-    \begin{itemize}
-      \item Explicar rapidamente (1 parágrafo) o objetivo dessa pergunta. Uma
-        das perguntas deve ser focada no aprendizado não-supervisionado e a
-        outra no aprendizado não supervisionado.
-    \end{itemize}
-  \item \textbf{PP2:} Como melhorar a minha pergunta de pesquisa?
-    \begin{itemize}
-      \item Explicar rapidamente (1 parágrafo) o objetivo dessa pergunta. Uma
-        das perguntas deve ser focada no aprendizado não-supervisionado e a
-        outra no aprendizado não supervisionado.
-    \end{itemize}
-  \item \textbf{PP3:} Como meu app vai mudar o mundo?
-    \begin{itemize}
-      \item NÃO VAI! E se vc disser que vai, vai ter que provar! Essa pergunta
-        de pesquisa deve ser apenas para aqueles que estão em DSI.
-    \end{itemize}
-\end{itemize}
+\textbf{PP1:} Quais condições de tendência e volatilidade aparecem na série de
+preços da PETR4 e como elas se distribuem ao longo do período analisado?
 
-….outras perguntas de pesquisa, caso haja
+Esta pergunta busca caracterizar a diversidade temporal da série da PETR4. Isto
+é, identificar quais condições de tendência e volatilidade estão presentes na
+amostra, por quanto tempo se mantêm e como se alternam ao longo do período. A
+PETR4, ação preferencial da Petrobras, é um ativo conhecido do mercado acionário
+brasileiro e apresenta, em uma exploração preliminar dos últimos cinco anos,
+valorização do preço de fechamento entremeada por períodos de queda, o que a
+torna um caso de interesse para estudos sobre séries de ações. Esse interesse,
+porém, não garante que a série seja adequada para análise: como apontam
+\textcite{hu_fintsb_2025}, bases de dados de ações frequentemente não contemplam
+a variedade de padrões de movimento observados nos mercados
+(\textit{Diversity Gap}), e conjuntos com apenas três a cinco anos de dados podem
+não representar todos esses padrões. Assim, embora cinco anos sejam adotados
+como janela inicial, esse período pode não ser suficiente, o que torna
+necessário verificar quais condições de tendência e volatilidade a base de fato
+contém e se essa variedade a torna interessante de explorar. Os critérios de caracterização da tendência e da
+volatilidade serão definidos e justificados na Seção~\ref{sec:metodo}.
+
+\textbf{PP2:} Como o comportamento da PETR4 se relaciona com o do índice
+Ibovespa nos períodos identificados na PP1?
+
+Esta pergunta busca contextualizar o comportamento da PETR4 em relação ao índice
+Ibovespa, tomado como referência de mercado, em termos de concordância ou
+divergência de tendência, volatilidade e de associação entre os retornos das
+duas séries. Isto é, verificar em quais períodos o ativo acompanha o índice e em
+quais se afasta dele. Ela complementa o objetivo principal ao situar a
+caracterização da PETR4 em um referencial de mercado. A análise respeita limites
+claros: a associação entre retornos não implica relação causal, a comparação com
+um único índice não representa o mercado como um todo nem outros ativos, e os
+resultados não serão usados para avaliar a capacidade preditiva de modelos.
 
 Deve-se ainda dar uma ideia rápida de algum resultado alcançado. Por isso, esta
 seção precisa ser ajustada no fim do trabalho. (Alguns trabalhos ainda colocam
@@ -216,18 +223,29 @@ um parágrafo indicando as seções do artigo).
 
 \subsection{Objetivos}\label{sec:objetivos}
 
-O objetivo deste trabalho é….[Escrever um parágrafo sobre qual é o objetivo
-principal do trabalho].
+O objetivo deste trabalho é preparar, de forma reproduzível, uma base de dados
+financeiros da PETR4 e do índice Ibovespa e analisar a diversidade temporal das
+condições de tendência e volatilidade da PETR4, contextualizando-a pelo
+comportamento do Ibovespa e documentando as decisões de preparação e as
+limitações da base.
 
-Escrever os objetivos específicos do trabalho na listagem abaixo, onde cada
-tópico indica um objetivo específico que é preciso ser alcançado para que se
-cumpra o objetivo principal:
+Para alcançar esse objetivo, são definidos os seguintes objetivos específicos:
 
 \begin{itemize}
-  \item Detalhar o objetivo específico 1;
-  \item Detalhar o objetivo específico 2;
-  \item Detalhar o objetivo específico 3;
-  \item Detalhar o objetivo específico 4.
+  \item Delimitar o período, a frequência e as variáveis de interesse e coletar,
+    no \textit{Yahoo Finance}, as séries históricas da PETR4 e do índice
+    Ibovespa, com janela inicial de cinco anos;
+  \item Inspecionar a qualidade, a cobertura e a consistência das séries,
+    identificando valores ausentes, inconsistências e observações extremas;
+  \item Preparar e transformar os dados, documentando cada decisão de tratamento
+    de modo a permitir a reprodução da base;
+  \item Caracterizar as condições de tendência e volatilidade presentes na série
+    da PETR4 e sua distribuição ao longo do período (PP1);
+  \item Comparar o comportamento da PETR4 com o do Ibovespa nos períodos
+    identificados, quanto à concordância de tendência e volatilidade e à
+    associação entre os retornos (PP2);
+  \item Organizar a base resultante e discutir os resultados obtidos e as
+    limitações da base e da janela analisada.
 \end{itemize}
 
 % ---------------------------------------------------------------------------
