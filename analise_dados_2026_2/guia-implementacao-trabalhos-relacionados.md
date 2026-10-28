@@ -21,9 +21,9 @@ Construir a seção 3, "Trabalhos Relacionados", de `analise_dados_2026_2/latex/
 
 ### 1.2 Estado atual verificado (2026-10-27)
 
-- A seção 3 do `main.tex` ainda contém apenas os três parágrafos de instrução do template. Nenhuma das 20 chaves está citada no `main.tex`.
-- O esqueleto de subseções ainda não foi criado. Isso é feito na E00.
-- `artigos/` contém apenas `.gitignore`, rastreado no commit `990cbee`. **Nenhum dos 20 arquivos `.md` existe ainda.**
+- Nenhuma das 20 chaves está citada no `main.tex`.
+- O esqueleto de subseções foi criado na E00 (2026-10-27). A seção 3 tem só os oito títulos de §3, sem parágrafos.
+- `artigos/` contém `.gitignore`, rastreado no commit `990cbee`, e `mahjouby_predicting_2024.md`, ignorado pelo Git. **Os outros 19 arquivos `.md` ainda não existem.**
 - As 20 chaves existem em `analise_dados_2026_2/latex/referencias.bib`. O arquivo é idêntico, byte a byte, a `metodologia_2026_1/referencias.bib`.
 - Os arquivos de `metodologia_2026_1/` estão rastreados (commit `85107ee`).
 - O preâmbulo usa `biblatex` com `biber`, no estilo `authoryear`, com sobrenomes em maiúsculas e vírgula antes do ano.
@@ -35,27 +35,27 @@ Os estados possíveis estão definidos em §5.7. O campo "Pré-requisitos penden
 
 | ID  | Destino | Chave                             | Estado       | Pré-requisitos pendentes |
 | --- | ------- | --------------------------------- | ------------ | ------------------------ |
-| E00 | —       | Preparação, inventário e proteção | Não iniciada | —                        |
-| E01 | 3.1     | `mahjouby_predicting_2024`        | Não iniciada | E00; `.md`               |
-| E02 | 3.1     | `sharma_stock_2023`               | Não iniciada | E00; `.md`               |
-| E03 | 3.2     | `k_leveraging_2023`               | Não iniciada | E00; `.md`; PB-1         |
-| E04 | 3.2     | `miot_empirical_2020`             | Não iniciada | E00; `.md`               |
-| E05 | 3.3     | `kiruba_risk_2025`                | Não iniciada | E00; `.md`               |
-| E06 | 3.3     | `ramkumar_development_2023`       | Não iniciada | E00; `.md`               |
-| E07 | 3.3     | `liu_application_2024`            | Não iniciada | E00; `.md`               |
-| E08 | 3.4.1   | `sun_novel_2024`                  | Não iniciada | E00; `.md`               |
-| E09 | 3.4.1   | `li_accurate_2024`                | Não iniciada | E00; `.md`               |
-| E10 | 3.4.1   | `hosseini_pattern-based_2025`     | Não iniciada | E00; `.md`               |
-| E11 | 3.4.1   | `wan_tcdformer_2024`              | Não iniciada | E00; `.md`               |
-| E12 | 3.4.2   | `biswas_dual_2025`                | Não iniciada | E00; `.md`               |
-| E13 | 3.4.2   | `luo_short-term_2024`             | Não iniciada | E00; `.md`               |
-| E14 | 3.4.2   | `hsu_fingat_2023`                 | Não iniciada | E00; `.md`; PB-2         |
-| E15 | 3.4.2   | `anghinoni_time_2019`             | Não iniciada | E00; `.md`               |
-| E16 | 3.4.3   | `choi_hybrid_2023`                | Não iniciada | E00; `.md`               |
-| E17 | 3.4.3   | `wang_stock_2023`                 | Não iniciada | E00; `.md`               |
-| E18 | 3.4.3   | `haryono_transformer-gated_2023`  | Não iniciada | E00; `.md`               |
-| E19 | 3.4.3   | `anbaee_farimani_adaptive_2024`   | Não iniciada | E00; `.md`               |
-| E20 | 3.5     | `hu_fintsb_2025`                  | Não iniciada | E00; `.md`               |
+| E00 | —       | Preparação, inventário e proteção | Concluída    | —                        |
+| E01 | 3.1     | `mahjouby_predicting_2024`        | Não iniciada | —                        |
+| E02 | 3.1     | `sharma_stock_2023`               | Não iniciada | `.md`                    |
+| E03 | 3.2     | `k_leveraging_2023`               | Não iniciada | `.md`; PB-1              |
+| E04 | 3.2     | `miot_empirical_2020`             | Não iniciada | `.md`                    |
+| E05 | 3.3     | `kiruba_risk_2025`                | Não iniciada | `.md`                    |
+| E06 | 3.3     | `ramkumar_development_2023`       | Não iniciada | `.md`                    |
+| E07 | 3.3     | `liu_application_2024`            | Não iniciada | `.md`                    |
+| E08 | 3.4.1   | `sun_novel_2024`                  | Não iniciada | `.md`                    |
+| E09 | 3.4.1   | `li_accurate_2024`                | Não iniciada | `.md`                    |
+| E10 | 3.4.1   | `hosseini_pattern-based_2025`     | Não iniciada | `.md`                    |
+| E11 | 3.4.1   | `wan_tcdformer_2024`              | Não iniciada | `.md`                    |
+| E12 | 3.4.2   | `biswas_dual_2025`                | Não iniciada | `.md`                    |
+| E13 | 3.4.2   | `luo_short-term_2024`             | Não iniciada | `.md`                    |
+| E14 | 3.4.2   | `hsu_fingat_2023`                 | Não iniciada | `.md`; PB-2              |
+| E15 | 3.4.2   | `anghinoni_time_2019`             | Não iniciada | `.md`                    |
+| E16 | 3.4.3   | `choi_hybrid_2023`                | Não iniciada | `.md`                    |
+| E17 | 3.4.3   | `wang_stock_2023`                 | Não iniciada | `.md`                    |
+| E18 | 3.4.3   | `haryono_transformer-gated_2023`  | Não iniciada | `.md`                    |
+| E19 | 3.4.3   | `anbaee_farimani_adaptive_2024`   | Não iniciada | `.md`                    |
+| E20 | 3.5     | `hu_fintsb_2025`                  | Não iniciada | `.md`                    |
 | E21 | Seção 3 | Revisão integrada                 | Não iniciada | E01–E20 concluídas       |
 
 Na coluna de pré-requisitos, "`.md`" significa que o arquivo `artigos/<chave>.md` ainda não existe. Os artigos são adicionados aos poucos: cada etapa depende apenas do **próprio** `.md`, não da presença dos 20 (D16).
@@ -64,7 +64,7 @@ Na coluna de pré-requisitos, "`.md`" significa que o arquivo `artigos/<chave>.m
 
 | ID   | Descrição                                                                                                                                                                                                                                                               | Afeta                                  | Quem resolve                    |
 | ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ------------------------------- |
-| PF-1 | Nenhum dos 20 arquivos `artigos/<chave>.md` existe ainda. Eles serão adicionados aos poucos, e cada etapa só exige o próprio arquivo (D16).                                                                                                                             | Cada etapa de E01–E20, individualmente | Usuário                         |
+| PF-1 | Só `artigos/mahjouby_predicting_2024.md` existe; faltam os outros 19. Eles serão adicionados aos poucos, e cada etapa só exige o próprio arquivo (D16).                                                                                                                 | Cada etapa de E02–E20, individualmente | Usuário                         |
 | PB-1 | Em `k_leveraging_2023`, o primeiro autor está registrado como `K, Thinakaran`, e a citação sai `(K et al., 2023)`. "K" provavelmente é uma inicial, então a identidade do sobrenome é duvidosa. O coautor `V, Dilli Ganesh` tem o mesmo padrão, sem bloquear a citação. | E03 (bloqueia)                         | Usuário, no `.bib`              |
 | PB-2 | O título de `hsu_fingat_2023` contém `Top-{KK}`, que sai "Top-KK" na lista de referências. O CSV registra "Top-K".                                                                                                                                                      | E14 (bloqueia)                         | Usuário, no `.bib`              |
 | PB-3 | O coautor `S, Raghavi`, de `ramkumar_development_2023`, tem o mesmo padrão de PB-1. Afeta só a lista de referências.                                                                                                                                                    | E06 (informar, não bloqueia)           | Usuário, se quiser              |
@@ -72,7 +72,7 @@ Na coluna de pré-requisitos, "`.md`" significa que o arquivo `artigos/<chave>.m
 
 ### 1.5 Próximo passo
 
-Executar a **E00**: inventário e verificação de proteção, sem edição, e depois o esqueleto da seção, que exige autorização específica.
+E00 concluída em 2026-10-27. Próxima etapa disponível: **E01** (`mahjouby_predicting_2024`), cujo `.md` já está na pasta.
 
 ---
 
@@ -392,7 +392,7 @@ Apresente o plano a seguir e aguarde autorização expressa. Depois dela:
 
 Não compile (D15). Ao compilar, o usuário verá o aviso `Empty bibliography`, que é esperado enquanto nada for citado.
 
-**Estado:** Não iniciada. **Próximo passo:** executar as Partes 1 e 2 e apresentar a Parte 3 para autorização.
+**Estado:** Concluída em 2026-10-27 (§8).
 
 ### Fichas E01–E20
 
@@ -411,108 +411,109 @@ Cada ficha traz só o que é específico da etapa. "Plano" indica as linhas de `
 #### E01 — `mahjouby_predicting_2024` → 3.1
 
 - Plano: 82. CSV: 16.
-- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a E00 e o `.md`.
+- `artigos/mahjouby_predicting_2024.md` presente desde 2026-10-27.
+- Estado: Não iniciada. Pendências: nenhuma. Próximo passo: iniciar a análise (§6).
 
 #### E02 — `sharma_stock_2023` → 3.1
 
 - Plano: 82. CSV: 19 (Trabalhos Futuros "Não fala sobre"; confirmar no artigo).
-- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a E00 e o `.md`.
+- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar o `.md`.
 
 #### E03 — `k_leveraging_2023` → 3.2
 
 - Plano: 84 e 120 (metodologia). CSV: 13.
 - **Bloqueio PB-1:** antes de redigir, peça ao usuário que confirme ou corrija no `.bib` o nome do primeiro autor (hoje `K, Thinakaran`) e o coautor `V, Dilli Ganesh`. Use o próprio artigo como evidência da grafia.
-- Estado: Não iniciada. Pendências: PF-1, PB-1. Próximo passo: aguardar a E00, o `.md` e a correção do `.bib`.
+- Estado: Não iniciada. Pendências: PF-1, PB-1. Próximo passo: aguardar o `.md` e a correção do `.bib`.
 
 #### E04 — `miot_empirical_2020` → 3.2
 
 - Plano: 84. CSV: 21 (problema registrado como citação literal; parafrasear). Entrada `@misc` (arXiv).
-- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a E00 e o `.md`.
+- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar o `.md`.
 
 #### E05 — `kiruba_risk_2025` → 3.3
 
 - Plano: 86. CSV: 17 (Trabalhos Futuros "Não fala sobre"; confirmar no artigo).
 - Confirmar a integração LSTM/ARIMA afirmada pelo plano (§6.A6).
-- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a E00 e o `.md`.
+- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar o `.md`.
 
 #### E06 — `ramkumar_development_2023` → 3.3
 
 - Plano: 78 (contexto) e 86. CSV: 8.
 - Confirmar a integração LSTM/ARIMA afirmada pelo plano (§6.A6). Informar PB-3, que não bloqueia.
-- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a E00 e o `.md`.
+- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar o `.md`.
 
 #### E07 — `liu_application_2024` → 3.3
 
 - Plano: 86. CSV: 7.
-- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a E00 e o `.md`.
+- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar o `.md`.
 
 #### E08 — `sun_novel_2024` → 3.4.1
 
 - Plano: 78 (contexto), 88 e 124 (metodologia). CSV: 2.
-- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a E00 e o `.md`.
+- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar o `.md`.
 
 #### E09 — `li_accurate_2024` → 3.4.1
 
 - Plano: 76 (contexto), 88 e 124 (metodologia). CSV: 5.
-- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a E00 e o `.md`.
+- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar o `.md`.
 
 #### E10 — `hosseini_pattern-based_2025` → 3.4.1
 
 - Plano: 80 (contexto), 88 e 124 (metodologia). CSV: 15.
-- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a E00 e o `.md`.
+- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar o `.md`.
 
 #### E11 — `wan_tcdformer_2024` → 3.4.1
 
 - Plano: 88. CSV: 22 (Objetivos vazio).
-- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a E00 e o `.md`.
+- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar o `.md`.
 
 #### E12 — `biswas_dual_2025` → 3.4.2
 
 - Plano: 88 e 124 (metodologia). CSV: 1.
-- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a E00 e o `.md`.
+- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar o `.md`.
 
 #### E13 — `luo_short-term_2024` → 3.4.2
 
 - Plano: 88. CSV: 18.
-- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a E00 e o `.md`.
+- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar o `.md`.
 
 #### E14 — `hsu_fingat_2023` → 3.4.2
 
 - Plano: 88 e 124 (metodologia). CSV: 9.
 - **Bloqueio PB-2:** antes de redigir, peça ao usuário que corrija no `.bib` o título `Top-{KK}`. Use o artigo como evidência do título correto. O ano no `.bib` é 2023 e o DOI é `10.1109/TKDE.2021.3079496`. Se o artigo indicar outra data de publicação, reporte.
-- Estado: Não iniciada. Pendências: PF-1, PB-2. Próximo passo: aguardar a E00, o `.md` e a correção do `.bib`.
+- Estado: Não iniciada. Pendências: PF-1, PB-2. Próximo passo: aguardar o `.md` e a correção do `.bib`.
 
 #### E15 — `anghinoni_time_2019` → 3.4.2
 
 - Plano: 88. CSV: 23 (Problema de Pesquisa vazio).
-- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a E00 e o `.md`.
+- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar o `.md`.
 
 #### E16 — `choi_hybrid_2023` → 3.4.3
 
 - Plano: 86 (bloco híbrido), 88 e 126 (metodologia). CSV: 12.
 - Resumo único (D04). Pode descrever a dimensão híbrida. Nenhum parágrafo sobre ele na 3.3.
-- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a E00 e o `.md`.
+- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar o `.md`.
 
 #### E17 — `wang_stock_2023` → 3.4.3
 
 - Plano: 88, 120 e 126 (metodologia). CSV: 4.
-- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a E00 e o `.md`.
+- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar o `.md`.
 
 #### E18 — `haryono_transformer-gated_2023` → 3.4.3
 
 - Plano: 88, 120 e 126 (metodologia). CSV: 20.
-- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a E00 e o `.md`.
+- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar o `.md`.
 
 #### E19 — `anbaee_farimani_adaptive_2024` → 3.4.3
 
 - Plano: 88. CSV: 6.
-- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a E00 e o `.md`.
+- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar o `.md`.
 
 #### E20 — `hu_fintsb_2025` → 3.5
 
 - Plano: 90 e 122 (metodologia, FinTSB como _baseline_). CSV: 10. Entrada `@misc` (arXiv).
 - O uso do FinTSB no artigo da disciplina **não** está confirmado (D07). Pergunte antes de usá-lo como semelhança.
-- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar a E00 e o `.md`.
+- Estado: Não iniciada. Pendências: PF-1. Próximo passo: aguardar o `.md`.
 
 ### E21 — Revisão integrada da seção
 
@@ -534,9 +535,11 @@ Cada ficha traz só o que é específico da etapa. "Plano" indica as linhas de `
 
 ## 8. Registro de mudanças e verificações
 
-| Data       | Etapa | Registro                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ---------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 2026-10-27 | —     | Guia criado (v1), com as decisões D01–D13 aprovadas pelo usuário.                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| 2026-10-27 | —     | Verificado durante a criação do guia: as 20 chaves foram extraídas da introdução do plano e conferidas com o agrupamento aprovado. O `.bib` do projeto contém as 20 e é idêntico (`cmp`) ao da metodologia. O CSV foi lido com `csv.reader` (delimitador `,`, UTF-8, CRLF, 23 registros, 5 colunas). `artigos/` tem só `.gitignore`, rastreado. O `git check-ignore` confirmou que `artigos/x.md` e `artigos/sub/y.md` são ignorados e que `artigos/.gitignore` não é. A seção 3 do `main.tex` não cita nenhuma das 20 chaves. |
-| 2026-10-27 | —     | Formato de citação testado numa cópia temporária, fora do projeto, com o preâmbulo atual: `(HSU, TSAI e LI, 2023)`, `(MIOT e DRIGOUT, 2020)`, `(K et al., 2023)` e `HSU, TSAI e LI (2023)`. O título "Top-KK" aparece na lista de referências. A compilação do `main.tex` do projeto não foi verificada.                                                                                                                                                                                                                       |
-| 2026-10-27 | —     | Guia v2: incorporados os comentários do usuário. Novas decisões D14 (termos em inglês em `\textit{}`, que resolve a PE-2), D15 (o agente nunca compila; critérios de compilação substituídos por conferência de citações por leitura) e D16 (artigos adicionados aos poucos; cada etapa só exige o próprio `.md`). PF-1 reescrita. Comentários removidos.                                                                                                                                                                      |
+| Data       | Etapa | Registro                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ---------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-10-27 | —     | Guia criado (v1), com as decisões D01–D13 aprovadas pelo usuário.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| 2026-10-27 | —     | Verificado durante a criação do guia: as 20 chaves foram extraídas da introdução do plano e conferidas com o agrupamento aprovado. O `.bib` do projeto contém as 20 e é idêntico (`cmp`) ao da metodologia. O CSV foi lido com `csv.reader` (delimitador `,`, UTF-8, CRLF, 23 registros, 5 colunas). `artigos/` tem só `.gitignore`, rastreado. O `git check-ignore` confirmou que `artigos/x.md` e `artigos/sub/y.md` são ignorados e que `artigos/.gitignore` não é. A seção 3 do `main.tex` não cita nenhuma das 20 chaves.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| 2026-10-27 | —     | Formato de citação testado numa cópia temporária, fora do projeto, com o preâmbulo atual: `(HSU, TSAI e LI, 2023)`, `(MIOT e DRIGOUT, 2020)`, `(K et al., 2023)` e `HSU, TSAI e LI (2023)`. O título "Top-KK" aparece na lista de referências. A compilação do `main.tex` do projeto não foi verificada.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| 2026-10-27 | —     | Guia v2: incorporados os comentários do usuário. Novas decisões D14 (termos em inglês em `\textit{}`, que resolve a PE-2), D15 (o agente nunca compila; critérios de compilação substituídos por conferência de citações por leitura) e D16 (artigos adicionados aos poucos; cada etapa só exige o próprio `.md`). PF-1 reescrita. Comentários removidos.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| 2026-10-27 | E00   | Partes 1 e 2 executadas, sem edição do manuscrito. **Inventário:** nenhum dos 20 `artigos/<chave>.md` existia (PF-1). As 20 chaves aparecem uma vez cada no `.bib` do projeto, e `cmp` confirma que ele é idêntico ao da metodologia. O CSV foi lido com `csv.reader`: UTF-8 sem BOM, CRLF, 23 registros, 5 colunas. As 20 associações de §2.2 foram confirmadas por comparação normalizada de títulos com o `.bib`. Os campos vazios são só Objetivos (reg. 22) e Problema de Pesquisa (reg. 23), e Trabalhos Futuros "Não fala sobre" aparece só nos reg. 17 e 19, tudo conforme §2.2. A seção 3 (linhas 268–283) tem só os três parágrafos do template e nenhuma das 20 chaves está no `main.tex`. **Git:** `git ls-files artigos` mostra só `artigos/.gitignore`. Com `git check-ignore -v`, `artigos/teste.md` e `artigos/sub/teste.md` são ignorados (`artigos/.gitignore:1:*`), e `artigos/.gitignore` não é (rc=1). O `.gitignore` da raiz, o `analise_dados_2026_2/.gitignore` e `.git/info/exclude` não têm negação que reinclua `artigos/`, e não há `core.excludesFile`. `git status` limpo. Compilação a cargo do usuário. |
+| 2026-10-27 | E00   | Parte 3 executada com autorização expressa do usuário ("Pode implementar a parte 3"). Os três parágrafos de instrução do template saíram da seção 3 e os oito títulos e labels de §3 entraram, na ordem, logo após `\section{Trabalhos Relacionados}`. O `git diff` do `main.tex` tem um único bloco (`@@ -270,14 +270,15 @@`), dentro da seção 3. O comentário `% 4. Método` e as demais seções ficaram intactos. Verificado que `artigos/mahjouby_predicting_2024.md` está presente. Todos os critérios da E00 foram atendidos: **Concluída**. Compilação a cargo do usuário (aviso `Empty bibliography` esperado).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
