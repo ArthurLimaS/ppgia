@@ -5,6 +5,7 @@ requires-python = ">= 3.10"
 
 dependencies = [
     "matplotlib>=3.9.4",
+    "pandas>=2.3.3",
     "pytrendseries>=0.1.11",
     "torch>=2.13.0",
     "torchvision>=0.28.0",
@@ -15,3 +16,14 @@ dependencies = [
 dev = [
     "ipykernel>=7.3.0",
 ]
+
+# Máquina do estudo (Windows 11, RTX 5060): PyTorch com CUDA 13.0, do índice do PyTorch.
+# No Linux (desenvolvimento) continua valendo o pacote do PyPI.
+[tool.uv.sources]
+torch = [{ index = "pytorch-cu130", marker = "sys_platform == 'win32'" }]
+torchvision = [{ index = "pytorch-cu130", marker = "sys_platform == 'win32'" }]
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true

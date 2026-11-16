@@ -1,0 +1,15 @@
+{
+  "PETR4.SA": {
+    "auto_adjust": false,
+    "baixado_em_utc": "2026-11-16T17:03:21+00:00",
+    "fim_pedido_exclusivo": "2026-11-16",
+    "inicio_pedido": "2021-11-16",
+    "linhas_removidas_por_valor_ausente": 0,
+    "pregoes": 1248,
+    "pregoes_com_volume_zero": 0,
+    "primeiro_pregao": "2021-11-16",
+    "sha256": "fc93e695fec5e78dbba79421cc53be7808a73bb55223fe926b97b2516c91bc6f",
+    "ultimo_pregao": "2026-11-13",
+    "yfinance": "1.5.1"
+  }
+}
