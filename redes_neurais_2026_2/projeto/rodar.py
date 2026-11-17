@@ -13,6 +13,7 @@ Uso (a partir da raiz do repositório):
 import argparse
 import json
 import sys
+import time
 from pathlib import Path
 from typing import Any
 
@@ -24,7 +25,6 @@ from modelos.gru_baseline import GRUBaseline
 
 EXECUCOES = Path(__file__).with_name("execucoes")
 MODELOS = {"gru": GRUBaseline}
-N_ENTRADAS = {"univariado": 1}
 
 
 def nome(cfg: dict[str, Any]) -> str:
@@ -104,10 +104,12 @@ def executar(
     )
 
     semear(cfg["semente"])
+    t0 = time.perf_counter()
     dados = janelas.montar(
         df, cfg["entrada"], cfg["janela"], cfg["primeiro_alvo_treino"]
     )
-    modelo = MODELOS[cfg["modelo"]](N_ENTRADAS[cfg["entrada"]], cfg["camadas"])
+    preprocessamento_s = time.perf_counter() - t0
+    modelo = MODELOS[cfg["modelo"]](janelas.ENTRADAS[cfg["entrada"]], cfg["camadas"])
     log = treinar(
         modelo,
         dados["treino"],
@@ -160,6 +162,7 @@ def executar(
         "parametros": sum(p.numel() for p in modelo.parameters()),
         "amostras_treino": len(dados["treino"]),
         "amostras_validacao": len(val),
+        "preprocessamento_s": preprocessamento_s,
         "primeira_epoca_s": segundos[0],
         "demais_epocas_media_s": sum(segundos[1:]) / len(segundos[1:])
         if len(segundos) > 1
