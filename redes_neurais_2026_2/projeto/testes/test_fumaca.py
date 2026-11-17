@@ -8,6 +8,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -29,7 +30,7 @@ def serie(n: int = 600) -> pd.DataFrame:
     )
 
 
-def cfg(**mudancas) -> dict:
+def cfg(**mudancas: Any) -> dict[str, Any]:
     base = {
         "modelo": "gru",
         "entrada": "univariado",
@@ -67,7 +68,7 @@ class Janelas(unittest.TestCase):
         self.assertLess(d["validacao"].datas[-1], d["teste"].datas[0])
 
     def test_sem_vazamento_temporal(self):
-        """Alterar os pregões de teste não pode mudar nenhuma amostra de treino nem de validação."""
+        """Alterar os pregões de teste não muda amostras de treino nem de validação."""
         df = serie()
         alterado = df.copy()
         ini_teste = janelas.limites(len(df))[1]
@@ -81,7 +82,7 @@ class Janelas(unittest.TestCase):
             self.assertFalse(torch.equal(a["teste"].y, b["teste"].y))
 
     def test_mesmos_alvos_para_todas_as_janelas(self):
-        """D-17: com o primeiro alvo fixado, janelas diferentes treinam e avaliam nos mesmos dias."""
+        """D-17: com o primeiro alvo fixado, todas as janelas usam os mesmos dias."""
         df = serie()
         a = janelas.montar(df, "univariado", 5, primeiro_alvo_treino=200)
         b = janelas.montar(df, "univariado", 200, primeiro_alvo_treino=200)
@@ -124,7 +125,7 @@ class Gru(unittest.TestCase):
 
 class Treino(unittest.TestCase):
     def test_aprende_a_senoide(self):
-        """Prova de que o laço de treino funciona: tem de ganhar da referência "amanhã = hoje"."""
+        """O laço de treino funciona: tem de ganhar da referência "amanhã = hoje"."""
         for camadas, janela in (([16], 15), ([128, 64, 32], 30)):
             with tempfile.TemporaryDirectory() as tmp:
                 r = executar(
