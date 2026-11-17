@@ -1,4 +1,6 @@
-"""Métricas de preço e de direção, calculadas sobre o fechamento (não sobre a variação)."""
+"""
+Métricas de preço e de direção, calculadas sobre o fechamento (não sobre a variação).
+"""
 
 import numpy as np
 
@@ -6,7 +8,10 @@ import numpy as np
 def calcular(
     real: np.ndarray, previsto: np.ndarray, anterior: np.ndarray
 ) -> dict[str, float]:
-    """`anterior` é o fechamento do pregão antes do alvo: define a direção (TEGRU, Eq. 9-10)."""
+    """
+    `anterior` é o fechamento do pregão antes do alvo: define a direção (TEGRU, Eq.
+    9-10).
+    """
     erro = previsto - real
     mape = float(np.mean(np.abs(erro / real)) * 100)
     acuracia = float(np.mean((real - anterior >= 0) == (previsto - anterior >= 0)))
@@ -21,5 +26,8 @@ def calcular(
 
 
 def ingenuo(real: np.ndarray, anterior: np.ndarray) -> dict[str, float]:
-    """Referência "amanhã = hoje". A direção dela é sempre "alta" (diferença zero conta como alta)."""
+    """
+    Referência "amanhã = hoje". A direção dela é sempre "alta" (diferença zero conta
+    como alta).
+    """
     return calcular(real, anterior, anterior)

@@ -7,6 +7,7 @@ import random
 import time
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 import torch
@@ -20,8 +21,11 @@ def semear(semente: int) -> None:
     torch.manual_seed(semente)
 
 
-def _gravar(objeto: dict, caminho: Path) -> None:
-    """Grava num temporário e renomeia: uma queda no meio não corrompe o checkpoint anterior."""
+def _gravar(objeto: dict[str, Any], caminho: Path) -> None:
+    """
+    Grava num temporário e renomeia: uma queda no meio não corrompe o checkpoint
+    anterior.
+    """
     tmp = caminho.with_suffix(".tmp")
     torch.save(objeto, tmp)
     os.replace(tmp, caminho)
@@ -43,11 +47,14 @@ def treinar(
     lr: float,
     semente: int,
     dispositivo: str,
-) -> list[dict]:
-    """Treina até `epocas`, retomando de `pasta/ultimo.pt` se existir. Devolve o log por época.
+) -> list[dict[str, Any]]:
+    """
+    Treina até `epocas`, retomando de `pasta/ultimo.pt` se existir. Devolve o log por
+    época.
 
-    Grava `ultimo.pt` (tudo o que a retomada precisa) a cada época e `melhor.pt` (pesos da época
-    de menor perda de validação). Para com erro se a perda deixar de ser finita.
+    Grava `ultimo.pt` (tudo o que a retomada precisa) a cada época e `melhor.pt` (pesos
+    da época de menor perda de validação). Para com erro se a perda deixar de ser
+    finita.
     """
     modelo.to(dispositivo)
     otimizador = torch.optim.Adam(modelo.parameters(), lr=lr)
@@ -89,7 +96,8 @@ def treinar(
 
         if not (math.isfinite(perda_treino) and math.isfinite(perda_val)):
             raise FloatingPointError(
-                f"perda não finita na época {epoca} (treino={perda_treino}, validação={perda_val}); "
+                f"perda não finita na época {epoca} "
+                f"(treino={perda_treino}, validação={perda_val}); "
                 f"o último checkpoint bom continua em {pasta}"
             )
 
@@ -120,9 +128,10 @@ def treinar(
             w = csv.DictWriter(f, fieldnames=list(log[0]))
             w.writeheader()
             w.writerows(log)
+
         print(
-            f"[{log[-1]['terminou_em']}] época {epoca}/{epocas}  treino={perda_treino:.3e}  "
-            f"validação={perda_val:.3e}  {segundos:.2f}s",
+            f"[{log[-1]['terminou_em']}] época {epoca}/{epocas}  "
+            f"treino={perda_treino:.3e}  validação={perda_val:.3e}  {segundos:.2f}s",
             flush=True,
         )
     return log
