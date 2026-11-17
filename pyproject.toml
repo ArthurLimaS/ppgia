@@ -15,6 +15,8 @@ dependencies = [
 [dependency-groups]
 dev = [
     "ipykernel>=7.3.0",
+    "pyright>=1.1.414",
+    "ruff>=0.17.5",
 ]
 
 # Máquina do estudo (Windows 11, RTX 5060): PyTorch com CUDA 13.0, do índice do PyTorch.
@@ -27,3 +29,56 @@ torchvision = [{ index = "pytorch-cu130", marker = "sys_platform == 'win32'" }]
 name = "pytorch-cu130"
 url = "https://download.pytorch.org/whl/cu130"
 explicit = true
+
+[tool.pyright]
+include = ["."]
+exclude = [
+    "**/.*",
+    "**/node_modules",
+    "**/__pycache__",
+    "venv",
+    ".venv",
+    "alembic"
+]
+
+typeCheckingMode = "strict"
+
+reportUnknownMemberType=false
+reportUnknownVariableType=false
+reportUnknownArgumentType=false
+reportUnknownParameterType=false
+
+reportMissingTypeStubs = "warning"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+exclude = ["alembic"]
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "ARG001", # unused arguments in functions
+]
+ignore = [
+    "B008",  # do not perform function calls in argument defaults
+    "W191",  # indentation contains tabs
+    "B904",  # Allow raising exceptions without from e, for HTTPException
+    "T201",   # print statements are not allowed
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint.pyupgrade]
+# Preserve types, even if a file imports `from __future__ import annotations`.
+keep-runtime-typing = true
