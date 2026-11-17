@@ -1,18 +1,22 @@
-"""Snapshot dos dados do projeto: baixa do Yahoo Finance uma vez e relê do disco depois.
+"""Snapshot dos dados do projeto: baixa do Yahoo Finance uma vez e relê do disco.
 
-Todo treino lê o snapshot (`carregar`), nunca a rede: o yfinance reajusta preços passados a cada
-provento e limita requisições, então duas execuções só são comparáveis sobre o mesmo arquivo.
+Todo treino lê o snapshot (`carregar`), nunca a rede: o yfinance reajusta preços
+passados a cada provento e limita requisições, então duas execuções só são
+comparáveis sobre o mesmo arquivo.
 
 Uso (a partir da raiz do repositório):
-    uv run python redes_neurais_2026_2/projeto/dados/baixar.py                # PETR4.SA, últimos 5 anos
-    uv run python redes_neurais_2026_2/projeto/dados/baixar.py --substituir   # refaz um snapshot existente
+    # PETR4.SA, últimos 5 anos
+    uv run python redes_neurais_2026_2/projeto/dados/baixar.py
+    # refaz um snapshot existente
+    uv run python redes_neurais_2026_2/projeto/dados/baixar.py --substituir
 """
 
 import argparse
 import hashlib
 import json
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 from pathlib import Path
+from typing import Any
 
 import pandas as pd
 
@@ -25,15 +29,18 @@ def _sha256(caminho: Path) -> str:
     return hashlib.sha256(caminho.read_bytes()).hexdigest()
 
 
-def _ler_manifesto() -> dict:
+def _ler_manifesto() -> dict[str, Any]:
     return (
         json.loads(MANIFESTO.read_text(encoding="utf-8")) if MANIFESTO.exists() else {}
     )
 
 
-def baixar(ticker: str, inicio: date, fim: date, substituir: bool = False) -> dict:
-    """Baixa `ticker` de `inicio` a `fim` (exclusivo), grava o CSV e registra no manifesto."""
-    import yfinance as yf  # só aqui: `carregar` não pode depender de rede nem do yfinance
+def baixar(
+    ticker: str, inicio: date, fim: date, substituir: bool = False
+) -> dict[str, Any]:
+    """Baixa `ticker` de `inicio` a `fim` (exclusivo), grava o CSV e o manifesto."""
+    # só aqui: `carregar` não pode depender de rede nem do yfinance
+    import yfinance as yf  # pyright: ignore[reportMissingTypeStubs]
 
     csv = SNAPSHOT / f"{ticker}.csv"
     if csv.exists() and not substituir:
@@ -68,16 +75,17 @@ def baixar(ticker: str, inicio: date, fim: date, substituir: bool = False) -> di
     SNAPSHOT.mkdir(exist_ok=True)
     d.to_csv(csv, lineterminator="\n")
 
+    datas = pd.DatetimeIndex(d.index).strftime("%Y-%m-%d")
     registro = {
         "inicio_pedido": inicio.isoformat(),
         "fim_pedido_exclusivo": fim.isoformat(),
-        "primeiro_pregao": d.index[0].date().isoformat(),
-        "ultimo_pregao": d.index[-1].date().isoformat(),
+        "primeiro_pregao": datas[0],
+        "ultimo_pregao": datas[-1],
         "pregoes": len(d),
         "linhas_removidas_por_valor_ausente": baixadas - len(d),
         "pregoes_com_volume_zero": int((d["Volume"] == 0).sum()),
         "sha256": _sha256(csv),
-        "baixado_em_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "baixado_em_utc": datetime.now(UTC).isoformat(timespec="seconds"),
         "yfinance": yf.__version__,
         "auto_adjust": False,
     }
@@ -92,7 +100,7 @@ def baixar(ticker: str, inicio: date, fim: date, substituir: bool = False) -> di
 
 
 def carregar(ticker: str = "PETR4.SA") -> pd.DataFrame:
-    """Relê o snapshot de `ticker` do disco, conferindo que o arquivo é o registrado no manifesto."""
+    """Relê o snapshot de `ticker`, conferindo que é o arquivo do manifesto."""
     csv = SNAPSHOT / f"{ticker}.csv"
     registro = _ler_manifesto().get(ticker)
     if registro is None or not csv.exists():
