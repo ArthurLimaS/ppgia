@@ -4,6 +4,7 @@ Uso (a partir da raiz do repositório):
     uv run python -m unittest discover -s redes_neurais_2026_2/projeto/testes -v
 """
 
+import itertools
 import sys
 import tempfile
 import unittest
@@ -20,13 +21,25 @@ from comum import janelas, metricas
 from comum.gru import BlocoGRU
 from rodar import executar
 
+FATOR_DE_AJUSTE = 0.5  # Adj Close / Close da série sintética
+
 
 def serie(n: int = 600) -> pd.DataFrame:
     """Senoide sobre um nível positivo: previsível, então uma GRU tem de aprendê-la."""
     t = np.arange(n)
     datas = pd.bdate_range("2020-01-01", periods=n)
+    ajustado = 50 + 10 * np.sin(2 * np.pi * t / 20)
+    bruto = ajustado / FATOR_DE_AJUSTE  # como na PETR4: o bruto é maior que o ajustado
     return pd.DataFrame(
-        {janelas.FECHAMENTO: 50 + 10 * np.sin(2 * np.pi * t / 20)}, index=datas
+        {
+            "Open": 1.01 * bruto,
+            "High": 1.02 * bruto,
+            "Low": 0.98 * bruto,
+            "Close": bruto,
+            janelas.FECHAMENTO: ajustado,
+            "Volume": 1e6 * (2 + np.cos(2 * np.pi * t / 7)),
+        },
+        index=datas,
     )
 
 
@@ -62,6 +75,29 @@ class Janelas(unittest.TestCase):
         self.assertEqual(tr.real[0], f[15])
         self.assertEqual(tr.anterior[0], f[14])
 
+    def test_ohlcv_formas_e_valores(self):
+        """D-21: preços ajustados e normalizados como o fechamento; volume pela média"""
+        df = serie()
+        f = df[janelas.FECHAMENTO].to_numpy()
+        v = df["Volume"].to_numpy()
+        tr = janelas.montar(df, "ohlcv", 15)["treino"]
+        self.assertEqual(tuple(tr.x.shape), (465, 15, 5))
+        x = tr.x[0].numpy()  # alvo na posição 15, janela = posições 0..14
+        for coluna, fator in enumerate((1.01, 1.02, 0.98, 1.0)):
+            np.testing.assert_allclose(
+                x[:, coluna], fator * f[0:15] / f[14] - 1, rtol=1e-5, atol=1e-6
+            )
+        np.testing.assert_allclose(
+            x[:, 4], v[0:15] / v[0:15].mean() - 1, rtol=1e-5, atol=1e-6
+        )
+        self.assertAlmostEqual(
+            tr.y[0].item(), f[15] / f[14] - 1, places=6
+        )  # alvo igual
+
+    def test_ohlcv_volume_com_media_um_em_toda_janela(self):
+        x = janelas.montar(serie(), "ohlcv", 30)["validacao"].x[:, :, 4]
+        np.testing.assert_allclose(x.mean(dim=1).numpy(), 0.0, atol=1e-5)
+
     def test_divisao_cronologica_sem_sobreposicao_de_alvos(self):
         d = janelas.montar(serie(), "univariado", 15)
         self.assertLess(d["treino"].datas[-1], d["validacao"].datas[0])
@@ -73,12 +109,13 @@ class Janelas(unittest.TestCase):
         alterado = df.copy()
         ini_teste = janelas.limites(len(df))[1]
         alterado.iloc[ini_teste:] *= 3.0
-        for janela in (5, 200):
-            a = janelas.montar(df, "univariado", janela)
-            b = janelas.montar(alterado, "univariado", janela)
+        for entrada, janela in itertools.product(janelas.ENTRADAS, (5, 200)):
+            a = janelas.montar(df, entrada, janela)
+            b = janelas.montar(alterado, entrada, janela)
+            chave = (entrada, janela)
             for parte in ("treino", "validacao"):
-                self.assertTrue(torch.equal(a[parte].x, b[parte].x), (janela, parte))
-                self.assertTrue(torch.equal(a[parte].y, b[parte].y), (janela, parte))
+                self.assertTrue(torch.equal(a[parte].x, b[parte].x), (*chave, parte))
+                self.assertTrue(torch.equal(a[parte].y, b[parte].y), (*chave, parte))
             self.assertFalse(torch.equal(a["teste"].y, b["teste"].y))
 
     def test_mesmos_alvos_para_todas_as_janelas(self):
@@ -126,14 +163,24 @@ class Gru(unittest.TestCase):
 class Treino(unittest.TestCase):
     def test_aprende_a_senoide(self):
         """O laço de treino funciona: tem de ganhar da referência "amanhã = hoje"."""
-        for camadas, janela in (([16], 15), ([128, 64, 32], 30)):
+        casos = (
+            ("univariado", [16], 15),
+            ("univariado", [128, 64, 32], 30),
+            ("ohlcv", [16], 15),
+            ("ohlcv", [128, 64, 32], 30),
+        )
+        for entrada, camadas, janela in casos:
             with tempfile.TemporaryDirectory() as tmp:
                 r = executar(
-                    cfg(camadas=camadas, janela=janela, epocas=30), serie(), Path(tmp)
+                    cfg(entrada=entrada, camadas=camadas, janela=janela, epocas=30),
+                    serie(),
+                    Path(tmp),
                 )
             self.assertLess(r["perda_treino_ultima"], r["perda_treino_primeira"])
             self.assertLess(
-                r["validacao"]["rmse"], 0.5 * r["validacao_ingenuo"]["rmse"], camadas
+                r["validacao"]["rmse"],
+                0.5 * r["validacao_ingenuo"]["rmse"],
+                (entrada, camadas),
             )
 
     def test_retomar_da_o_mesmo_resultado_de_rodar_direto(self):
