@@ -22,16 +22,21 @@ import pandas as pd
 import torch
 from comum import janelas, metricas
 from comum.treino import prever, semear, treinar
-from modelos import custom_fingat
+from modelos import custom_fingat, hdfm
 from modelos.gru_baseline import GRUBaseline
 
 EXECUCOES = Path(__file__).with_name("execucoes")
-# lote e lr de cada modelo, quando a linha de comando não os dá
-PADROES = {
+# lote, lr (e a decomposição do HDFM) de cada modelo, se a linha de comando não os dá
+PADROES: dict[str, dict[str, Any]] = {
     "gru": {"lote": 64, "lr": 1e-3},
     **{
         m: {"lote": v["lote"], "lr": v["lr"]}
         for m, v in custom_fingat.VARIANTES.items()
+    },
+    # HDFM, Tabela 2: lote 64, Adam 0,001
+    **{
+        m: {"lote": 64, "lr": 1e-3, "decomposicao": "inteira"}
+        for m in hdfm.NORMALIZACOES
     },
 }
 
@@ -43,8 +48,16 @@ def nome(cfg: dict[str, Any]) -> str:
         if cfg["primeiro_alvo_treino"] is None
         else f"_t{cfg['primeiro_alvo_treino']}"
     )
-    partes = (cfg["modelo"], cfg["entrada"], f"j{cfg['janela']}", f"c{camadas}")
-    base = "_".join(p for p in partes if p)  # o FinGAT não tem `entrada`
+    partes = (
+        cfg["modelo"],
+        cfg["entrada"],
+        cfg.get("decomposicao"),
+        f"j{cfg['janela']}",
+        f"c{camadas}",
+    )
+    base = "_".join(
+        p for p in partes if p
+    )  # só a GRU tem `entrada`; só o HDFM, decomposição
     return f"{base}{alvo}_s{cfg['semente']}"
 
 
@@ -84,6 +97,7 @@ def executar(
     sintéticos); no FinGAT, `df` é um dicionário ticker -> DataFrame.
     """
     e_fingat = cfg["modelo"] in custom_fingat.VARIANTES
+    e_hdfm = cfg["modelo"] in hdfm.NORMALIZACOES
     pasta = pasta or EXECUCOES / nome(cfg)
     pasta.mkdir(parents=True, exist_ok=True)
     resumo_json, config_json = pasta / "metricas.json", pasta / "config.json"
@@ -107,10 +121,14 @@ def executar(
     semear(cfg["semente"])
     t0 = time.perf_counter()
     extras: dict[str, Any] = {}
+    fusao: dict[str, Any] = {}
     registro: dict[str, Any]
     if e_fingat:
         assert not isinstance(df, pd.DataFrame)
         dados, modelo, extras, registro = custom_fingat.preparar(cfg, df, candidatas)
+    elif e_hdfm:
+        assert not isinstance(df, dict)
+        dados, modelo, fusao, registro = hdfm.preparar(cfg, df)
     else:
         snapshot = None
         if df is None:
@@ -179,6 +197,9 @@ def executar(
                 index=False,
                 lineterminator="\n",
             )
+        elif e_hdfm:  # saida [dias, 12 subséries], normalizada: desfaz e soma
+            coluna = previsoes[parte] = fusao[parte](saida)
+            nome_coluna = "previsto"
         else:
             coluna = previsoes[parte] = janelas.para_preco(saida, c.anterior)
             nome_coluna = "previsto"
@@ -217,10 +238,11 @@ def executar(
     segundos = [e["segundos"] for e in log]
     resumo = {
         **{
-            k: cfg[k]
+            k: cfg.get(k)
             for k in (
                 "modelo",
                 "entrada",
+                "decomposicao",
                 "janela",
                 "camadas",
                 "semente",
@@ -233,6 +255,9 @@ def executar(
         "amostras_treino": len(dados["treino"]),
         "amostras_validacao": len(val),
         "preprocessamento_s": preprocessamento_s,
+        **{
+            k: registro[k] for k in ("decomposicoes", "decomposicao_s") if k in registro
+        },
         "primeira_epoca_s": segundos[0],
         "demais_epocas_media_s": sum(segundos[1:]) / len(segundos[1:])
         if len(segundos) > 1
@@ -256,6 +281,12 @@ def argumentos() -> argparse.ArgumentParser:
         choices=janelas.ENTRADAS,
         default="univariado",
         help="só a GRU; o FinGAT usa as features dele",
+    )
+    p.add_argument(
+        "--decomposicao",
+        choices=hdfm.DECOMPOSICOES,
+        default=None,
+        help="só o HDFM (D-10): série inteira (vaza) ou causal; padrão: inteira",
     )
     p.add_argument("--janela", type=int, default=15)
     p.add_argument(
@@ -289,8 +320,10 @@ if __name__ == "__main__":
     a = vars(argumentos().parse_args())
     pasta = a.pop("pasta")
     a |= {k: v for k, v in PADROES[a["modelo"]].items() if a[k] is None}
-    if a["modelo"] in custom_fingat.VARIANTES:
+    if a["modelo"] != "gru":
         a["entrada"] = None
+    if a["modelo"] not in hdfm.NORMALIZACOES:
+        a["decomposicao"] = None
     if a["dispositivo"] == "auto":
         a["dispositivo"] = "cuda" if torch.cuda.is_available() else "cpu"
     resumo = executar(a, pasta=pasta)
