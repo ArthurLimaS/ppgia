@@ -38,7 +38,8 @@ exclude = [
     "**/__pycache__",
     "venv",
     ".venv",
-    "alembic"
+    "alembic",
+    "**/terceiros"
 ]
 
 typeCheckingMode = "strict"
@@ -53,7 +54,7 @@ reportMissingTypeStubs = "warning"
 [tool.ruff]
 target-version = "py312"
 line-length = 88
-exclude = ["alembic"]
+exclude = ["alembic", "**/terceiros"]  # terceiros/: código de outros autores, sem modificação
 
 [tool.ruff.lint]
 select = [
