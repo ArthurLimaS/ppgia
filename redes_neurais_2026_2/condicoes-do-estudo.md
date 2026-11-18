@@ -1,6 +1,6 @@
 # Condições do estudo — comparação de 5 modelos na PETR4
 
-> **RASCUNHO para revisão (2026-11-18).** Junta o que foi decidido nas Etapas 0 a 4 (decisões D-NN do [guia de implementação](guia-implementacao-projeto.md), §6.1) e propõe o que a Etapa 6 ainda tem de decidir. Cada ponto novo está marcado como **Proposta P-NN** e listado no fim (§9). Depois de aprovado, este documento **não muda durante a Etapa 7**; mudança feita depois de ver resultado do teste é registrada como tal, com data e motivo (§8).
+> **Aprovado em 2026-11-18.** Junta o que foi decidido nas Etapas 0 a 4 (decisões D-NN do [guia de implementação](guia-implementacao-projeto.md), §6.1) e na Etapa 6 (pontos P-NN, §9). Os valores que a execução usa estão em [`projeto/condicoes.json`](projeto/condicoes.json), lido pela fila da Etapa 7 (`projeto/fila.py`); os detalhes internos de cada modelo (δ e λ do FinGAT, parâmetros da decomposição do HDFM) estão no código, nos lugares indicados no §3. Este documento **não muda durante a Etapa 7**; mudança feita depois de ver resultado do teste é registrada como tal, com data e motivo (§8).
 
 ## Índice
 
@@ -228,7 +228,8 @@ Tempos medidos na máquina do estudo (guia, §6.4): 100 épocas (P-03), 5 sement
 
 ## 8. Regras da execução
 
-- **Arquivo de configuração:** depois de aprovado, os valores deste documento vão para um arquivo lido pelo `rodar.py` e pela fila da Etapa 7 (um lugar só para os valores; este documento os descreve e aponta para ele).
+- **Arquivo de configuração:** `projeto/condicoes.json` (configurações, sementes, épocas, janela, GRU, lote, lr e o papel de cada configuração). A fila (`projeto/fila.py`) lê dele e passa os valores ao `rodar.py`. Os demais hiperparâmetros são constantes do código: `VARIANTES`, `DELTA` e `LAMBDA` em `modelos/custom_fingat.py`; `PARAMS` em `modelos/hdfm.py`.
+- **Ensaio geral antes da execução longa:** `fila.py --ensaio` roda tudo com 1 época em `execucoes/ensaio/`.
 - **Uma execução por (configuração, semente)**, cada uma num processo, com checkpoint por época e retomada automática; a fila pula o que terminou e registra o que falhou.
 - **O teste só é lido depois de todas as execuções terminarem.** Nenhum valor deste documento muda depois disso; se mudar, a mudança entra numa seção "Alterações depois do teste", com data, motivo e os dois resultados.
 - **Tabela final regenerável:** a tabela de resultados é calculada do zero a partir de `execucoes/`, por um script.
