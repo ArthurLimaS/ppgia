@@ -22,6 +22,7 @@ import pandas as pd
 
 SNAPSHOT = Path(__file__).with_name("snapshot")
 MANIFESTO = SNAPSHOT / "manifesto.json"
+UNIVERSO = Path(__file__).with_name("universo.csv")  # candidatas do FinGAT (D-07)
 COLUNAS = ["Open", "High", "Low", "Close", "Adj Close", "Volume"]
 
 
@@ -133,7 +134,26 @@ if __name__ == "__main__":
             help="exclusivo; o padrão (hoje) deixa de fora o pregão em andamento",
         )
         p.add_argument("--substituir", action="store_true")
+        p.add_argument(
+            "--universo",
+            action="store_true",
+            help="baixa as candidatas de universo.csv (FinGAT) nas datas da PETR4; "
+            "pula as que já existem",
+        )
         a = p.parse_args()
+        if a.universo:
+            petr4 = _ler_manifesto()["PETR4.SA"]
+            inicio = date.fromisoformat(petr4["inicio_pedido"])
+            fim = date.fromisoformat(petr4["fim_pedido_exclusivo"])
+            for t in pd.read_csv(UNIVERSO)["ticker"]:
+                if (SNAPSHOT / f"{t}.csv").exists():
+                    continue
+                try:
+                    r = baixar(t, inicio, fim)
+                    print(t, r["pregoes"], r["primeiro_pregao"], r["ultimo_pregao"])
+                except Exception as e:  # uma falha não derruba as outras
+                    print(t, "FALHOU:", e)
+            raise SystemExit
         print(
             json.dumps(
                 baixar(a.ticker, a.inicio, a.fim, a.substituir),
