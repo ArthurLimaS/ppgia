@@ -28,7 +28,15 @@ def _gravar(objeto: dict[str, Any], caminho: Path) -> None:
     """
     tmp = caminho.with_suffix(".tmp")
     torch.save(objeto, tmp)
-    os.replace(tmp, caminho)
+    for tentativa in range(10):
+        try:
+            os.replace(tmp, caminho)
+            return
+        # Windows: antivírus/indexador segura o arquivo por instantes
+        except PermissionError:
+            if tentativa == 9:
+                raise
+            time.sleep(0.5)
 
 
 @torch.no_grad()
@@ -73,7 +81,7 @@ def treinar(
         ck = torch.load(ultimo, map_location=dispositivo, weights_only=False)
         modelo.load_state_dict(ck["modelo"])
         otimizador.load_state_dict(ck["otimizador"])
-        gerador.set_state(ck["gerador"])
+        gerador.set_state(ck["gerador"].cpu())  # map_location o levou para a GPU
         inicio, melhor_val, log = ck["epoca"] + 1, ck["melhor_val"], ck["log"]
 
     for epoca in range(inicio, epocas + 1):

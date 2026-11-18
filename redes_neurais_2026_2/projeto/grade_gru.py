@@ -47,9 +47,11 @@ if __name__ == "__main__":
 
     arquiteturas = REDUZIDA if a.grade == "reduzida" else tuple(ARQUITETURAS)
     sementes: list[int] = a.sementes
-    fila = list(itertools.product(ENTRADAS, JANELAS, arquiteturas, sementes))
+    # semente por fora: cada semente completa é um estudo inteiro (mesma ordem do
+    # progresso_2b.py)
+    fila = list(itertools.product(sementes, JANELAS, ENTRADAS, arquiteturas))
     linhas = []
-    for n, (entrada, janela, arq, semente) in enumerate(fila, 1):
+    for n, (semente, janela, entrada, arq) in enumerate(fila, 1):
         camadas = ARQUITETURAS[arq]
         cfg = {
             "modelo": "gru",

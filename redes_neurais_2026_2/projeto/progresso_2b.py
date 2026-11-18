@@ -17,7 +17,7 @@ from typing import Any
 
 import pandas as pd
 from comum.janelas import ENTRADAS
-from grade_gru import ARQUITETURAS, JANELAS, PRIMEIRO_ALVO_TREINO, REDUZIDA
+from grade_gru import ARQUITETURAS, JANELAS, PRIMEIRO_ALVO_TREINO
 from rodar import EXECUCOES, nome
 
 EPOCAS = 100  # D-19
@@ -28,7 +28,7 @@ CSV = EXECUCOES / "progresso_2b.csv"
 def fila() -> list[dict[str, Any]]:
     itens = []
     for semente, janela, entrada, arq in itertools.product(
-        SEMENTES, JANELAS, ENTRADAS, REDUZIDA
+        SEMENTES, JANELAS, ENTRADAS, ARQUITETURAS
     ):
         cfg = {
             "modelo": "gru",
@@ -71,11 +71,11 @@ def situacao(item: dict[str, Any]) -> dict[str, Any]:
 def comando(item: dict[str, Any]) -> str:
     camadas = ",".join(map(str, item["camadas"]))
     return (
-        ".venv/bin/python redes_neurais_2026_2/projeto/rodar.py"
+        "uv run python redes_neurais_2026_2/projeto/rodar.py"
         f" --entrada {item['entrada']}"
         f" --janela {item['janela']} --camadas {camadas}"
         f" --primeiro-alvo-treino {PRIMEIRO_ALVO_TREINO} --semente {item['semente']}"
-        f" --epocas {EPOCAS} --dispositivo cpu"
+        f" --epocas {EPOCAS} --dispositivo cuda"
     )
 
 
