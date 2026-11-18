@@ -14,7 +14,7 @@ def calcular(
     """
     erro = previsto - real
     mape = float(np.mean(np.abs(erro / real)) * 100)
-    acuracia = float(np.mean((real - anterior >= 0) == (previsto - anterior >= 0)))
+    acuracia = acuracia_direcao(real, anterior, previsto - anterior >= 0)
     return {
         "rmse": float(np.sqrt(np.mean(erro**2))),
         "mae": float(np.mean(np.abs(erro))),
@@ -23,6 +23,13 @@ def calcular(
         "acuracia_direcao": acuracia,
         "acmape": (1 - acuracia) * 2 + mape / 100,  # TEGRU, Eq. 13
     }
+
+
+def acuracia_direcao(
+    real: np.ndarray, anterior: np.ndarray, alta_prevista: np.ndarray
+) -> float:
+    """O rótulo real é o mesmo para todos os modelos: alta se real - anterior ≥ 0."""
+    return float(np.mean((real - anterior >= 0) == alta_prevista))
 
 
 def ingenuo(real: np.ndarray, anterior: np.ndarray) -> dict[str, float]:

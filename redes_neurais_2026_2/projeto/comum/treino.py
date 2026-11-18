@@ -5,6 +5,7 @@ import math
 import os
 import random
 import time
+from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -55,6 +56,9 @@ def treinar(
     lr: float,
     semente: int,
     dispositivo: str,
+    perda_fn: Callable[[torch.Tensor, torch.Tensor], torch.Tensor] = nn.MSELoss(),
+    decaimento: float = 0.0,
+    sublote: int | None = None,
 ) -> list[dict[str, Any]]:
     """
     Treina até `epocas`, retomando de `pasta/ultimo.pt` se existir. Devolve o log por
@@ -62,11 +66,13 @@ def treinar(
 
     Grava `ultimo.pt` (tudo o que a retomada precisa) a cada época e `melhor.pt` (pesos
     da época de menor perda de validação). Para com erro se a perda deixar de ser
-    finita.
+    finita. `decaimento` é o `weight_decay` do Adam (L2 somado ao gradiente).
+    `sublote` divide cada lote para caber na memória, acumulando o gradiente; só é
+    exato se a perda for uma soma sobre as amostras (não uma média).
     """
     modelo.to(dispositivo)
-    otimizador = torch.optim.Adam(modelo.parameters(), lr=lr)
-    perda_fn = nn.MSELoss()
+    otimizador = torch.optim.Adam(modelo.parameters(), lr=lr, weight_decay=decaimento)
+    cuda = dispositivo.startswith("cuda")
     gerador = torch.Generator().manual_seed(semente)  # ordem dos lotes; sempre em CPU
     x_tr, y_tr = treino.x.to(dispositivo), treino.y.to(dispositivo)
     x_va, y_va = validacao.x.to(dispositivo), validacao.y.to(dispositivo)
@@ -83,6 +89,11 @@ def treinar(
         otimizador.load_state_dict(ck["otimizador"])
         gerador.set_state(ck["gerador"].cpu())  # map_location o levou para a GPU
         inicio, melhor_val, log = ck["epoca"] + 1, ck["melhor_val"], ck["log"]
+        # gerador global: as máscaras de dropout seguem iguais após retomar
+        if "rng" in ck:
+            torch.set_rng_state(ck["rng"].cpu())
+            if cuda and ck["rng_cuda"]:
+                torch.cuda.set_rng_state_all([s.cpu() for s in ck["rng_cuda"]])
 
     for epoca in range(inicio, epocas + 1):
         t0 = time.perf_counter()
@@ -91,14 +102,18 @@ def treinar(
         ordem = torch.randperm(len(treino), generator=gerador).to(dispositivo)
         for i in range(0, len(ordem), lote):
             idx = ordem[i : i + lote]
-            perda = perda_fn(modelo(x_tr[idx]), y_tr[idx])
             otimizador.zero_grad()
-            perda.backward()
+            perda = 0.0
+            for j in range(0, len(idx), sublote or len(idx)):
+                parte = idx[j : j + (sublote or len(idx))]
+                p = perda_fn(modelo(x_tr[parte]), y_tr[parte])
+                p.backward()  # acumula: com perda somada, é o gradiente do lote inteiro
+                perda += p.item()
             otimizador.step()
-            soma += perda.item() * len(idx)
+            soma += perda * len(idx)
         perda_treino = soma / len(treino)
         perda_val = perda_fn(prever(modelo, x_va), y_va).item()
-        if dispositivo.startswith("cuda"):
+        if cuda:
             torch.cuda.synchronize()
         segundos = time.perf_counter() - t0
 
@@ -126,6 +141,8 @@ def treinar(
                 "modelo": modelo.state_dict(),
                 "otimizador": otimizador.state_dict(),
                 "gerador": gerador.get_state(),
+                "rng": torch.get_rng_state(),
+                "rng_cuda": torch.cuda.get_rng_state_all() if cuda else [],
                 "epoca": epoca,
                 "melhor_val": melhor_val,
                 "log": log,
