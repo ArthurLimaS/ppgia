@@ -471,6 +471,14 @@ Sem código novo de modelo. Com os modelos validados e os tempos medidos (§6.4)
 
 Pronto quando: o documento está aprovado, e `rodar.py` lê as condições de um arquivo de configuração que corresponde a ele (um só lugar para os valores; o `.md` os descreve e aponta para o arquivo).
 
+**Concluída em 2026-11-18.**
+
+- **[`condicoes-do-estudo.md`](condicoes-do-estudo.md) aprovado**, com os pontos P-01 a P-10 decididos (§9 dele). Os principais: 6 configurações (GRU, FinGAT repo, Custom FinGAT, HDFM A causal, HDFM B causal na comparação; HDFM B com a série inteira só para medir o vazamento); no máximo 100 épocas em todos, com o checkpoint de menor perda de validação, sem parada antecipada; 5 sementes (0 a 4); sem dropout na GRU compartilhada; AcMAPE fora; intervalo de Wilson de 95 % na acurácia de direção; divisão 80/10/10 sobre 5 anos mantida, sem `TimeSeriesSplit`.
+- Os dois pontos abertos acima ficaram resolvidos assim: **dropout** não entra (P-02); **épocas iguais** para todos, não orçamento igual (P-03).
+- **Arquivo de configuração:** `projeto/condicoes.json` (configurações, sementes, épocas, janela, GRU, lote, lr, papel de cada configuração e o tempo por época medido, usado na previsão de término). Quem o lê é a fila (`projeto/fila.py`), que passa os valores ao `rodar.py`. Os hiperparâmetros internos de cada modelo continuam no código (`VARIANTES`, `DELTA`, `LAMBDA` em `modelos/custom_fingat.py`; `PARAMS` em `modelos/hdfm.py`), e o §3 do documento aponta para eles.
+- **Orçamento previsto:** ~6 h 30, quase todo do FinGAT repo (~73 min por semente).
+- **Layout do relatório:** [`layout-relatorio.md`](layout-relatorio.md), com o que cada seção explica e de onde sai cada insumo.
+
 ### Etapa 7 — Execução (item g)
 
 **Antes de soltar a execução longa** (o que pode dar errado e a medida já tomada):
@@ -493,7 +501,48 @@ Pronto quando: o documento está aprovado, e `rodar.py` lê as condições de um
 
 Entregáveis: a fila de execuções (um script que roda cada modelo e semente em sequência, pulando o que já terminou), o ensaio geral aprovado, a execução longa, e uma tabela de resultados gerada a partir das previsões gravadas.
 
+**Verificação de saúde (2026-11-18), na máquina do estudo:**
+
+| Risco da tabela acima                  | Situação                                                                                                                         |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Suspensão e hibernação                 | ok na tomada (plano "Equilibrado": nunca suspende nem hiberna); na bateria suspende em 10 min. **Falta:** pausar o Windows Update antes de soltar |
+| Terminal fechado / retomada pela fila  | ok: `projeto/fila.py` lê `projeto/condicoes.json`, roda cada (configuração, semente) num processo, pula o que terminou e retoma o resto; trava contra duas filas ao mesmo tempo |
+| Memória                                | ok: maior pico 6,8 GB de VRAM (Custom FinGAT); a fila roda um processo por vez                                                   |
+| Falha isolada                          | ok: `rodar.py` sai com código ≠ 0; a fila segue com a próxima e registra a falha em `fila.log` e `fila_situacao.csv`            |
+| NaN                                    | ok: o laço para, mantém os checkpoints e sai com erro. A execução fica sem previsões e conta como falha (risco maior: FinGAT repo, lr 0,05) |
+| Checkpoint corrompido                  | ok: `ultimo.pt`, `melhor.pt`, `config.json` e `metricas.json` gravados com troca atômica                                        |
+| Rede / yfinance                        | ok: tudo lê o snapshot, com sha256                                                                                              |
+| Reprodutibilidade                      | ok: semente, configuração, sha256, versão do PyTorch e commit do código (com aviso de alteração não commitada) em cada `config.json`; `config.json` e `metricas.json` gravados com troca atômica |
+| Retomada igual a rodar direto          | **ok também na GPU:** GRU, HDFM B causal, Custom FinGAT (3 épocas) e FinGAT repo (2 épocas), dados reais: duas execuções diretas e direto × retomado dão previsões de validação idênticas (diferença 0) |
+| Decomposição do HDFM a cada retomada   | ok: cache em `execucoes/cache_hdfm/` (1.129 decomposições, 74 MB)                                                               |
+| Erro só no fim                         | ok: **ensaio geral** (`fila.py --ensaio`, 1 época, em `execucoes/ensaio/`): 30/30 execuções ok em 8,5 min, do começo às previsões; rodar de novo pulou as 30. A primeira tentativa achou um erro de codificação na fila (a saída do `rodar.py` em cp1252 derrubava a fila no Windows), corrigido forçando UTF-8 |
+| Disco                                  | ok: 287 GB livres; uma execução ocupa de 1 MB (GRU) a 24 MB (FinGAT repo); as 30 do ensaio ocuparam 295 MB                       |
+| Travou ou está lento                   | ok: cada época imprime data e hora (`<execução>/saida.log`); a fila registra o início de cada execução com a previsão de término (`execucoes/fila.log`); no ensaio, previsto 18:16, terminou 18:13 |
+
 Pronto quando: todas as execuções previstas em `condicoes-do-estudo.md` terminaram ou têm a falha registrada; a tabela de métricas é regenerada do zero a partir de `execucoes/`; nenhuma condição do estudo mudou sem registro.
+
+**Andamento (2026-11-18): pronta para soltar a execução longa.**
+
+| Entregável                                   | Situação                                                                                                     |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Verificação de saúde                         | feita (tabela acima)                                                                                         |
+| Fila (`projeto/fila.py`)                     | pronta: lê `projeto/condicoes.json`; 6 configurações × 5 sementes = 30 execuções, das baratas para a cara (GRU, HDFM, Custom FinGAT em ~25 min; depois o FinGAT repo, ~6 h) |
+| Ensaio geral                                 | **aprovado:** 30/30 ok com 1 época                                                                            |
+| Execução longa                               | **a soltar**                                                                                                 |
+| Script da tabela de resultados               | a fazer (pode ser escrito e testado com os dados do ensaio enquanto a longa roda)                            |
+| Script de figuras                            | a fazer (idem)                                                                                               |
+
+**Antes de soltar:**
+
+1. Commitar o código: cada execução grava o commit no `config.json`; com mudança não commitada, ele marca `alteracoes_nao_commitadas: true`, e o commit gravado não reproduz o código que rodou.
+2. Pausar o Windows Update e manter a máquina na tomada.
+3. Num terminal próprio, a partir da raiz do repositório: `uv run python redes_neurais_2026_2/projeto/fila.py`. Se cair, o mesmo comando retoma. Acompanhar em `projeto/execucoes/fila.log`; a saída de cada execução fica em `<execução>/saida.log`.
+
+**Depois da execução longa:**
+
+- o script de resultados gera, do zero e a partir de `execucoes/`, as tabelas do relatório (`layout-relatorio.md` §5 e Apêndice C): métricas no teste por modelo (média ± desvio de 5 sementes), intervalo de Wilson na direção, referência ingênua, a acurácia nas 48 ações do FinGAT, a tabela do vazamento (HDFM B inteira × causal) e a de custo;
+- o script de figuras gera previsto × real no teste, o vazamento da decomposição, as subséries do HDFM com a faixa do treino e os efeitos marginais da Etapa 2;
+- conferir `fila_situacao.csv`: execução que falhou (ex.: NaN no FinGAT repo) entra no relatório como falha, com a causa, sem trocar nenhuma condição.
 
 ---
 
