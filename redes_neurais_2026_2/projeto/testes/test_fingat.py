@@ -19,7 +19,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from comum.janelas import limites
 from comum.treino import prever, treinar
-from modelos import fingat
+from modelos import custom_fingat
 from rodar import executar
 from test_fumaca import serie
 
@@ -33,8 +33,8 @@ def universo() -> tuple[dict[str, pd.DataFrame], pd.DataFrame]:
     """
     dfs, linhas = {}, []
     for s, setor in enumerate(SETORES):
-        for k in range(fingat.POR_SETOR + 1):
-            t = fingat.PETR4 if (s, k) == (0, 0) else f"{setor}{k}.SA"
+        for k in range(custom_fingat.POR_SETOR + 1):
+            t = custom_fingat.PETR4 if (s, k) == (0, 0) else f"{setor}{k}.SA"
             df = serie(N + 3 * k + s)  # outra fase: começa mais tarde na senoide
             df = df.iloc[-N:].set_axis(serie(N).index)
             df[["Open", "High", "Low", "Close", "Adj Close"]] *= 1 + 0.1 * k
@@ -57,17 +57,17 @@ def cfg(**mudancas: Any) -> dict[str, Any]:
         "dispositivo": "cpu",
         "primeiro_alvo_treino": None,
     }
-    v = fingat.VARIANTES[mudancas.get("modelo", base["modelo"])]
+    v = custom_fingat.VARIANTES[mudancas.get("modelo", base["modelo"])]
     return base | {"lote": v["lote"], "lr": v["lr"]} | mudancas
 
 
 class TestUniverso(unittest.TestCase):
     def test_selecao(self):
         dfs, candidatas = universo()
-        tickers, setores, excluidas = fingat.selecionar(candidatas, dfs)
-        self.assertEqual(len(tickers), 2 * fingat.POR_SETOR)
+        tickers, setores, excluidas = custom_fingat.selecionar(candidatas, dfs)
+        self.assertEqual(len(tickers), 2 * custom_fingat.POR_SETOR)
         self.assertEqual(setores, [0] * 6 + [1] * 6)
-        self.assertEqual(tickers[0], fingat.PETR4)  # maior volume do setor A
+        self.assertEqual(tickers[0], custom_fingat.PETR4)  # maior volume do setor A
         self.assertIn("incompleta", excluidas["CURTA.SA"])
         self.assertIn("volume", excluidas["A6.SA"])
         self.assertIn("volume", excluidas["B6.SA"])
@@ -77,9 +77,9 @@ class TestFormas(unittest.TestCase):
     def setUp(self):
         dfs, candidatas = universo()
         self.dados = {}
-        for m in fingat.VARIANTES:
+        for m in custom_fingat.VARIANTES:
             torch.manual_seed(0)
-            d, modelo, _, _ = fingat.preparar(cfg(modelo=m), dfs, candidatas)
+            d, modelo, _, _ = custom_fingat.preparar(cfg(modelo=m), dfs, candidatas)
             self.dados[m] = (d, modelo)
 
     def test_entrada_e_saida(self):
@@ -112,8 +112,8 @@ class TestGrafo(unittest.TestCase):
     def test_acao_nao_recebe_atencao_de_outro_setor(self):
         setores = [0] * 3 + [1] * 3
         for laco in (True, False):
-            intra, _, _ = fingat.grafos(setores, laco)
-            gat = fingat.GAT(4, artigo=not laco)
+            intra, _, _ = custom_fingat.grafos(setores, laco)
+            gat = custom_fingat.GAT(4, artigo=not laco)
             x = torch.randn(2, 6, 4)
             y = x.clone()
             y[:, 3:] = torch.randn(2, 3, 4)  # muda só o setor 1
@@ -121,16 +121,18 @@ class TestGrafo(unittest.TestCase):
             self.assertFalse(torch.allclose(gat(x, intra)[:, 3:], gat(y, intra)[:, 3:]))
 
     def test_laco_proprio(self):
-        intra, entre, k = fingat.grafos([0, 0, 1, 1], laco=False)
+        intra, entre, k = custom_fingat.grafos([0, 0, 1, 1], laco=False)
         self.assertEqual(k, 2)
         self.assertFalse(intra.diagonal().any() or entre.diagonal().any())
-        self.assertTrue(fingat.grafos([0, 0, 1, 1], laco=True)[0].diagonal().all())
+        self.assertTrue(
+            custom_fingat.grafos([0, 0, 1, 1], laco=True)[0].diagonal().all()
+        )
 
 
 class TestVazamento(unittest.TestCase):
     def test_teste_nao_altera_treino_nem_validacao(self):
         dfs, candidatas = universo()
-        tickers, setores, _ = fingat.selecionar(candidatas, dfs)
+        tickers, setores, _ = custom_fingat.selecionar(candidatas, dfs)
         ini_teste = limites(N)[1]
         futuro = {}
         for t, df in dfs.items():
@@ -139,7 +141,7 @@ class TestVazamento(unittest.TestCase):
             futuro[t] = df
         for repo in (True, False):
             a, b = (
-                fingat.montar([d[t] for t in tickers], setores, repo, 15, 0)
+                custom_fingat.montar([d[t] for t in tickers], setores, repo, 15, 0)
                 for d in (dfs, futuro)
             )
             for parte in ("treino", "validacao"):
@@ -154,7 +156,7 @@ class TestTreino(unittest.TestCase):
         previsoes = []
         for sublote in (None, 3):
             torch.manual_seed(0)
-            d, modelo, extras, _ = fingat.preparar(cfg(), dfs, candidatas)
+            d, modelo, extras, _ = custom_fingat.preparar(cfg(), dfs, candidatas)
             with tempfile.TemporaryDirectory() as tmp:
                 extras["sublote"] = sublote
                 treinar(
@@ -166,7 +168,7 @@ class TestTreino(unittest.TestCase):
 
     def test_tres_epocas_e_retomada(self):
         dfs, candidatas = universo()
-        for m in fingat.VARIANTES:
+        for m in custom_fingat.VARIANTES:
             with self.subTest(m), tempfile.TemporaryDirectory() as tmp:
                 direto, retomado = Path(tmp, "direto"), Path(tmp, "retomado")
                 r = executar(cfg(modelo=m), dfs, direto, candidatas)

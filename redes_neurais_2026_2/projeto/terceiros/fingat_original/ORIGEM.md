@@ -13,9 +13,9 @@ Os arquivos desta pasta são uma **cópia sem modificação** do repositório p�
 
 **O repositório não traz dados.** `train.py` e `clean_data.py` leem arquivos que não estão nele (`Taiwan_model_data_10_best.pickle`, `*_edge.npy`, `SP500_category.csv`, `SP500_dataset/`). Os dados deste projeto vêm do Yahoo Finance (`dados/baixar.py`, `dados/snapshot/`), e o universo de ações é o de `dados/universo.csv` (B3, D-07). O que vem do repositório é o **código**.
 
-Esta pasta fica fora do ruff e do pyright (`pyproject.toml`) para continuar idêntica ao original. Ela não é importada por nada; o código usado no projeto é `modelos/fingat.py`.
+Esta pasta fica fora do ruff e do pyright (`pyproject.toml`) para continuar idêntica ao original. Ela não é importada por nada; o código usado no projeto é `modelos/custom_fingat.py`.
 
-## O que mudou em `modelos/fingat.py` (variante `fingat_repo`, Etapa 3a)
+## O que mudou em `modelos/custom_fingat.py` (variante `fingat_repo`, Etapa 3a)
 
 A variante `fingat_repo` é o `CategoricalGraphAtt` de `model/graph_pool.py`, treinado como em `train.py`. As classes `AttentionBlock` e `SequenceEncoder` mantêm o nome e o corpo do original, para o diff ficar legível. Mudou só o que a comparação exige:
 

@@ -62,7 +62,7 @@ redes_neurais_2026_2/
    │  └─ metricas.py                  métricas de preço e de direção (§3.4)
    ├─ modelos/
    │  ├─ gru_baseline.py
-   │  ├─ fingat.py                    duas variantes: fingat_repo (3a) e fingat_artigo (3b)
+   │  ├─ custom_fingat.py             duas variantes: fingat_repo (3a) e fingat_artigo (3b)
    │  ├─ hdfm.py                      decomposição + um GRU por subsérie + fusão
    │  └─ tegru.py
    ├─ terceiros/fingat_original/      cópia sem modificação do código dos autores do FinGAT;
@@ -344,7 +344,7 @@ Decisões que bloqueiam: **D-06, D-07, D-08, D-09**, e a GRU escolhida na Etapa 
 | Otimização              | Adam, lr 0,05, um dia por passo, Xavier                           | Adam, lr 0,001, lote de 128 dias, inicialização padrão         |
 | Parâmetros              | 1.457.620 (24 GRUs de 128)                                        | 369.666 (3 GRUs de 128)                                        |
 
-- **Onde está:** `modelos/fingat.py`. A cópia sem modificação do repositório está em `terceiros/fingat_original/`, e o `ORIGEM.md` dela registra origem (URL, commit `0f7a2dd`, data, falta de licença) e as 15 modificações da 3a.
+- **Onde está:** `modelos/custom_fingat.py`. A cópia sem modificação do repositório está em `terceiros/fingat_original/`, e o `ORIGEM.md` dela registra origem (URL, commit `0f7a2dd`, data, falta de licença) e as 15 modificações da 3a.
 - **Comando:** `uv run python redes_neurais_2026_2/projeto/rodar.py --modelo fingat_repo --janela 120 --camadas 128 --epocas 3` (ou `--modelo fingat_artigo`). Lote e lr saem da variante quando a linha de comando não os dá.
 - **Universo (D-07):** `dados/universo.csv` tem 74 candidatas em 8 setores da B3; `dados/baixar.py --universo` baixou-as nas datas da PETR4 (2021-11-16 a 2026-11-13). 66 têm os 1.248 pregões; 7 não existem mais no Yahoo Finance e RAIZ4 tem 83 pregões (L-09). Ficam as 6 de maior volume financeiro de cada setor no treino: **48 ações**. A lista e o motivo de cada exclusão vão no `config.json` de cada execução (`universo`, `excluidas`). **Falta conferir os setores com a planilha da B3** (link em D-07).
 - **Mesmos dias de validação e teste da GRU:** a divisão é pela posição do alvo na série da PETR4 (D-02). O treino começa no pregão 150 (30 para as médias + 120 de janela): 848 dias.
