@@ -4,11 +4,14 @@ version = "0.1.0"
 requires-python = ">= 3.10"
 
 dependencies = [
+    "emd-signal>=1.10.0",
     "matplotlib>=3.9.4",
     "pandas>=2.3.3",
     "pytrendseries>=0.1.11",
+    "scikit-learn>=1.7.2",
     "torch>=2.13.0",
     "torchvision>=0.28.0",
+    "vmdpy>=0.2",
     "yfinance>=1.2.0",
 ]
 
