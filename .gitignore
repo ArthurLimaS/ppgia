@@ -217,5 +217,3 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# Projeto de Redes Neurais: saídas das execuções
-redes_neurais_2026_2/projeto/execucoes/
