@@ -12,6 +12,8 @@ Uso (a partir da raiz do repositório):
 
 import argparse
 import json
+import os
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -59,6 +61,31 @@ def nome(cfg: dict[str, Any]) -> str:
         p for p in partes if p
     )  # só a GRU tem `entrada`; só o HDFM, decomposição
     return f"{base}{alvo}_s{cfg['semente']}"
+
+
+def _gravar_texto(caminho: Path, texto: str) -> None:
+    """Temporário + troca: uma queda no meio não deixa um JSON pela metade."""
+    tmp = caminho.with_suffix(".tmp")
+    tmp.write_text(texto, encoding="utf-8")
+    os.replace(tmp, caminho)
+
+
+def _commit() -> dict[str, Any] | None:
+    """Commit do código e se havia mudança não commitada (só leitura do git)."""
+    raiz = Path(__file__).parent
+    try:
+        sha = subprocess.run(
+            ["git", "rev-parse", "HEAD"], cwd=raiz, capture_output=True, text=True
+        ).stdout.strip()
+        sujo = subprocess.run(
+            ["git", "status", "--porcelain", "--", "."],
+            cwd=raiz,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+    except OSError:  # git ausente
+        return None
+    return {"commit": sha or None, "alteracoes_nao_commitadas": bool(sujo)}
 
 
 def _pico_de_memoria_mb(dispositivo: str) -> dict[str, float]:
@@ -145,14 +172,14 @@ def executar(
         modelo = GRUBaseline(janelas.ENTRADAS[cfg["entrada"]], cfg["camadas"])
         registro = {"snapshot_sha256": snapshot}
     preprocessamento_s = time.perf_counter() - t0
-    config_json.write_text(
+    _gravar_texto(
+        config_json,
         json.dumps(
-            {**cfg, **registro, "torch": torch.__version__},
+            {**cfg, **registro, "torch": torch.__version__, "codigo": _commit()},
             indent=2,
             ensure_ascii=False,
         )
         + "\n",
-        encoding="utf-8",
     )
     log = treinar(
         modelo,
@@ -269,7 +296,7 @@ def executar(
         "validacao": metricas_val,
         "validacao_ingenuo": ingenuo,
     }
-    resumo_json.write_text(json.dumps(resumo, indent=2) + "\n", encoding="utf-8")
+    _gravar_texto(resumo_json, json.dumps(resumo, indent=2) + "\n")
     return resumo
 
 

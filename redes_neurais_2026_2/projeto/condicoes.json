@@ -1,0 +1,19 @@
+{
+  "documento": "redes_neurais_2026_2/condicoes-do-estudo.md",
+  "aprovado_em": "2026-11-18",
+  "comum": {
+    "janela": 120,
+    "camadas": [128],
+    "epocas": 100,
+    "dispositivo": "cuda"
+  },
+  "sementes": [0, 1, 2, 3, 4],
+  "configuracoes": [
+    {"modelo": "gru", "entrada": "ohlcv", "lote": 64, "lr": 0.001, "papel": "comparacao", "s_por_epoca": 0.035},
+    {"modelo": "hdfm_minmax", "decomposicao": "causal", "lote": 64, "lr": 0.001, "papel": "comparacao", "s_por_epoca": 0.25},
+    {"modelo": "hdfm_diferenca", "decomposicao": "causal", "lote": 64, "lr": 0.001, "papel": "comparacao", "s_por_epoca": 0.25},
+    {"modelo": "hdfm_diferenca", "decomposicao": "inteira", "lote": 64, "lr": 0.001, "papel": "vazamento", "s_por_epoca": 0.25},
+    {"modelo": "fingat_artigo", "lote": 128, "lr": 0.001, "papel": "comparacao", "s_por_epoca": 2.0},
+    {"modelo": "fingat_repo", "lote": 1, "lr": 0.05, "papel": "comparacao", "s_por_epoca": 44.0}
+  ]
+}
