@@ -81,6 +81,7 @@ Cronológica, 80/10/10 pela posição do **pregão-alvo** (D-02), sem embaralhar
 - **Tarefa:** com os 120 pregões até `t`, prever o pregão `t+1` (janela 120, D-01).
 - **Primeiro alvo de treino** (D-17: na execução final, cada modelo usa tudo o que a janela alcança): GRU e HDFM na posição 120 (2022-05-11), **878 amostras**; FinGAT na posição 150 (2022-06-23; as médias de 30 dias consomem 30 pregões), **848 dias**. No estudo da Etapa 2 a GRU começava em 200 (798 amostras); a execução final não repete essa restrição.
 - **O teste não escolhe nada:** janela, entrada, arquitetura e checkpoint saem da validação; o teste só é lido na Etapa 7.
+- **O estudo da GRU (Etapa 2) usou este mesmo protocolo:** a mesma divisão, a escolha só na validação, no máximo 100 épocas com o checkpoint de menor perda de validação. Diferem só as sementes (3, não 5) e o primeiro alvo de treino (o mesmo para todas as janelas, D-17, como explicado acima).
 
 ### 2.3. Normalização (sem estatística do teste em nenhum modelo)
 
