@@ -521,16 +521,16 @@ Entregáveis: a fila de execuções (um script que roda cada modelo e semente em
 
 Pronto quando: todas as execuções previstas em `condicoes-do-estudo.md` terminaram ou têm a falha registrada; a tabela de métricas é regenerada do zero a partir de `execucoes/`; nenhuma condição do estudo mudou sem registro.
 
-**Andamento (2026-11-18): pronta para soltar a execução longa.**
+**Andamento: execução longa concluída** (solta em 2026-11-18 às 18:14, a partir do commit `42d2bd2`; terminou em 2026-11-19 às 00:56, como previsto): **30/30 execuções ok**, nenhuma falha.
 
 | Entregável                                   | Situação                                                                                                     |
 | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | Verificação de saúde                         | feita (tabela acima)                                                                                         |
 | Fila (`projeto/fila.py`)                     | pronta: lê `projeto/condicoes.json`; 6 configurações × 5 sementes = 30 execuções, das baratas para a cara (GRU, HDFM, Custom FinGAT em ~25 min; depois o FinGAT repo, ~6 h) |
 | Ensaio geral                                 | **aprovado:** 30/30 ok com 1 época                                                                            |
-| Execução longa                               | **a soltar**                                                                                                 |
-| Script da tabela de resultados               | a fazer (pode ser escrito e testado com os dados do ensaio enquanto a longa roda)                            |
-| Script de figuras                            | a fazer (idem)                                                                                               |
+| Execução longa                               | **concluída:** 30/30 ok (`execucoes/fila.log`, `execucoes/fila_situacao.csv`)                                 |
+| Script da tabela de resultados               | pronto: `projeto/resultados.py` gera `resultados-7.md` (comparação, vazamento, FinGAT nas 48 ações, custo, execuções que faltam) e `resultados-7_por_execucao.csv` (Apêndice C); testado com o ensaio (`--ensaio`). O intervalo de Wilson está em `comum/metricas.py`, com teste |
+| Script de figuras                            | pronto: `projeto/figuras.py` gera em `figuras/` previsto × real no teste, o vazamento da decomposição, a faixa do treino da tendência do HDFM e os efeitos marginais da Etapa 2; testado com o ensaio. A semente mostrada de cada modelo é a de RMSE de **validação** mediano |
 
 **Antes de soltar:**
 
@@ -538,7 +538,24 @@ Pronto quando: todas as execuções previstas em `condicoes-do-estudo.md` termin
 2. Pausar o Windows Update e manter a máquina na tomada.
 3. Num terminal próprio, a partir da raiz do repositório: `uv run python redes_neurais_2026_2/projeto/fila.py`. Se cair, o mesmo comando retoma. Acompanhar em `projeto/execucoes/fila.log`; a saída de cada execução fica em `<execução>/saida.log`.
 
+**Registro:** os dois scripts, o intervalo de Wilson e a renomeação de `hdfm._cacheado` para `hdfm.decompor_cacheado` foram escritos com a fila rodando. Nada disso muda o treino, mas o código passou a ter mudança não commitada, então as execuções que começaram depois (da GRU semente 3 em diante) gravam `alteracoes_nao_commitadas: true` no `config.json`. O código de treino que elas rodam é o do commit `42d2bd2`.
+
+**Resultados (2026-11-19):** [`resultados-7.md`](resultados-7.md) (tabelas) e [`resultados-7_por_execucao.csv`](resultados-7_por_execucao.csv) (Apêndice C), figuras em [`figuras/`](figuras/). Leitura rápida, no teste (125 dias):
+
+- **Nenhum modelo bate o ingênuo** ("amanhã = hoje": RMSE 1,031; direção 0,536). A GRU fica perto (RMSE 1,045 ± 0,016; direção 0,475); o HDFM B causal, atrás (1,298 ± 0,032; 0,454); o HDFM A causal, bem atrás (2,747 ± 0,221), como a D-20 previa. Todos os intervalos de Wilson da direção se sobrepõem ao do ingênuo.
+- **O vazamento da decomposição é enorme:** o HDFM B com a série inteira, como no artigo, dá RMSE 0,385 e direção 0,930, contra 1,298 e 0,454 com a decomposição causal. É a diferença entre "bate o ingênuo com folga" e "perde dele".
+- **Os dois FinGAT colapsaram para uma saída constante** (ver abaixo): preveem "alta" em todo dia e toda ação, o que dá exatamente a acurácia do ingênuo na PETR4 (0,536) e a fração de altas nas 48 ações (0,511).
+
+**Colapso do FinGAT (diagnóstico de 2026-11-19, sem mudar nada):** carregando o melhor checkpoint da semente 0 de cada variante, a saída já é constante **no treino**, e não só no teste. Não é efeito de entrada fora da faixa: no treino, |x| ≤ 4, contra até 13,7 no teste, e a saída é a mesma nas três partes.
+
+- **FinGAT repo:** probabilidade 0,5155 e retorno idênticos em todos os dias (desvio 0); a perda de treino cai na 1ª época (2,36 → 0,72) e trava a partir da 10ª. Padrão de unidades ReLU "mortas" na camada de fusão, que deixam só o viés; o provável é a taxa de aprendizado de 0,05 do código dos autores.
+- **Custom FinGAT:** probabilidade ~0,507 (desvio ~1e-4), perto da fração de dias de alta no treino: a resposta que minimiza a perda quando o modelo não acha sinal nas entradas.
+- Os testes de fumaça conferem formas, máscara do grafo, vazamento, retomada e queda da perda em dados sintéticos; **não** conferem que o modelo aprende uma função não trivial nos dados reais. Um defeito de implementação não está descartado.
+- **Nenhuma condição foi mudada depois do teste** (`condicoes-do-estudo.md` §8). Mexer na taxa de aprendizado ou na arquitetura agora seria escolher pelo teste; se for feito, entra como "alteração depois do teste", com os dois resultados. Registrado como L-10.
+
 **Depois da execução longa:**
+
+- `uv run python redes_neurais_2026_2/projeto/resultados.py` e `uv run python redes_neurais_2026_2/projeto/figuras.py`;
 
 - o script de resultados gera, do zero e a partir de `execucoes/`, as tabelas do relatório (`layout-relatorio.md` §5 e Apêndice C): métricas no teste por modelo (média ± desvio de 5 sementes), intervalo de Wilson na direção, referência ingênua, a acurácia nas 48 ações do FinGAT, a tabela do vazamento (HDFM B inteira × causal) e a de custo;
 - o script de figuras gera previsto × real no teste, o vazamento da decomposição, as subséries do HDFM com a faixa do treino e os efeitos marginais da Etapa 2;
@@ -621,6 +638,7 @@ Lista viva: cada etapa acrescenta o que simplificou ou deixou de fazer. É a bas
 | L-07 | GRU escolhida sem vitória clara              | **A registrar na seção de limitações do relatório.** Decisão do usuário em 2026-11-18: a base é a combinação de menor RMSE médio de validação (`ohlcv`, janela 120, arquitetura `f`; RMSE 0,6878). Ela bate o ingênuo (0,7118) por só 3,4%, e a grade toda varia pouco (0,688 a 0,710, desvio 0,0048) frente ao ruído entre sementes (0,0015 em média; 0,0023 nesta combinação). A acurácia de direção (~0,66) empata com a do ingênuo (0,664). Logo a escolha não vem de vitória clara sobre a base ingênua nem sobre as outras combinações: é a de menor erro numérico. Isso contraria a regra do §2b ("dentro do ruído, a menor"); a menor equivalente seria `ohlcv`, janela 30, `i`. Números em `resultados-2b.md`. |
 | L-08 | Código do FinGAT diverge do artigo           | O repositório dos autores não implementa o que o artigo descreve (perda com MAE e ranking por produto, sem GRU de longo prazo, GAT depois de juntar as semanas, pooling por atenção, lr 0,05). Por isso há duas variantes (D-08), e o resultado do "FinGAT" depende de qual se toma. A lista está na Etapa 3 e em `terceiros/fingat_original/ORIGEM.md`.                                                                                                                                                                                                                                                                                                                                                                |
 | L-09 | Universo do FinGAT com viés de sobrevivência | As candidatas são ações negociadas hoje; as que foram deslistadas ou trocaram de código no período (ELET3, ELET6, CCRO3, EMBR3, CRFB3, STBP3, ODPV3) não têm histórico no Yahoo Finance e ficaram de fora, e RAIZ4 tem só 83 pregões. A escolha das 6 por setor usa só o trecho de treino.                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| L-10 | FinGAT colapsou para saída constante       | Nas 10 execuções (as duas variantes), o FinGAT prevê a mesma probabilidade de alta em todos os dias e ações, já no treino (Etapa 7). Na comparação, ele equivale a "sempre alta". Causa provável: ReLU morta com lr 0,05 (repo) e ausência de sinal aproveitável (artigo); defeito de implementação não descartado. Nada foi ajustado depois do teste. |
 
 ### 6.4. Tempos medidos (máquina do estudo)
 
