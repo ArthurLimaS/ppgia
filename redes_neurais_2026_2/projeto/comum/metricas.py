@@ -32,6 +32,16 @@ def acuracia_direcao(
     return float(np.mean((real - anterior >= 0) == alta_prevista))
 
 
+def wilson(proporcao: float, n: int, z: float = 1.96) -> tuple[float, float]:
+    """Intervalo de confiança de Wilson (95 % com z = 1,96) para uma proporção
+    binomial: Wilson (1927); recomendado por Brown, Cai e DasGupta (2001).
+    """
+    den = 1 + z**2 / n
+    centro = (proporcao + z**2 / (2 * n)) / den
+    meia = z / den * np.sqrt(proporcao * (1 - proporcao) / n + z**2 / (4 * n**2))
+    return float(centro - meia), float(centro + meia)
+
+
 def ingenuo(real: np.ndarray, anterior: np.ndarray) -> dict[str, float]:
     """
     Referência "amanhã = hoje". A direção dela é sempre "alta" (diferença zero conta

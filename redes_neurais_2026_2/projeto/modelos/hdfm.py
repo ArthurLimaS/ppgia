@@ -109,7 +109,7 @@ def decompor(serie: np.ndarray, p: dict[str, Any]) -> np.ndarray:
     return np.vstack([modos, co[1:]])
 
 
-def _cacheado(serie: np.ndarray, p: dict[str, Any], pasta: Path) -> np.ndarray:
+def decompor_cacheado(serie: np.ndarray, p: dict[str, Any], pasta: Path) -> np.ndarray:
     chave = hashlib.sha256(serie.tobytes() + json.dumps(p, sort_keys=True).encode())
     arq = pasta / f"{chave.hexdigest()[:24]}.npy"
     if arq.exists():
@@ -124,7 +124,7 @@ def _cacheado(serie: np.ndarray, p: dict[str, Any], pasta: Path) -> np.ndarray:
 
 
 def _trabalho(args: tuple[np.ndarray, dict[str, Any], Path]) -> np.ndarray:
-    return _cacheado(*args)
+    return decompor_cacheado(*args)
 
 
 def decomposicoes(
@@ -137,7 +137,7 @@ def decomposicoes(
     """
     t0 = time.perf_counter()
     if not causal:
-        d = _cacheado(serie, p, pasta)
+        d = decompor_cacheado(serie, p, pasta)
         return (lambda _t: d), {
             "decomposicoes": 1,
             "decomposicao_s": time.perf_counter() - t0,
@@ -288,7 +288,7 @@ def conferir() -> None:
         for k in range(1, len(imfs))
     ]
     print("inércia do K-means, K = 1..:", [round(float(i or 0), 4) for i in inercias])
-    d = _cacheado(x, p, CACHE)
+    d = decompor_cacheado(x, p, CACHE)
     print("erro máximo de reconstrução:", float(np.abs(d.sum(axis=0) - x).max()))
 
     fig, eixos = plt.subplots(

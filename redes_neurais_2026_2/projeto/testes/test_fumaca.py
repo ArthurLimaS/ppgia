@@ -150,6 +150,18 @@ class Metricas(unittest.TestCase):
         self.assertAlmostEqual(m["acmape"], 0.25 * 2 + m["mape"] / 100)
         self.assertAlmostEqual(metricas.calcular(real, real, anterior)["r2"], 1.0)
 
+    def test_wilson(self):
+        # 0 acertos em 10: [0; 0,2775], valor de tabela do intervalo de Wilson
+        baixo, alto = metricas.wilson(0.0, 10)
+        self.assertAlmostEqual(baixo, 0.0)
+        self.assertAlmostEqual(alto, 0.2775, places=4)
+        # simétrico em torno de 1/2, e contém a proporção
+        b1, a1 = metricas.wilson(0.3, 125)
+        _, a2 = metricas.wilson(0.7, 125)
+        self.assertAlmostEqual(b1, 1 - a2)
+        self.assertLess(b1, 0.3)
+        self.assertLess(0.3, a1)
+
 
 class Gru(unittest.TestCase):
     def test_formas_do_bloco(self):
